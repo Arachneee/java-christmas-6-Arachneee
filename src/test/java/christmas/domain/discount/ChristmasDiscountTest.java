@@ -13,18 +13,18 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class ChristmasDiscountTest {
 
     @DisplayName("날짜에 따른 할인 금액을 계산할 수 있다.")
     @ParameterizedTest
-    @CsvSource(value = {"1,1000", "2,1100", "3,1200", "24,3300","25,3400"}, delimiter = ',')
+    @CsvSource(value = {"1,1000", "2,1100", "3,1200", "24,3300", "25,3400"}, delimiter = ',')
     void calculateAmount(int day, int discountTarget) {
         // given
         ChristmasDiscount christmasDiscount = new ChristmasDiscount();
         OrderDay orderDay = OrderDay.from(day);
         Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK, 1));
-
 
         // when
         int discountAmount = christmasDiscount.calculateAmount(order);
@@ -40,7 +40,7 @@ class ChristmasDiscountTest {
         // given
         ChristmasDiscount christmasDiscount = new ChristmasDiscount();
         OrderDay orderDay = OrderDay.from(1);
-        Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM, 1));
+        Order order = Order.of(orderDay, menuCount);
 
         // when
         int discountAmount = christmasDiscount.apply(order);
@@ -57,6 +57,22 @@ class ChristmasDiscountTest {
                 arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP, 1)),
                 arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP, 1, Menu.ZERO_COLA, 1))
         );
+    }
+
+    @DisplayName("주문 날짜가 25일을 넘어가면 할인 적용이 안된다.")
+    @ParameterizedTest
+    @ValueSource(ints = {26, 27, 28, 29, 30, 31})
+    void applyOverDay(int day) {
+        // given
+        ChristmasDiscount christmasDiscount = new ChristmasDiscount();
+        OrderDay orderDay = OrderDay.from(day);
+        Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM, 1));
+
+        // when
+        int discountAmount = christmasDiscount.apply(order);
+
+        // then
+        assertThat(discountAmount).isEqualTo(0);
     }
 
 }
