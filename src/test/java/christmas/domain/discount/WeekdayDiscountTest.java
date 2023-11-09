@@ -14,14 +14,15 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class WeekDayDiscountTest {
+class WeekdayDiscountTest {
+
+    WeekdayDiscount weekDayDiscount = new WeekdayDiscount();
 
     @DisplayName("평일에 디저트 메뉴 1개당 2023원 할인 합계를 계산할 수 있다.")
     @ParameterizedTest
     @MethodSource("weekDayMenuProvider")
     void calculateAmount(Map<Menu, Integer> menuCount, int discountTarget) {
         // given
-        WeekDayDiscount weekDayDiscount = new WeekDayDiscount();
         OrderDay orderDay = OrderDay.from(1);
         Order order = Order.of(orderDay, menuCount);
 
@@ -53,7 +54,6 @@ class WeekDayDiscountTest {
             31})
     void applyWeekDay(int day) {
         // given
-        WeekDayDiscount weekDayDiscount = new WeekDayDiscount();
         OrderDay orderDay = OrderDay.from(day);
         Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM, 3));
 
@@ -69,7 +69,6 @@ class WeekDayDiscountTest {
     @ValueSource(ints = {8, 9, 15, 16, 22, 23, 29, 30})
     void applyWeekend(int day) {
         // given
-        WeekDayDiscount weekDayDiscount = new WeekDayDiscount();
         OrderDay orderDay = OrderDay.from(day);
         Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM, 3));
 
