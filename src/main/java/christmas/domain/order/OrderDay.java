@@ -3,6 +3,7 @@ package christmas.domain.order;
 import static christmas.exception.ErrorMessage.INVALID_DAY;
 
 import christmas.exception.OrderException;
+import java.util.List;
 
 public class OrderDay {
 
@@ -48,5 +49,9 @@ public class OrderDay {
 
     public Integer mod(final int weekCount) {
         return day % weekCount;
+    }
+
+    public boolean in(final List<Integer> specialDays) {
+        return specialDays.contains(day);
     }
 }

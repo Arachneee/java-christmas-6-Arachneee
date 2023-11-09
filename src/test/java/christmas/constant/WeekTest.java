@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class WEEKTest {
+class WeekTest {
 
     @DisplayName("주말이면 true를 반환한다.")
     @ParameterizedTest
@@ -15,7 +15,7 @@ class WEEKTest {
     void isWeekendTrue(int day) {
         // given
         OrderDay orderDay = OrderDay.from(day);
-        WEEK week = WEEK.from(orderDay);
+        Week week = Week.from(orderDay);
 
         // when
         boolean weekend = week.isWeekend();
@@ -34,7 +34,7 @@ class WEEKTest {
     void isWeekendFalse(int day) {
         // given
         OrderDay orderDay = OrderDay.from(day);
-        WEEK week = WEEK.from(orderDay);
+        Week week = Week.from(orderDay);
 
         // when
         boolean weekend = week.isWeekend();

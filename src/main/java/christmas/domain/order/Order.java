@@ -2,7 +2,8 @@ package christmas.domain.order;
 
 import christmas.constant.Category;
 import christmas.constant.Menu;
-import christmas.constant.WEEK;
+import christmas.constant.Special;
+import christmas.constant.Week;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -46,6 +47,10 @@ public class Order {
     }
 
     public boolean isWeekend() {
-        return WEEK.from(orderDay).isWeekend();
+        return Week.from(orderDay).isWeekend();
+    }
+
+    public boolean isSpecialDay() {
+        return Special.from(orderDay).isSpecial();
     }
 }
