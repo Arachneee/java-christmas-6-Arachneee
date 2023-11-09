@@ -1,13 +1,18 @@
 package christmas.domain.discount;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+
 import christmas.constant.Menu;
 import christmas.domain.order.Order;
 import christmas.domain.order.OrderDay;
 import java.util.Map;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class ChristmasDiscountTest {
 
@@ -18,7 +23,7 @@ class ChristmasDiscountTest {
         // given
         ChristmasDiscount christmasDiscount = new ChristmasDiscount();
         OrderDay orderDay = OrderDay.from(day);
-        Order order = Order.of(orderDay, Map.of(Menu.TIBONSTAKE, 1));
+        Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK, 1));
 
 
         // when
@@ -28,5 +33,30 @@ class ChristmasDiscountTest {
         assertThat(discountAmount).isEqualTo(discountTarget);
     }
 
+    @DisplayName("주문의 총 금액이 10000뭔 이상이어야 할인을 적용한다.")
+    @ParameterizedTest
+    @MethodSource("underMenuProvider")
+    void apply(Map<Menu, Integer> menuCount) {
+        // given
+        ChristmasDiscount christmasDiscount = new ChristmasDiscount();
+        OrderDay orderDay = OrderDay.from(1);
+        Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM, 1));
+
+        // when
+        int discountAmount = christmasDiscount.apply(order);
+
+        // then
+        assertThat(discountAmount).isEqualTo(0);
+    }
+
+    static Stream<Arguments> underMenuProvider() {
+        return Stream.of(
+                arguments(Map.of(Menu.ICE_CREAM, 1)),
+                arguments(Map.of(Menu.TAPAS, 1)),
+                arguments(Map.of(Menu.CAESAR_SALAD, 1)),
+                arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP, 1)),
+                arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP, 1, Menu.ZERO_COLA, 1))
+        );
+    }
 
 }
