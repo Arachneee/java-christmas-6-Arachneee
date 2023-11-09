@@ -1,9 +1,10 @@
 package christmas.domain.discount;
 
-import christmas.constant.Category;
+import static christmas.constant.Category.DESSERT;
+
 import christmas.domain.order.Order;
 
-public class WeekDayDiscount extends Discount {
+public class WeekdayDiscount extends Discount {
     private static final int ONCE_AMOUNT = 2023;
 
     @Override
@@ -13,6 +14,6 @@ public class WeekDayDiscount extends Discount {
 
     @Override
     int calculateAmount(Order order) {
-        return order.countMenu(Category.DESSERT) * ONCE_AMOUNT;
+        return order.countMenu(DESSERT) * ONCE_AMOUNT;
     }
 }
