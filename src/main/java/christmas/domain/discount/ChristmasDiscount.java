@@ -1,17 +1,23 @@
 package christmas.domain.discount;
 
 import christmas.domain.order.Order;
+import christmas.domain.order.OrderDay;
 
-public class ChristmasDiscount implements Discount {
+public class ChristmasDiscount extends Discount {
 
+    private static final int OFFSET = 1000;
+
+    private static final int ONCE_AMOUNT = 100;
+
+    private static final int REFERENCE_DAY = 1;
 
     @Override
-    public int calculateAmount(Order order) {
-        return 0;
+    boolean isUnavailable(Order order) {
+        return order.isDayOverThan(OrderDay.from(25));
     }
 
     @Override
-    public boolean isAvailable(Order order) {
-        return false;
+    int calculateAmount(final Order order) {
+        return order.calculateDayGap(OrderDay.from(REFERENCE_DAY)) * ONCE_AMOUNT + OFFSET;
     }
 }

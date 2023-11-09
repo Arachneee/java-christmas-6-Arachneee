@@ -27,7 +27,11 @@ public class Order {
                 .sum();
     }
 
-    public int calcuateDayGap(final OrderDay day) {
-        return orderDay.gap(day);
+    public int calculateDayGap(final OrderDay orderDay) {
+        return this.orderDay.gap(orderDay);
+    }
+
+    public boolean isDayOverThan(OrderDay orderDay) {
+        return this.orderDay.isOverThan(orderDay);
     }
 }

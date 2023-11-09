@@ -34,6 +34,14 @@ public class OrderDay {
     }
 
     private int gap(final int day) {
-        return day - this.day;
+        return Math.abs(day - this.day);
+    }
+
+    public boolean isOverThan(final OrderDay orderDay) {
+        return orderDay.isUnderThan(this.day);
+    }
+
+    private boolean isUnderThan(final int day) {
+        return day > this.day;
     }
 }
