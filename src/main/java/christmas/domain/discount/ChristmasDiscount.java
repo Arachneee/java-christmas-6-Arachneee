@@ -10,10 +10,11 @@ public class ChristmasDiscount extends Discount {
     private static final int ONCE_AMOUNT = 100;
 
     private static final int REFERENCE_DAY = 1;
+    private static final int CHRISTMAS_DAY = 25;
 
     @Override
     boolean isUnavailable(Order order) {
-        return order.isDayOverThan(OrderDay.from(25));
+        return order.isDayOverThan(OrderDay.from(CHRISTMAS_DAY));
     }
 
     @Override

@@ -2,6 +2,7 @@ package christmas.domain.order;
 
 import christmas.constant.Category;
 import christmas.constant.Menu;
+import christmas.constant.WEEK;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -44,7 +45,7 @@ public class Order {
                 .sum();
     }
 
-    public boolean isWeekDay() {
-        return !orderDay.isWeekend();
+    public boolean isWeekend() {
+        return WEEK.from(orderDay).isWeekend();
     }
 }
