@@ -18,6 +18,8 @@ public abstract class Event {
         return calculateAmount(order);
     };
 
+    abstract String getTitle(final Order order);
+
 
     abstract boolean isUnavailable(final Order order);
 

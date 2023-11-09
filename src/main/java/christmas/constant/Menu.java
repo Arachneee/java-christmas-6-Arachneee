@@ -25,7 +25,7 @@ public enum Menu {
     private final Category category;
     private final int price;
 
-    Menu(Category category, int price) {
+    Menu(final Category category, final int price) {
         this.category = category;
         this.price = price;
     }
@@ -36,9 +36,5 @@ public enum Menu {
 
     public int getPrice() {
         return price;
-    }
-
-    public Category getCategory() {
-        return category;
     }
 }

@@ -3,24 +3,23 @@ package christmas.constant;
 import static christmas.constant.Category.DESSERT;
 import static christmas.constant.Category.MAIN;
 
-import christmas.domain.order.OrderDay;
-import java.util.List;
+import christmas.domain.order.Day;
 
 public enum Week {
     WEEKDAY(DESSERT),
     WEEKEND(MAIN);
 
-    private static final int WEEK_COUNT = 7;
-    private static final List<Integer> WEEKEND_NUMBER = List.of(1, 2);
     private final Category eventCategory;
 
 
-    Week(Category category) {
+    Week(final Category category) {
         this.eventCategory = category;
     }
 
-    public static Week from(final OrderDay orderDay) {
-        if (WEEKEND_NUMBER.contains(orderDay.mod(WEEK_COUNT))) {
+    public static Week from(final Day day) {
+        final DayOfWeek dayOfWeek = DayOfWeek.from(day);
+
+        if (dayOfWeek.isWeekend()) {
             return WEEKEND;
         }
 

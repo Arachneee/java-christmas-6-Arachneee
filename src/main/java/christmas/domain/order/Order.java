@@ -1,28 +1,24 @@
 package christmas.domain.order;
 
 import christmas.constant.Category;
+import christmas.constant.DayOfWeek;
 import christmas.constant.Menu;
-import christmas.constant.Star;
 import christmas.constant.Week;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class Order {
 
-    private final OrderDay orderDay;
+    private final Day day;
     private final Map<Menu, Integer> menuCount;
 
-    private Order(final OrderDay orderDay, final Map<Menu, Integer> menuCount) {
-        this.orderDay = orderDay;
+    private Order(final Day day, final Map<Menu, Integer> menuCount) {
+        this.day = day;
         this.menuCount = menuCount;
     }
 
-    public static Order of(final OrderDay orderDay, final Map<Menu, Integer> menuCount) {
-        return new Order(orderDay, menuCount);
-    }
-
-    public boolean isTotalPriceUnder(final int price) {
-        return calculateTotalPrice() < price;
+    public static Order of(final Day day, final Map<Menu, Integer> menuCount) {
+        return new Order(day, menuCount);
     }
 
     public int calculateTotalPrice() {
@@ -31,16 +27,12 @@ public class Order {
                 .sum();
     }
 
-    public int calculateDayGap(final OrderDay orderDay) {
-        return this.orderDay.gap(orderDay);
-    }
-
-    public boolean isDayOverThan(final OrderDay orderDay) {
-        return this.orderDay.isOverThan(orderDay);
+    public int calculateDayGap(final Day day) {
+        return this.day.gap(day);
     }
 
     public int countWeekEventMenu() {
-        final Category category = Week.from(orderDay).getEventCategory();
+        final Category category = Week.from(day).getEventCategory();
 
         return menuCount.entrySet().stream()
                 .filter(entry -> entry.getKey().isCategory(category))
@@ -48,7 +40,19 @@ public class Order {
                 .sum();
     }
 
+    public boolean isTotalPriceUnder(final int price) {
+        return calculateTotalPrice() < price;
+    }
+
+    public boolean isDayOverThan(final Day day) {
+        return this.day.isOverThan(day);
+    }
+
     public boolean isStarDay() {
-        return Star.from(orderDay).isStarDay();
+        return DayOfWeek.from(day).isSunDay() || day.isChristMasDay();
+    }
+
+    public boolean isWeekend() {
+        return DayOfWeek.from(day).isWeekend();
     }
 }
