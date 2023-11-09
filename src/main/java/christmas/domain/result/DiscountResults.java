@@ -5,7 +5,7 @@ import java.util.List;
 public class DiscountResults {
     private final List<DiscountResult> discountResults;
 
-    private DiscountResults(List<DiscountResult> discountResults) {
+    private DiscountResults(final List<DiscountResult> discountResults) {
         this.discountResults = discountResults;
     }
 
