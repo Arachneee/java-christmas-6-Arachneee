@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class OrderDayTest {
+class DayTest {
 
     @DisplayName("날짜의 범위는 1 ~ 31 이면 정상 생성된다.")
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 10, 20, 30, 31})
     void from(int day) {
         // given // when
-        OrderDay from = OrderDay.from(day);
+        Day from = Day.from(day);
 
         // then
         assertThat(from)
@@ -27,7 +27,7 @@ class OrderDayTest {
     @ParameterizedTest
     @ValueSource(ints = {-1, -2, -3, 0, 32, 33, 34})
     void fromOutOfRange(int day) {
-        assertThatThrownBy(() -> OrderDay.from(day))
+        assertThatThrownBy(() -> Day.from(day))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
     }
@@ -36,11 +36,11 @@ class OrderDayTest {
     @Test
     void gap() {
         // given
-        OrderDay orderDay1 = OrderDay.from(1);
-        OrderDay orderDay2 = OrderDay.from(10);
+        Day day1 = Day.from(1);
+        Day day2 = Day.from(10);
 
         // when
-        int gap = orderDay2.gap(orderDay1);
+        int gap = day2.gap(day1);
 
         // then
         assertThat(gap).isEqualTo(9);
@@ -51,7 +51,7 @@ class OrderDayTest {
     @ValueSource(ints = {1,2,3,4,5,6,7,10,20,23,30,31})
     void mod(int day) {
         // given
-        OrderDay orderDay = OrderDay.from(day);
+        Day orderDay = Day.from(day);
 
         // when
         Integer mod = orderDay.mod(7);

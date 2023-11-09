@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.constant.Menu;
 import christmas.domain.order.Order;
-import christmas.domain.order.OrderDay;
+import christmas.domain.order.Day;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,7 +19,7 @@ class StarEventTest {
     @ValueSource(ints = {3, 10, 17, 24, 25, 31})
     void applyStar(int day) {
         // given
-        OrderDay orderDay = OrderDay.from(day);
+        Day orderDay = Day.from(day);
         Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK, 1));
 
         // when
@@ -38,7 +38,7 @@ class StarEventTest {
             26, 27, 28, 29, 30})
     void applyNonStar(int day) {
         // given
-        OrderDay orderDay = OrderDay.from(day);
+        Day orderDay = Day.from(day);
         Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK, 1));
 
         // when

@@ -5,7 +5,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import christmas.constant.Menu;
 import christmas.domain.order.Order;
-import christmas.domain.order.OrderDay;
+import christmas.domain.order.Day;
 import java.util.Map;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +23,7 @@ class ChristmasEventTest {
     void calculateAmount(int day, int discountTarget) {
         // given
         ChristmasEvent christmasDiscount = new ChristmasEvent();
-        OrderDay orderDay = OrderDay.from(day);
+        Day orderDay = Day.from(day);
         Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK, 1));
 
         // when
@@ -39,8 +39,8 @@ class ChristmasEventTest {
     void apply(Map<Menu, Integer> menuCount) {
         // given
         ChristmasEvent christmasDiscount = new ChristmasEvent();
-        OrderDay orderDay = OrderDay.from(1);
-        Order order = Order.of(orderDay, menuCount);
+        Day day = Day.from(1);
+        Order order = Order.of(day, menuCount);
 
         // when
         int discountAmount = christmasDiscount.apply(order);
@@ -65,7 +65,7 @@ class ChristmasEventTest {
     void applyOverDay(int day) {
         // given
         ChristmasEvent christmasDiscount = new ChristmasEvent();
-        OrderDay orderDay = OrderDay.from(day);
+        Day orderDay = Day.from(day);
         Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM, 1));
 
         // when

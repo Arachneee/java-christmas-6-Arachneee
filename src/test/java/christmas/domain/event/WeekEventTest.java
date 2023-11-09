@@ -5,7 +5,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import christmas.constant.Menu;
 import christmas.domain.order.Order;
-import christmas.domain.order.OrderDay;
+import christmas.domain.order.Day;
 import java.util.Map;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
@@ -22,8 +22,8 @@ class WeekEventTest {
     @MethodSource("weekDayMenuProvider")
     void calculateAmount(Map<Menu, Integer> menuCount, int discountTarget) {
         // given
-        OrderDay orderDay = OrderDay.from(3);
-        Order order = Order.of(orderDay, menuCount);
+        Day day = Day.from(3);
+        Order order = Order.of(day, menuCount);
 
         // when
         int discountAmount = weekDayDiscount.calculateAmount(order);
@@ -49,8 +49,8 @@ class WeekEventTest {
     @MethodSource("weekendMenuProvider")
     void calculateAmountWeekend(Map<Menu, Integer> menuCount, int discountTarget) {
         // given
-        OrderDay orderDay = OrderDay.from(1);
-        Order order = Order.of(orderDay, menuCount);
+        Day day = Day.from(1);
+        Order order = Order.of(day, menuCount);
 
         // when
         int discountAmount = weekDayDiscount.calculateAmount(order);

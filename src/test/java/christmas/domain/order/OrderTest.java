@@ -18,7 +18,7 @@ class OrderTest {
     @MethodSource("menuProvider")
     void calculateTotalPrice(Map<Menu, Integer> menuCount, int target) {
         // given
-        Order order = Order.of(OrderDay.from(1), menuCount);
+        Order order = Order.of(Day.from(1), menuCount);
 
         // when
         int totalPrice = order.calculateTotalPrice();
@@ -44,7 +44,7 @@ class OrderTest {
     @MethodSource("weekCategoryProvider")
     void countWeekEventMenu(int day, Map<Menu, Integer> menuCount, int target) {
         // given
-        Order order = Order.of(OrderDay.from(day), menuCount);
+        Order order = Order.of(Day.from(day), menuCount);
 
         // when
         int count = order.countWeekEventMenu();
