@@ -1,7 +1,6 @@
 package christmas.domain.discount;
 
 import static org.assertj.core.api.Assertions.assertThat;
-성
 import christmas.constant.Menu;
 import christmas.domain.order.Order;
 import christmas.domain.order.OrderDay;
