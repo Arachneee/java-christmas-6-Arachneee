@@ -16,4 +16,18 @@ public class Order {
     public static Order of(final OrderDay orderDay, final Map<Menu, Integer> menuCount) {
         return new Order(orderDay, menuCount);
     }
+
+    public boolean isTotalPriceUnder(final int price) {
+        return calculateTotalPrice() < price;
+    }
+
+    public int calculateTotalPrice() {
+        return menuCount.entrySet().stream()
+                .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
+                .sum();
+    }
+
+    public int calcuateDayGap(final OrderDay day) {
+        return orderDay.gap(day);
+    }
 }
