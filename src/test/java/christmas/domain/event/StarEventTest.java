@@ -2,9 +2,9 @@ package christmas.domain.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.constant.Menu;
+import christmas.domain.order.Menu;
 import christmas.domain.order.Order;
-import christmas.domain.order.Day;
+import christmas.domain.day.Day;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

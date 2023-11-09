@@ -1,9 +1,8 @@
 package christmas.domain.order;
 
-import christmas.constant.Category;
-import christmas.constant.DayOfWeek;
-import christmas.constant.Menu;
-import christmas.constant.Week;
+import christmas.domain.day.DayOfWeek;
+import christmas.domain.day.Week;
+import christmas.domain.day.Day;
 import java.util.Map;
 import java.util.Map.Entry;
 

@@ -1,9 +1,8 @@
-package christmas.constant;
+package christmas.domain.day;
 
-import static christmas.constant.Week.WEEKDAY;
-import static christmas.constant.Week.WEEKEND;
+import static christmas.domain.day.Week.WEEKDAY;
+import static christmas.domain.day.Week.WEEKEND;
 
-import christmas.domain.order.Day;
 import christmas.exception.ErrorMessage;
 import christmas.exception.OrderException;
 import java.util.Arrays;

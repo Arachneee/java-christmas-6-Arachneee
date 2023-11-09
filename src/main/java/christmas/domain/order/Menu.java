@@ -1,10 +1,10 @@
-package christmas.constant;
+package christmas.domain.order;
 
 
-import static christmas.constant.Category.APPETIZER;
-import static christmas.constant.Category.BEVERAGE;
-import static christmas.constant.Category.DESSERT;
-import static christmas.constant.Category.MAIN;
+import static christmas.domain.order.Category.APPETIZER;
+import static christmas.domain.order.Category.BEVERAGE;
+import static christmas.domain.order.Category.DESSERT;
+import static christmas.domain.order.Category.MAIN;
 
 public enum Menu {
 

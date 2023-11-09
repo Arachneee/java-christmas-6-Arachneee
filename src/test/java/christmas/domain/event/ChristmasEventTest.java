@@ -3,9 +3,9 @@ package christmas.domain.event;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import christmas.constant.Menu;
+import christmas.domain.order.Menu;
 import christmas.domain.order.Order;
-import christmas.domain.order.Day;
+import christmas.domain.day.Day;
 import java.util.Map;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;

@@ -1,8 +1,8 @@
 package christmas.domain.event;
 
-import christmas.constant.December;
+import christmas.domain.day.December;
 import christmas.domain.order.Order;
-import christmas.domain.order.Day;
+import christmas.domain.day.Day;
 
 public class ChristmasEvent extends Event {
 

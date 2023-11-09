@@ -1,8 +1,7 @@
-package christmas.domain.order;
+package christmas.domain.day;
 
 import static christmas.exception.ErrorMessage.INVALID_DAY;
 
-import christmas.constant.December;
 import christmas.exception.OrderException;
 
 public class Day {

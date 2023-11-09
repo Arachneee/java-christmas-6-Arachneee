@@ -1,6 +1,6 @@
 package christmas.domain.event;
 
-import static christmas.constant.Menu.CHAMPAGNE;
+import static christmas.domain.order.Menu.CHAMPAGNE;
 
 import christmas.domain.order.Order;
 
