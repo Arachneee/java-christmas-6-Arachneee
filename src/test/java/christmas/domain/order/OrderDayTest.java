@@ -46,36 +46,18 @@ class OrderDayTest {
         assertThat(gap).isEqualTo(9);
     }
 
-    @DisplayName("주말이면 true를 반환한다.")
+    @DisplayName("날짜의 나머지를 반환할 수 있다.")
     @ParameterizedTest
-    @ValueSource(ints = {8, 9, 15, 16, 22, 23, 29, 30})
-    void isWeekendTrue(int day) {
+    @ValueSource(ints = {1,2,3,4,5,6,7,10,20,23,30,31})
+    void mod(int day) {
         // given
         OrderDay orderDay = OrderDay.from(day);
 
         // when
-        boolean weekend = orderDay.isWeekend();
+        Integer mod = orderDay.mod(7);
 
         // then
-        assertThat(weekend).isTrue();
-    }
-
-    @DisplayName("주말이 아니면 false를 반환한다.")
-    @ParameterizedTest
-    @ValueSource(ints = {3, 4, 5, 6, 7,
-            10, 11, 12, 13, 14,
-            17, 18, 19, 20, 21,
-            24, 25, 26, 27, 28,
-            31})
-    void isWeekendFalse(int day) {
-        // given
-        OrderDay orderDay = OrderDay.from(day);
-
-        // when
-        boolean weekend = orderDay.isWeekend();
-
-        // then
-        assertThat(weekend).isFalse();
+        assertThat(mod).isEqualTo(day % 7);
     }
 
 }
