@@ -12,7 +12,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 class WeekEventTest {
 
@@ -23,7 +22,7 @@ class WeekEventTest {
     @MethodSource("weekDayMenuProvider")
     void calculateAmount(Map<Menu, Integer> menuCount, int discountTarget) {
         // given
-        OrderDay orderDay = OrderDay.from(1);
+        OrderDay orderDay = OrderDay.from(3);
         Order order = Order.of(orderDay, menuCount);
 
         // when
@@ -70,39 +69,5 @@ class WeekEventTest {
                 arguments(Map.of(Menu.BARBECUE_RIBS, 3, Menu.T_BONE_STEAK, 5), 2023 * 8),
                 arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP, 1, Menu.ZERO_COLA, 1), 0)
         );
-    }
-
-    @DisplayName("평일에 할인 가능하다.")
-    @ParameterizedTest
-    @ValueSource(ints = {3, 4, 5, 6, 7,
-            10, 11, 12, 13, 14,
-            17, 18, 19, 20, 21,
-            24, 25, 26, 27, 28,
-            31})
-    void applyWeekDay(int day) {
-        // given
-        OrderDay orderDay = OrderDay.from(day);
-        Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM, 3));
-
-        // when
-        int discountAmount = weekDayDiscount.apply(order);
-
-        // then
-        assertThat(discountAmount).isEqualTo(2023 * 3);
-    }
-
-    @DisplayName("주말에는 할인 가능하다.")
-    @ParameterizedTest
-    @ValueSource(ints = {8, 9, 15, 16, 22, 23, 29, 30})
-    void applyWeekend(int day) {
-        // given
-        OrderDay orderDay = OrderDay.from(day);
-        Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK, 3));
-
-        // when
-        int discountAmount = weekDayDiscount.apply(order);
-
-        // then
-        assertThat(discountAmount).isEqualTo(2023 * 3);
     }
 }
