@@ -43,4 +43,8 @@ public class Order {
                 .mapToInt(Entry::getValue)
                 .sum();
     }
+
+    public boolean isWeekDay() {
+        return !orderDay.isWeekend();
+    }
 }

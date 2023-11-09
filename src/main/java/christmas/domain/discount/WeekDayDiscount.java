@@ -8,7 +8,7 @@ public class WeekDayDiscount extends Discount {
 
     @Override
     boolean isUnavailable(Order order) {
-        return false;
+        return !order.isWeekDay();
     }
 
     @Override
