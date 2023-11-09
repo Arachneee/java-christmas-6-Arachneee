@@ -1,9 +1,9 @@
-package christmas.domain.discount;
+package christmas.domain.event;
 
 import christmas.domain.order.Order;
 import christmas.domain.order.OrderDay;
 
-public class ChristmasDiscount extends Discount {
+public class ChristmasEvent extends Event {
 
     private static final int OFFSET = 1000;
 

@@ -1,8 +1,8 @@
-package christmas.domain.discount;
+package christmas.domain.event;
 
 import christmas.domain.order.Order;
 
-public abstract class Discount {
+public abstract class Event {
 
     private static final int MIN_TOTAL_PRICE = 10000;
 

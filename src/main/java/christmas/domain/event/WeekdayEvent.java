@@ -1,10 +1,10 @@
-package christmas.domain.discount;
+package christmas.domain.event;
 
 import static christmas.constant.Category.DESSERT;
 
 import christmas.domain.order.Order;
 
-public class WeekdayDiscount extends Discount {
+public class WeekdayEvent extends Event {
     private static final int ONCE_AMOUNT = 2023;
 
     @Override

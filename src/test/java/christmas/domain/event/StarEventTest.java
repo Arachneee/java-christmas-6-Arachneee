@@ -1,4 +1,4 @@
-package christmas.domain.discount;
+package christmas.domain.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,9 +10,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class StarDiscountTest {
+class StarEventTest {
 
-    SpecialDiscount specialDiscount = new SpecialDiscount();
+    SpecialEvent specialDiscount = new SpecialEvent();
 
     @DisplayName("별이 있는 달에 1000원 할인")
     @ParameterizedTest
