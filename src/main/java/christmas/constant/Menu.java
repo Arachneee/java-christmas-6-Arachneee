@@ -1,10 +1,10 @@
 package christmas.constant;
 
 
-import static christmas.constant.Menu.Category.APPETIZER;
-import static christmas.constant.Menu.Category.BEVERAGE;
-import static christmas.constant.Menu.Category.DESSERT;
-import static christmas.constant.Menu.Category.MAIN;
+import static christmas.constant.Category.APPETIZER;
+import static christmas.constant.Category.BEVERAGE;
+import static christmas.constant.Category.DESSERT;
+import static christmas.constant.Category.MAIN;
 
 public enum Menu {
 
@@ -30,11 +30,15 @@ public enum Menu {
         this.price = price;
     }
 
+    public boolean isCategory(final Category category) {
+        return this.category.equals(category);
+    }
+
     public int getPrice() {
         return price;
     }
 
-    protected enum Category {
-        APPETIZER, MAIN, DESSERT, BEVERAGE
+    public Category getCategory() {
+        return category;
     }
 }

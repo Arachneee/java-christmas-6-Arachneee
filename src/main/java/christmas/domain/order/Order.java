@@ -1,7 +1,9 @@
 package christmas.domain.order;
 
+import christmas.constant.Category;
 import christmas.constant.Menu;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Order {
 
@@ -31,7 +33,14 @@ public class Order {
         return this.orderDay.gap(orderDay);
     }
 
-    public boolean isDayOverThan(OrderDay orderDay) {
+    public boolean isDayOverThan(final OrderDay orderDay) {
         return this.orderDay.isOverThan(orderDay);
+    }
+
+    public int countMenu(final Category category) {
+        return menuCount.entrySet().stream()
+                .filter(entry -> entry.getKey().isCategory(category))
+                .mapToInt(Entry::getValue)
+                .sum();
     }
 }
