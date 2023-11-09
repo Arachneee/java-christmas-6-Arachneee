@@ -13,4 +13,8 @@ public class DiscountResult {
     public static DiscountResult of(final String title, final int discountAmount) {
         return new DiscountResult(title, discountAmount);
     }
+
+    public int getDiscountAmount() {
+        return discountAmount;
+    }
 }

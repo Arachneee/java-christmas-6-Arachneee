@@ -12,4 +12,10 @@ public class DiscountResults {
     public static DiscountResults from(final List<DiscountResult> discountResults) {
         return new DiscountResults(discountResults);
     }
+
+    public int getTotalDiscount() {
+        return discountResults.stream()
+                .mapToInt(DiscountResult::getDiscountAmount)
+                .sum();
+    }
 }
