@@ -28,4 +28,12 @@ public class OrderDay {
     private static boolean isOutOfRange(int day) {
         return day > MAX || day < MIN;
     }
+
+    public int gap(final OrderDay orderDay) {
+        return orderDay.gap(day);
+    }
+
+    private int gap(final int day) {
+        return day - this.day;
+    }
 }
