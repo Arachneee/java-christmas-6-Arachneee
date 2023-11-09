@@ -20,7 +20,11 @@ public class DiscountResults {
     }
 
     public int calculateAfterDiscountPayment(final int beforePayment) {
-        return beforePayment - discountResults.stream()
+        return beforePayment - calculateDiscountForPayment();
+    }
+
+    private int calculateDiscountForPayment() {
+        return discountResults.stream()
                 .filter(DiscountResult::isDiscount)
                 .mapToInt(DiscountResult::getDiscountAmount)
                 .sum();
