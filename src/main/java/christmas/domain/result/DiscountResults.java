@@ -13,8 +13,15 @@ public class DiscountResults {
         return new DiscountResults(discountResults);
     }
 
-    public int getTotalDiscount() {
+    public int calculateTotalDiscount() {
         return discountResults.stream()
+                .mapToInt(DiscountResult::getDiscountAmount)
+                .sum();
+    }
+
+    public int calculateAfterDiscountPayment(final int beforePayment) {
+        return beforePayment - discountResults.stream()
+                .filter(DiscountResult::isDiscount)
                 .mapToInt(DiscountResult::getDiscountAmount)
                 .sum();
     }

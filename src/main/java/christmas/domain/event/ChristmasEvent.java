@@ -6,7 +6,6 @@ import christmas.domain.order.Day;
 
 public class ChristmasEvent extends Event {
 
-    private static final String TITLE = "크리스마스 디데이 할인";
     private static final int OFFSET = 1000;
 
     private static final int ONCE_AMOUNT = 100;
@@ -22,10 +21,5 @@ public class ChristmasEvent extends Event {
     @Override
     int calculateAmount(final Order order) {
         return order.calculateDayGap(REFERENCE_DAY) * ONCE_AMOUNT + OFFSET;
-    }
-
-    @Override
-    String getTitle(final Order order) {
-        return TITLE;
     }
 }

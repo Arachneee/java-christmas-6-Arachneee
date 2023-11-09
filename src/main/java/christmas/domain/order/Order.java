@@ -51,8 +51,4 @@ public class Order {
     public boolean isStarDay() {
         return DayOfWeek.from(day).isSunDay() || day.isChristMasDay();
     }
-
-    public boolean isWeekend() {
-        return DayOfWeek.from(day).isWeekend();
-    }
 }
