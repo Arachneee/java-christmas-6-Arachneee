@@ -15,7 +15,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class WeekendEventTest {
-    WeekendEvent weekendDiscount = new WeekendEvent();
+    WeekEvent weekendDiscount = new WeekEvent();
 
 
     @DisplayName("주말에 메인 메뉴 1개당 2023원 할인 합계를 계산할 수 있다.")

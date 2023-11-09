@@ -13,7 +13,7 @@ public class ChristmasEvent extends Event {
     private static final int CHRISTMAS_DAY = 25;
 
     @Override
-    boolean isUnavailable(Order order) {
+    boolean isUnavailable(final Order order) {
         return order.isDayOverThan(OrderDay.from(CHRISTMAS_DAY));
     }
 

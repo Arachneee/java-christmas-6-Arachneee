@@ -2,17 +2,16 @@ package christmas.domain.event;
 
 import christmas.domain.order.Order;
 
-public class SpecialEvent extends Event {
-
-    private static final int ONCE_AMOUNT = 1000;
+public class WeekEvent extends Event {
+    private static final int ONCE_AMOUNT = 2023;
 
     @Override
     boolean isUnavailable(final Order order) {
-        return !order.isStarDay();
+        return false;
     }
 
     @Override
     int calculateAmount(final Order order) {
-        return ONCE_AMOUNT;
+        return order.countWeekEventMenu() * ONCE_AMOUNT;
     }
 }

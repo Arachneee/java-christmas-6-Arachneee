@@ -39,4 +39,29 @@ class OrderTest {
         );
     }
 
+    @DisplayName("이벤트 카테고리의 메뉴 개수를 구할 수 있다.")
+    @ParameterizedTest
+    @MethodSource("weekCategoryProvider")
+    void countWeekEventMenu(int day, Map<Menu, Integer> menuCount, int target) {
+        // given
+        Order order = Order.of(OrderDay.from(day), menuCount);
+
+        // when
+        int count = order.countWeekEventMenu();
+
+        // then
+        assertThat(count).isEqualTo(target);
+    }
+
+    static Stream<Arguments> weekCategoryProvider() {
+        return Stream.of(
+                arguments(1, Map.of(Menu.BARBECUE_RIBS, 1), 1),
+                arguments(1, Map.of(Menu.BARBECUE_RIBS, 2, Menu.SEAFOOD_PASTA, 3), 5),
+                arguments(1, Map.of(Menu.BARBECUE_RIBS, 3, Menu.SEAFOOD_PASTA, 3, Menu.ICE_CREAM, 6), 6),
+                arguments(3, Map.of(Menu.ICE_CREAM, 1), 1),
+                arguments(3, Map.of(Menu.ICE_CREAM, 2, Menu.CHOCOLATE_CAKE, 3), 5),
+                arguments(3, Map.of(Menu.ICE_CREAM, 3, Menu.CHOCOLATE_CAKE, 3, Menu.SEAFOOD_PASTA, 6), 6)
+        );
+    }
+
 }

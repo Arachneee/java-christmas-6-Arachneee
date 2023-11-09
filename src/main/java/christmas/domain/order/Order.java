@@ -39,15 +39,13 @@ public class Order {
         return this.orderDay.isOverThan(orderDay);
     }
 
-    public int countMenu(final Category category) {
+    public int countWeekEventMenu() {
+        final Category category = Week.from(orderDay).getEventCategory();
+
         return menuCount.entrySet().stream()
                 .filter(entry -> entry.getKey().isCategory(category))
                 .mapToInt(Entry::getValue)
                 .sum();
-    }
-
-    public boolean isWeekend() {
-        return Week.from(orderDay).isWeekend();
     }
 
     public boolean isStarDay() {
