@@ -12,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class WeekDayDiscountTest {
 
@@ -43,4 +44,39 @@ class WeekDayDiscountTest {
         );
     }
 
+    @DisplayName("평일에 할인 가능하다.")
+    @ParameterizedTest
+    @ValueSource(ints = {3, 4, 5, 6, 7,
+            10, 11, 12, 13, 14,
+            17, 18, 19, 20, 21,
+            24, 25, 26, 27, 28,
+            31})
+    void applyWeekDay(int day) {
+        // given
+        WeekDayDiscount weekDayDiscount = new WeekDayDiscount();
+        OrderDay orderDay = OrderDay.from(day);
+        Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM, 3));
+
+        // when
+        int discountAmount = weekDayDiscount.apply(order);
+
+        // then
+        assertThat(discountAmount).isEqualTo(2023 * 3);
+    }
+
+    @DisplayName("주말에는 할인이 불가능하다.")
+    @ParameterizedTest
+    @ValueSource(ints = {8, 9, 15, 16, 22, 23, 29, 30})
+    void applyWeekend(int day) {
+        // given
+        WeekDayDiscount weekDayDiscount = new WeekDayDiscount();
+        OrderDay orderDay = OrderDay.from(day);
+        Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM, 3));
+
+        // when
+        int discountAmount = weekDayDiscount.apply(order);
+
+        // then
+        assertThat(discountAmount).isEqualTo(0);
+    }
 }
