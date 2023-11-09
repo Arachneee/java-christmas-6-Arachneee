@@ -2,9 +2,25 @@ package christmas.domain.discount;
 
 import christmas.domain.order.Order;
 
-public interface Discount {
+public abstract class Discount {
 
-    int calculateAmount(Order order);
-    boolean isAvailable(Order order);
+    private static final int MIN_TOTAL_PRICE = 10000;
+
+    public int apply(final Order order) {
+        if (order.isTotalPriceUnder(MIN_TOTAL_PRICE)) {
+            return 0;
+        }
+
+        if (isUnavailable(order)) {
+            return 0;
+        }
+
+        return calculateAmount(order);
+    };
+
+
+    abstract boolean isUnavailable(final Order order);
+
+    abstract int calculateAmount(final Order order);
 
 }
