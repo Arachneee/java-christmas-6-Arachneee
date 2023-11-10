@@ -7,6 +7,7 @@ import christmas.domain.day.constant.December;
 import christmas.domain.day.constant.Week;
 import christmas.domain.order.constant.Category;
 import christmas.exception.OrderException;
+import java.util.Objects;
 
 public class Day {
 
@@ -61,5 +62,22 @@ public class Day {
 
     public int getValue() {
         return day;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Day day1 = (Day) o;
+        return day == day1.day;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(day);
     }
 }
