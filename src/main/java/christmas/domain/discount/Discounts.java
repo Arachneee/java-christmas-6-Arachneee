@@ -13,7 +13,7 @@ public class Discounts {
         this.discounts = discounts;
     }
 
-    public static Discounts from(final List<Discount> discounts, final int totalPriceBefore) {
+    public static Discounts of(final List<Discount> discounts, final int totalPriceBefore) {
         return new Discounts(discounts, totalPriceBefore);
     }
 

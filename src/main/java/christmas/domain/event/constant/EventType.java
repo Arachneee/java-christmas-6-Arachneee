@@ -19,7 +19,7 @@ public enum EventType {
     WEEKDAY_DISCOUNT("평일 할인", new WeekdayEvent(), false),
     WEEKEND_DISCOUNT("주말 할인", new WeekendEvent(), false),
     SPECIAL_DISCOUNT("특별 할인", new SpecialEvent(), false),
-    PRESENTATION("증정 이벤트", new GiftEvent(), true);
+    GIFT("증정 이벤트", new GiftEvent(), true);
 
     public static final Menu GIFT_MENU = Menu.CHAMPAGNE;
     private final String title;
@@ -33,7 +33,7 @@ public enum EventType {
     }
 
     public static Discounts discountAll(final Order order) {
-        return Discounts.from(applyAllEvent(order), order.calculateTotalPrice());
+        return Discounts.of(applyAllEvent(order), order.calculateTotalPrice());
     }
 
     private static List<Discount> applyAllEvent(final Order order) {
