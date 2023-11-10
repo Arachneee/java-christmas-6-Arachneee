@@ -16,7 +16,7 @@ public abstract class Event {
         }
 
         return calculateAmount(order);
-    };
+    }
 
 
     abstract boolean isUnavailable(final Order order);
