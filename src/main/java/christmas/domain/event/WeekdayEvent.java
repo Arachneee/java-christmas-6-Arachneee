@@ -2,7 +2,7 @@ package christmas.domain.event;
 
 import christmas.domain.order.Order;
 
-public class WeekDayEvent extends Event {
+public class WeekdayEvent extends Event {
 
     private static final int ONCE_AMOUNT = 2_023;
 

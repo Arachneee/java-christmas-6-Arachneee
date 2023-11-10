@@ -13,9 +13,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class WeekEventTest {
+class WeekdayEventTest {
 
-    WeekEvent weekDayDiscount = new WeekEvent();
+    WeekdayEvent weekDayDiscount = new WeekdayEvent();
 
     @DisplayName("평일에 디저트 메뉴 1개당 2023원 할인 합계를 계산할 수 있다.")
     @ParameterizedTest
