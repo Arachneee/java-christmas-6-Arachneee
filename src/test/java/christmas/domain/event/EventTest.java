@@ -5,6 +5,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import christmas.domain.day.Day;
 import christmas.domain.order.Order;
+import christmas.domain.order.constant.Menu;
 import java.util.Map;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
@@ -19,8 +20,8 @@ class EventTest {
     @MethodSource("eventProvider")
     void apply(Event event, int day) {
         // given
-        Order order = Order.of(Day.from(day), Map.of("제로콜라", 1,
-                "아이스크림", 1));
+        Order order = Order.of(Day.from(day), Map.of(Menu.ZERO_COLA, 1,
+                Menu.ICE_CREAM, 1));
 
         // when
         int apply = event.apply(order);

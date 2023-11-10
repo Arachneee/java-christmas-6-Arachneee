@@ -6,6 +6,7 @@ import christmas.domain.day.Day;
 import christmas.domain.discount.Discount;
 import christmas.domain.discount.Discounts;
 import christmas.domain.order.Order;
+import christmas.domain.order.constant.Menu;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ class EventTypeTest {
     void discountAll() {
         // given
         Order order = Order.of(Day.from(25),
-                Map.of("티본스테이크", 1, "아이스크림", 2, "양송이수프", 1, "크리스마스파스타", 2));
+                Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BUTTON_MUSHROOM_SOUP, 1, Menu.CHRISTMAS_PASTA, 2));
 
         // when
         Discounts discounts = EventType.discountAll(order);

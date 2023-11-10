@@ -21,7 +21,7 @@ class WeekendEventTest {
     @DisplayName("주말에 메인 메뉴 1개당 2023원 할인 합계를 계산할 수 있다.")
     @ParameterizedTest
     @MethodSource("weekendMenuProvider")
-    void calculateAmount(Map<String, Integer> menuCount, int discountTarget) {
+    void calculateAmount(Map<Menu, Integer> menuCount, int discountTarget) {
         // given
         Day day = Day.from(1);
         Order order = Order.of(day, menuCount);
@@ -36,12 +36,12 @@ class WeekendEventTest {
 
     static Stream<Arguments> weekendMenuProvider() {
         return Stream.of(
-                arguments(Map.of(Menu.BARBECUE_RIBS.getTitle(), 1), 2023),
-                arguments(Map.of(Menu.T_BONE_STEAK.getTitle(), 2), 2023 * 2),
-                arguments(Map.of(Menu.ICE_CREAM.getTitle(), 1), 0),
-                arguments(Map.of(Menu.ICE_CREAM.getTitle(), 1, Menu.BARBECUE_RIBS.getTitle(), 10), 2023 * 10),
-                arguments(Map.of(Menu.BARBECUE_RIBS.getTitle(), 3, Menu.T_BONE_STEAK.getTitle(), 5), 2023 * 8),
-                arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP.getTitle(), 1, Menu.ZERO_COLA.getTitle(), 1), 0)
+                arguments(Map.of(Menu.BARBECUE_RIBS, 1), 2023),
+                arguments(Map.of(Menu.T_BONE_STEAK, 2), 2023 * 2),
+                arguments(Map.of(Menu.ICE_CREAM, 1), 0),
+                arguments(Map.of(Menu.ICE_CREAM, 1, Menu.BARBECUE_RIBS, 10), 2023 * 10),
+                arguments(Map.of(Menu.BARBECUE_RIBS, 3, Menu.T_BONE_STEAK, 5), 2023 * 8),
+                arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP, 1, Menu.ZERO_COLA, 1), 0)
         );
     }
 
@@ -55,7 +55,7 @@ class WeekendEventTest {
     void calculateAmountWeekend(int day) {
         // given
         Day orderDay = Day.from(day);
-        Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK.getTitle(), 10));
+        Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK, 10));
 
         // when
         int discountAmount = weekendDiscount.calculateAmount(order);
@@ -71,7 +71,7 @@ class WeekendEventTest {
     void applyWeekDay(int day) {
         // given
         Day orderDay = Day.from(day);
-        Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK.getTitle(), 10));
+        Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK, 10));
 
         // when
         int discountAmount = weekendDiscount.apply(order);

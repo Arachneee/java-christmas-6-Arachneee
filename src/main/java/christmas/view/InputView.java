@@ -4,20 +4,21 @@ import static camp.nextstep.edu.missionutils.Console.readLine;
 import static christmas.view.constant.Request.MENU_AND_COUNT;
 import static christmas.view.constant.Request.VISIT_DAY;
 
-import christmas.view.converter.Parser;
-import java.util.Map;
+import christmas.view.converter.RequestConverter;
+import christmas.view.request.MenuCountRequest;
+import java.util.List;
 
 public class InputView {
 
     public int readDate() {
         System.out.println(VISIT_DAY.getMessage());
 
-        return Parser.dayToInt(readLine());
+        return RequestConverter.convertDayToInt(readLine());
     }
 
-    public Map<String, Integer> readMenuAndCount() {
+    public List<MenuCountRequest> readMenuAndCount() {
         System.out.println(MENU_AND_COUNT.getMessage());
 
-        return Parser.orderInputToStringIntegerMap(readLine());
+        return RequestConverter.convertMenuCountRequests(readLine());
     }
 }

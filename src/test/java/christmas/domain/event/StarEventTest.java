@@ -20,7 +20,7 @@ class StarEventTest {
     void applyStar(int day) {
         // given
         Day orderDay = Day.from(day);
-        Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK.getTitle(), 1));
+        Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK, 1));
 
         // when
         int discount = specialDiscount.apply(order);
@@ -39,7 +39,7 @@ class StarEventTest {
     void applyNonStar(int day) {
         // given
         Day orderDay = Day.from(day);
-        Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK.getTitle(), 1));
+        Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK, 1));
 
         // when
         int discount = specialDiscount.apply(order);

@@ -20,7 +20,7 @@ class ChristmasEventTest {
         // given
         ChristmasEvent christmasDiscount = new ChristmasEvent();
         Day orderDay = Day.from(day);
-        Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK.getTitle(), 1));
+        Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK, 1));
 
         // when
         int discountAmount = christmasDiscount.calculateAmount(order);
@@ -36,7 +36,7 @@ class ChristmasEventTest {
         // given
         ChristmasEvent christmasDiscount = new ChristmasEvent();
         Day orderDay = Day.from(day);
-        Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM.getTitle(), 10));
+        Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM, 10));
 
         // when
         int discountAmount = christmasDiscount.apply(order);
@@ -52,7 +52,7 @@ class ChristmasEventTest {
         // given
         ChristmasEvent christmasDiscount = new ChristmasEvent();
         Day orderDay = Day.from(day);
-        Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM.getTitle(), 10));
+        Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM, 10));
 
         // when
         int discountAmount = christmasDiscount.apply(order);
