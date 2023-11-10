@@ -9,22 +9,24 @@ import java.util.List;
 public record DiscountResultsDto(
         GiftDto giftDto,
         List<DiscountResultDto> discounts,
+        int beforePaymentAmount,
         int totalDiscountAmount,
         int afterDiscountPayment,
         String badge
 ) {
 
-    public static DiscountResultsDto of(final DiscountResults discountResults, final int totalPrice) {
+    public static DiscountResultsDto from(final DiscountResults discountResults) {
         final int totalDiscountAmount = discountResults.calculateTotalDiscount();
 
-        return new DiscountResultsDto(GiftDto.from(EventType.GIFT_MENU.getTitle(), discountResults.getGiftCount()),
+        return new DiscountResultsDto(GiftDto.of(EventType.GIFT_MENU.getTitle(), discountResults.getGiftCount()),
                 convertDiscountResultDtos(discountResults),
+                discountResults.getTotalOriginalPrice(),
                 totalDiscountAmount,
-                discountResults.calculateAfterDiscountPayment(totalPrice),
+                discountResults.calculateAfterDiscountPayment(),
                 Badge.from(totalDiscountAmount).getTitle());
     }
 
-    private static List<DiscountResultDto> convertDiscountResultDtos(DiscountResults discountResults) {
+    private static List<DiscountResultDto> convertDiscountResultDtos(final DiscountResults discountResults) {
         return discountResults.getDiscountResults().stream()
                 .filter(DiscountResult::isNotZero)
                 .map(DiscountResultDto::from)

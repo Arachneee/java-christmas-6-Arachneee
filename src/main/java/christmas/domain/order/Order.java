@@ -5,6 +5,7 @@ import christmas.domain.order.constant.Category;
 import christmas.domain.order.constant.Menu;
 import christmas.exception.OrderException;
 import christmas.exception.constant.ErrorMessage;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -125,5 +126,13 @@ public class Order {
 
     public boolean isWeekend() {
         return day.isWeekend();
+    }
+
+    public Map<Menu, Integer> getMenuCount() {
+        return Collections.unmodifiableMap(menuCount);
+    }
+
+    public int getDayInt() {
+        return day.getValue();
     }
 }

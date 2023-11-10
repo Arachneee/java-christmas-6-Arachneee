@@ -37,10 +37,9 @@ public class OutputView {
         System.out.println(message);
     }
 
-    public void printOrder(final OrderDto orderDto) {
+    public void printAllOrder(final OrderDto orderDto) {
         printPreViewHeader(orderDto.day());
         printOrderMenuCount(orderDto);
-        printBeforeDiscountTotalPrice(orderDto.totalPrice());
     }
 
     private void printPreViewHeader(final int day) {
@@ -62,17 +61,18 @@ public class OutputView {
         System.out.println();
     }
 
-    private void printBeforeDiscountTotalPrice(final int totalPrice) {
-        System.out.println(BEFORE_TOTAL_PRICE.getMessage());
-        System.out.printf(POSITIVE_MONEY.getMessage() + DOUBLE_ENTER, totalPrice);
-    }
-
     public void printAllResults(final DiscountResultsDto discountResultsDto) {
+        printBeforeDiscountTotalPrice(discountResultsDto.beforePaymentAmount());
         printGiftMenu(discountResultsDto.giftDto());
         printDiscountResults(discountResultsDto.discounts());
         printTotalDiscountAmount(discountResultsDto.totalDiscountAmount());
         printAfterDiscountPayment(discountResultsDto.afterDiscountPayment());
         printBadge(discountResultsDto.badge());
+    }
+
+    private void printBeforeDiscountTotalPrice(final int totalPrice) {
+        System.out.println(BEFORE_TOTAL_PRICE.getMessage());
+        System.out.printf(POSITIVE_MONEY.getMessage() + DOUBLE_ENTER, totalPrice);
     }
 
     private void printGiftMenu(final GiftDto giftDto) {

@@ -17,11 +17,11 @@ public enum DayOfWeek {
     WEDNESDAY(6, WEEKDAY),
     THURSDAY(0, WEEKDAY);
 
-    private final int modSevenNumber;
+    private final int modNumber;
     private final Week week;
 
-    DayOfWeek(final int modSevenNumber, final Week week) {
-        this.modSevenNumber = modSevenNumber;
+    DayOfWeek(final int modNumber, final Week week) {
+        this.modNumber = modNumber;
         this.week = week;
     }
 
@@ -33,7 +33,7 @@ public enum DayOfWeek {
     }
 
     private static boolean isModNumber(final Day day, final DayOfWeek dayOfWeek) {
-        return dayOfWeek.modSevenNumber == day.mod(totalCount());
+        return dayOfWeek.modNumber == day.mod(totalCount());
     }
 
     private static int totalCount() {

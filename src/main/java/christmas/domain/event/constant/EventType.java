@@ -11,6 +11,7 @@ import christmas.domain.order.constant.Menu;
 import christmas.domain.result.DiscountResult;
 import christmas.domain.result.DiscountResults;
 import java.util.Arrays;
+import java.util.List;
 
 public enum EventType {
 
@@ -32,9 +33,13 @@ public enum EventType {
     }
 
     public static DiscountResults discountAll(final Order order) {
-        return DiscountResults.from(Arrays.stream(values())
+        return DiscountResults.from(applyAllEvent(order), order.calculateTotalPrice());
+    }
+
+    private static List<DiscountResult> applyAllEvent(final Order order) {
+        return Arrays.stream(values())
                 .map(eventType -> DiscountResult.of(eventType, eventType.getApply(order)))
-                .toList());
+                .toList();
     }
 
     private int getApply(final Order order) {

@@ -27,16 +27,8 @@ public class Day {
         }
     }
 
-    private static boolean isOutOfRange(final int day) {
-        return !December.in(day);
-    }
-
     public int gap(final Day other) {
         return Math.abs(other.day - this.day);
-    }
-
-    public boolean isOverThan(final Day other) {
-        return this.day > other.day;
     }
 
     public Integer mod(final int weekCount) {
@@ -47,6 +39,14 @@ public class Day {
         return Week.from(this).getEventCategory();
     }
 
+    private static boolean isOutOfRange(final int day) {
+        return !December.in(day);
+    }
+
+    public boolean isOverThan(final Day other) {
+        return this.day > other.day;
+    }
+
     public boolean isChristmasDay() {
         return December.isChristMas(day);
     }
@@ -55,11 +55,11 @@ public class Day {
         return DayOfWeek.from(this).isSunDay();
     }
 
-    public int getValue() {
-        return day;
-    }
-
     public boolean isWeekend() {
         return DayOfWeek.from(this).isWeekend();
+    }
+
+    public int getValue() {
+        return day;
     }
 }
