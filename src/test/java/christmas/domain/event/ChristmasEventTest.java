@@ -24,7 +24,7 @@ class ChristmasEventTest {
         // given
         ChristmasEvent christmasDiscount = new ChristmasEvent();
         Day orderDay = Day.from(day);
-        Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK, 1));
+        Order order = Order.of(orderDay, Map.of(Menu.T_BONE_STEAK.getTitle(), 1));
 
         // when
         int discountAmount = christmasDiscount.calculateAmount(order);
@@ -36,7 +36,7 @@ class ChristmasEventTest {
     @DisplayName("주문의 총 금액이 10000뭔 이상이어야 할인을 적용한다.")
     @ParameterizedTest
     @MethodSource("underMenuProvider")
-    void apply(Map<Menu, Integer> menuCount) {
+    void apply(Map<String, Integer> menuCount) {
         // given
         ChristmasEvent christmasDiscount = new ChristmasEvent();
         Day day = Day.from(1);
@@ -51,11 +51,11 @@ class ChristmasEventTest {
 
     static Stream<Arguments> underMenuProvider() {
         return Stream.of(
-                arguments(Map.of(Menu.ICE_CREAM, 1)),
-                arguments(Map.of(Menu.TAPAS, 1)),
-                arguments(Map.of(Menu.CAESAR_SALAD, 1)),
-                arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP, 1)),
-                arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP, 1, Menu.ZERO_COLA, 1))
+                arguments(Map.of(Menu.ICE_CREAM.getTitle(), 1)),
+                arguments(Map.of(Menu.TAPAS.getTitle(), 1)),
+                arguments(Map.of(Menu.CAESAR_SALAD.getTitle(), 1)),
+                arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP.getTitle(), 1)),
+                arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP.getTitle(), 1, Menu.ZERO_COLA.getTitle(), 1))
         );
     }
 
@@ -66,7 +66,7 @@ class ChristmasEventTest {
         // given
         ChristmasEvent christmasDiscount = new ChristmasEvent();
         Day orderDay = Day.from(day);
-        Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM, 1));
+        Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM.getTitle(), 1));
 
         // when
         int discountAmount = christmasDiscount.apply(order);

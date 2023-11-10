@@ -17,7 +17,7 @@ class OrderTest {
     @DisplayName("총 주문 가격을 계산할 수 있다.")
     @ParameterizedTest
     @MethodSource("menuProvider")
-    void calculateTotalPrice(Map<Menu, Integer> menuCount, int target) {
+    void calculateTotalPrice(Map<String, Integer> menuCount, int target) {
         // given
         Order order = Order.of(Day.from(1), menuCount);
 
@@ -30,12 +30,12 @@ class OrderTest {
 
     static Stream<Arguments> menuProvider() {
         return Stream.of(
-                arguments(Map.of(Menu.ICE_CREAM, 1), 5000),
-                arguments(Map.of(Menu.TAPAS, 2), Menu.TAPAS.getPrice() * 2),
-                arguments(Map.of(Menu.CAESAR_SALAD, 10), Menu.CAESAR_SALAD.getPrice() * 10),
-                arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP, 1, Menu.ZERO_COLA, 1),
+                arguments(Map.of(Menu.ICE_CREAM.getTitle(), 1), 5000),
+                arguments(Map.of(Menu.TAPAS.getTitle(), 2), Menu.TAPAS.getPrice() * 2),
+                arguments(Map.of(Menu.CAESAR_SALAD.getTitle(), 10), Menu.CAESAR_SALAD.getPrice() * 10),
+                arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP.getTitle(), 1, Menu.ZERO_COLA.getTitle(), 1),
                         Menu.BUTTON_MUSHROOM_SOUP.getPrice() + Menu.ZERO_COLA.getPrice()),
-                arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP, 3, Menu.ZERO_COLA, 4),
+                arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP.getTitle(), 3, Menu.ZERO_COLA.getTitle(), 4),
                         Menu.BUTTON_MUSHROOM_SOUP.getPrice() * 3 + Menu.ZERO_COLA.getPrice() * 4)
         );
     }
@@ -43,7 +43,7 @@ class OrderTest {
     @DisplayName("이벤트 카테고리의 메뉴 개수를 구할 수 있다.")
     @ParameterizedTest
     @MethodSource("weekCategoryProvider")
-    void countWeekEventMenu(int day, Map<Menu, Integer> menuCount, int target) {
+    void countWeekEventMenu(int day, Map<String, Integer> menuCount, int target) {
         // given
         Order order = Order.of(Day.from(day), menuCount);
 
@@ -56,12 +56,12 @@ class OrderTest {
 
     static Stream<Arguments> weekCategoryProvider() {
         return Stream.of(
-                arguments(1, Map.of(Menu.BARBECUE_RIBS, 1), 1),
-                arguments(1, Map.of(Menu.BARBECUE_RIBS, 2, Menu.SEAFOOD_PASTA, 3), 5),
-                arguments(1, Map.of(Menu.BARBECUE_RIBS, 3, Menu.SEAFOOD_PASTA, 3, Menu.ICE_CREAM, 6), 6),
-                arguments(3, Map.of(Menu.ICE_CREAM, 1), 1),
-                arguments(3, Map.of(Menu.ICE_CREAM, 2, Menu.CHOCOLATE_CAKE, 3), 5),
-                arguments(3, Map.of(Menu.ICE_CREAM, 3, Menu.CHOCOLATE_CAKE, 3, Menu.SEAFOOD_PASTA, 6), 6)
+                arguments(1, Map.of(Menu.BARBECUE_RIBS.getTitle(), 1), 1),
+                arguments(1, Map.of(Menu.BARBECUE_RIBS.getTitle(), 2, Menu.SEAFOOD_PASTA.getTitle(), 3), 5),
+                arguments(1, Map.of(Menu.BARBECUE_RIBS.getTitle(), 3, Menu.SEAFOOD_PASTA.getTitle(), 3, Menu.ICE_CREAM.getTitle(), 6), 6),
+                arguments(3, Map.of(Menu.ICE_CREAM.getTitle(), 1), 1),
+                arguments(3, Map.of(Menu.ICE_CREAM.getTitle(), 2, Menu.CHOCOLATE_CAKE.getTitle(), 3), 5),
+                arguments(3, Map.of(Menu.ICE_CREAM.getTitle(), 3, Menu.CHOCOLATE_CAKE.getTitle(), 3, Menu.SEAFOOD_PASTA.getTitle(), 6), 6)
         );
     }
 
