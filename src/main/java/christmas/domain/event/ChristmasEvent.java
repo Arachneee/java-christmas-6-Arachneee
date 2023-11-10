@@ -9,9 +9,7 @@ import christmas.domain.order.Order;
 public class ChristmasEvent extends Event {
 
     private static final int OFFSET = 1_000;
-
     private static final int ONCE_AMOUNT = 100;
-
     private static final Day REFERENCE_DAY = Day.from(START_DAY.getDay());
     private static final Day FINAL_DAY = Day.from(CHRISTMAS_DAY.getDay());
 

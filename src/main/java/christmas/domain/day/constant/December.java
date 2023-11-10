@@ -11,7 +11,7 @@ public enum December {
         this.day = day;
     }
 
-    public static boolean in(final int day) {
+    public static boolean isInRange(final int day) {
         return day >= START_DAY.getDay() && day <= END_DAY.getDay();
     }
 

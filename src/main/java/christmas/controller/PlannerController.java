@@ -11,6 +11,7 @@ import christmas.view.OutputView;
 import java.util.function.Supplier;
 
 public class PlannerController {
+
     private final InputView inputView;
     private final OutputView outputView;
 
@@ -22,12 +23,12 @@ public class PlannerController {
     public void run() {
         outputView.printHello();
 
-        final Day day = createOrderDay();
-        final Order order = createOrder(day);
+        final Day orderDay = createOrderDay();
+        final Order order = createOrder(orderDay);
         outputView.printAllOrder(OrderDto.from(order));
 
         final Discounts discounts = EventType.discountAll(order);
-        outputView.printAllResults(DiscountsDto.from(discounts));
+        outputView.printAllDiscountResults(DiscountsDto.from(discounts));
     }
 
     private Day createOrderDay() {

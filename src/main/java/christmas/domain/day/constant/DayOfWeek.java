@@ -2,9 +2,9 @@ package christmas.domain.day.constant;
 
 import static christmas.domain.day.constant.Week.WEEKDAY;
 import static christmas.domain.day.constant.Week.WEEKEND;
+import static christmas.exception.constant.ErrorMessage.INVALID_DAY;
 
 import christmas.domain.day.Day;
-import christmas.exception.constant.ErrorMessage;
 import christmas.exception.OrderException;
 import java.util.Arrays;
 
@@ -29,7 +29,7 @@ public enum DayOfWeek {
         return Arrays.stream(values())
                 .filter(dayOfWeek -> isModNumber(day, dayOfWeek))
                 .findFirst()
-                .orElseThrow(() -> OrderException.from(ErrorMessage.INVALID_DAY));
+                .orElseThrow(() -> OrderException.from(INVALID_DAY));
     }
 
     private static boolean isModNumber(final Day day, final DayOfWeek dayOfWeek) {

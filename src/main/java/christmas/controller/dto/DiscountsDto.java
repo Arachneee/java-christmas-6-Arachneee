@@ -8,31 +8,31 @@ import christmas.domain.discount.constant.Badge;
 import java.util.List;
 
 public record DiscountsDto(
-        int amountBeforeDiscount,
+        int priceBefore,
         GiftDto giftDto,
         List<DiscountDto> activeDiscount,
-        int totalDiscountAmount,
-        int amountAfterDiscount,
+        int totalAmount,
+        int priceAfter,
         String badge
 ) {
 
     public static DiscountsDto from(final Discounts discounts) {
 
         return new DiscountsDtoBuilder()
-                .amountBeforeDiscount(discounts.getTotalOriginalPrice())
+                .priceBefore(discounts.getTotalPriceBefore())
                 .giftDto(createGiftDto(discounts))
                 .activeDiscount(getActiveDiscount(discounts))
-                .totalDiscountAmount(discounts.calculateTotalDiscount())
-                .amountAfterDiscount(discounts.calculateAmountAfterDiscount())
+                .totalAmount(discounts.calculateTotal())
+                .priceAfter(discounts.calculatePriceAfter())
                 .build();
     }
 
     private static GiftDto createGiftDto(final Discounts discounts) {
-        return GiftDto.of(GIFT_MENU.getTitle(), discounts.getGiftCount());
+        return GiftDto.of(GIFT_MENU.getTitle(), discounts.countGift());
     }
 
     private static List<DiscountDto> getActiveDiscount(final Discounts discounts) {
-        return discounts.getDiscountResults().stream()
+        return discounts.getDiscounts().stream()
                 .filter(Discount::isNotZero)
                 .map(DiscountDto::from)
                 .toList();
@@ -40,15 +40,15 @@ public record DiscountsDto(
 
     public static class DiscountsDtoBuilder {
 
-        int amountBeforeDiscount;
+        int priceBefore;
         GiftDto giftDto;
         List<DiscountDto> activeDiscount;
-        int totalDiscountAmount;
-        int amountAfterDiscount;
+        int totalAmount;
+        int priceAfter;
         String badge;
 
-        public DiscountsDtoBuilder amountBeforeDiscount(final int amountBeforeDiscount) {
-            this.amountBeforeDiscount = amountBeforeDiscount;
+        public DiscountsDtoBuilder priceBefore(final int priceBefore) {
+            this.priceBefore = priceBefore;
             return this;
         }
 
@@ -62,20 +62,20 @@ public record DiscountsDto(
             return this;
         }
 
-        public DiscountsDtoBuilder totalDiscountAmount(final int totalDiscountAmount) {
-            this.totalDiscountAmount = totalDiscountAmount;
-            this.badge = Badge.from(totalDiscountAmount).getTitle();
+        public DiscountsDtoBuilder totalAmount(final int totalAmount) {
+            this.totalAmount = totalAmount;
+            this.badge = Badge.from(totalAmount).getTitle();
             return this;
         }
 
-        public DiscountsDtoBuilder amountAfterDiscount(final int amountAfterDiscount) {
-            this.amountAfterDiscount = amountAfterDiscount;
+        public DiscountsDtoBuilder priceAfter(final int priceAfter) {
+            this.priceAfter = priceAfter;
             return this;
         }
 
         public DiscountsDto build() {
-            return new DiscountsDto(amountBeforeDiscount, giftDto, activeDiscount, totalDiscountAmount,
-                    amountAfterDiscount, badge);
+            return new DiscountsDto(priceBefore, giftDto, activeDiscount, totalAmount,
+                    priceAfter, badge);
         }
     }
 

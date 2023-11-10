@@ -32,7 +32,6 @@ public class OutputView {
         System.out.println(HELLO.getMessage());
     }
 
-
     public void printError(final String message) {
         System.out.println(message);
     }
@@ -61,21 +60,21 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printAllResults(final DiscountsDto discountsDto) {
-        printBeforeDiscountTotalPrice(discountsDto.amountBeforeDiscount());
-        printGiftMenu(discountsDto.giftDto());
-        printDiscountResults(discountsDto.activeDiscount());
-        printTotalDiscountAmount(discountsDto.totalDiscountAmount());
-        printAfterDiscountPayment(discountsDto.amountAfterDiscount());
+    public void printAllDiscountResults(final DiscountsDto discountsDto) {
+        printPriceBefore(discountsDto.priceBefore());
+        printGift(discountsDto.giftDto());
+        printActiveDiscount(discountsDto.activeDiscount());
+        printTotalAmount(discountsDto.totalAmount());
+        printPriceAfter(discountsDto.priceAfter());
         printBadge(discountsDto.badge());
     }
 
-    private void printBeforeDiscountTotalPrice(final int totalPrice) {
+    private void printPriceBefore(final int totalPrice) {
         System.out.println(BEFORE_TOTAL_PRICE.getMessage());
         System.out.printf(POSITIVE_MONEY.getMessage() + DOUBLE_ENTER, totalPrice);
     }
 
-    private void printGiftMenu(final GiftDto giftDto) {
+    private void printGift(final GiftDto giftDto) {
         System.out.println(GIFT.getMessage());
 
         printGiftResult(giftDto);
@@ -92,7 +91,7 @@ public class OutputView {
                 giftDto.count());
     }
 
-    private void printDiscountResults(final List<DiscountDto> discounts) {
+    private void printActiveDiscount(final List<DiscountDto> discounts) {
         System.out.println(DISCOUNT.getMessage());
 
         printDiscounts(discounts);
@@ -105,11 +104,11 @@ public class OutputView {
         }
 
         discounts.forEach(discount -> System.out.printf(DISCOUNT_RESULT.getMessage() + ENTER,
-                discount.title(), discount.payment()));
+                discount.title(), discount.amount()));
         System.out.println();
     }
 
-    private void printTotalDiscountAmount(final int totalDiscountAmount) {
+    private void printTotalAmount(final int totalDiscountAmount) {
         System.out.println(TOTAL_DISCOUNT.getMessage());
 
         printTotalDiscount(totalDiscountAmount);
@@ -124,7 +123,7 @@ public class OutputView {
         System.out.printf(NEGATIVE_MONEY.getMessage() + DOUBLE_ENTER, totalDiscountAmount);
     }
 
-    private void printAfterDiscountPayment(final int afterDiscountPayment) {
+    private void printPriceAfter(final int afterDiscountPayment) {
         System.out.println(AFTER_PAYMENT.getMessage());
         System.out.printf(POSITIVE_MONEY.getMessage() + DOUBLE_ENTER, afterDiscountPayment);
     }

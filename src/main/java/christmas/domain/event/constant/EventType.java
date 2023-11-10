@@ -15,21 +15,21 @@ import java.util.List;
 
 public enum EventType {
 
-    CHRISTMAS_D_DAY_DISCOUNT("크리스마스 디데이 할인", new ChristmasEvent(), true),
-    WEEKDAY_DISCOUNT("평일 할인", new WeekdayEvent(), true),
-    WEEKEND_DISCOUNT("주말 할인", new WeekendEvent(), true),
-    SPECIAL_DISCOUNT("특별 할인", new SpecialEvent(), true),
-    PRESENTATION("증정 이벤트", new GiftEvent(), false);
+    CHRISTMAS_D_DAY_DISCOUNT("크리스마스 디데이 할인", new ChristmasEvent(), false),
+    WEEKDAY_DISCOUNT("평일 할인", new WeekdayEvent(), false),
+    WEEKEND_DISCOUNT("주말 할인", new WeekendEvent(), false),
+    SPECIAL_DISCOUNT("특별 할인", new SpecialEvent(), false),
+    PRESENTATION("증정 이벤트", new GiftEvent(), true);
 
     public static final Menu GIFT_MENU = Menu.CHAMPAGNE;
     private final String title;
     private final Event event;
-    private final boolean isDiscount;
+    private final boolean isGift;
 
-    EventType(final String title, final Event event, final boolean isDiscount) {
+    EventType(final String title, final Event event, final boolean isGift) {
         this.title = title;
         this.event = event;
-        this.isDiscount = isDiscount;
+        this.isGift = isGift;
     }
 
     public static Discounts discountAll(final Order order) {
@@ -46,11 +46,11 @@ public enum EventType {
         return this.event.apply(order);
     }
 
-    public String getTitle() {
-        return title;
+    public boolean isGift() {
+        return isGift;
     }
 
-    public boolean isDiscount() {
-        return isDiscount;
+    public String getTitle() {
+        return title;
     }
 }

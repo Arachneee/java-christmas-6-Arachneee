@@ -9,6 +9,7 @@ import christmas.domain.order.constant.Category;
 import christmas.exception.OrderException;
 
 public class Day {
+
     private final int day;
 
     private Day(final int day) {
@@ -17,7 +18,6 @@ public class Day {
 
     public static Day from(final int day) {
         validate(day);
-
         return new Day(day);
     }
 
@@ -25,6 +25,10 @@ public class Day {
         if (isOutOfRange(day)) {
             throw OrderException.from(INVALID_DAY);
         }
+    }
+
+    private static boolean isOutOfRange(final int day) {
+        return !December.isInRange(day);
     }
 
     public int gap(final Day other) {
@@ -36,11 +40,7 @@ public class Day {
     }
 
     public Category checkEventCategory() {
-        return Week.from(this).getEventCategory();
-    }
-
-    private static boolean isOutOfRange(final int day) {
-        return !December.in(day);
+        return Week.from(DayOfWeek.from(this)).getEventCategory();
     }
 
     public boolean isOverThan(final Day other) {

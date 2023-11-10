@@ -4,10 +4,10 @@ import christmas.domain.order.Order;
 
 public abstract class Event {
 
-    private static final int MIN_TOTAL_PRICE = 10_000;
+    private static final int MIN_ORDER_PRICE = 10_000;
 
     public int apply(final Order order) {
-        if (order.isTotalPriceUnder(MIN_TOTAL_PRICE)) {
+        if (order.isTotalPriceUnder(MIN_ORDER_PRICE)) {
             return 0;
         }
 

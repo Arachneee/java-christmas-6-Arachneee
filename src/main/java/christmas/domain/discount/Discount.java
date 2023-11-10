@@ -5,42 +5,34 @@ import christmas.domain.event.constant.EventType;
 public class Discount {
 
     private final EventType eventType;
-    private final int discountAmount;
+    private final int amount;
 
-    private Discount(final EventType eventType, final int discountAmount) {
+    private Discount(final EventType eventType, final int amount) {
         this.eventType = eventType;
-        this.discountAmount = discountAmount;
+        this.amount = amount;
     }
 
-    public static Discount of(final EventType eventType, final int discountAmount) {
-        return new Discount(eventType, discountAmount);
+    public static Discount of(final EventType eventType, final int amount) {
+        return new Discount(eventType, amount);
     }
 
     public boolean isDiscount() {
-        return eventType.isDiscount();
+        return !eventType.isGift();
     }
 
     public boolean isGiftEvent() {
-        return !eventType.isDiscount();
+        return eventType.isGift();
     }
 
     public boolean isNotZero() {
-        return discountAmount != 0;
+        return amount != 0;
     }
 
-    public int getDiscountAmount() {
-        return discountAmount;
+    public int getAmount() {
+        return amount;
     }
 
     public String getTitle() {
         return eventType.getTitle();
-    }
-
-    @Override
-    public String toString() {
-        return "DiscountResult{" +
-                "eventType=" + eventType.getTitle() +
-                ", discountAmount=" + discountAmount +
-                '}';
     }
 }

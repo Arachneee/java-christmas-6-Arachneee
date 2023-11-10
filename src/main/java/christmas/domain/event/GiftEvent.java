@@ -5,11 +5,11 @@ import christmas.domain.order.Order;
 
 public class GiftEvent extends Event {
 
-    private static final int MIN_TOTAL_PRICE = 120_000;
+    private static final int MIN_ORDER_PRICE = 120_000;
 
     @Override
     boolean isUnavailable(final Order order) {
-        return order.isTotalPriceUnder(MIN_TOTAL_PRICE);
+        return order.isTotalPriceUnder(MIN_ORDER_PRICE);
     }
 
     @Override

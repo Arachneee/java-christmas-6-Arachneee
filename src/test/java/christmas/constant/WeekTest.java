@@ -3,6 +3,7 @@ package christmas.constant;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.day.Day;
+import christmas.domain.day.constant.DayOfWeek;
 import christmas.domain.day.constant.Week;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,7 +17,7 @@ class WeekTest {
     void isWeekendTrue(int day) {
         // given
         Day orderDay = Day.from(day);
-        Week week = Week.from(orderDay);
+        Week week = Week.from(DayOfWeek.from(orderDay));
 
         // when
         boolean weekend = week.isWeekend();
@@ -35,7 +36,7 @@ class WeekTest {
     void isWeekendFalse(int day) {
         // given
         Day orderDay = Day.from(day);
-        Week week = Week.from(orderDay);
+        Week week = Week.from(DayOfWeek.from(orderDay));
 
         // when
         boolean weekend = week.isWeekend();

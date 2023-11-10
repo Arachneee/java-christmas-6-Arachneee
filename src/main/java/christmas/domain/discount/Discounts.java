@@ -6,53 +6,46 @@ import java.util.List;
 public class Discounts {
 
     private final List<Discount> discounts;
-    private final int totalOriginalPrice;
+    private final int totalPriceBefore;
 
-    private Discounts(final List<Discount> discounts, final int totalOriginalPrice) {
-        this.totalOriginalPrice = totalOriginalPrice;
+    private Discounts(final List<Discount> discounts, final int totalPriceBefore) {
+        this.totalPriceBefore = totalPriceBefore;
         this.discounts = discounts;
     }
 
-    public static Discounts from(final List<Discount> discounts, final int totalOriginalPrice) {
-        return new Discounts(discounts, totalOriginalPrice);
+    public static Discounts from(final List<Discount> discounts, final int totalPriceBefore) {
+        return new Discounts(discounts, totalPriceBefore);
     }
 
-    public int calculateTotalDiscount() {
+    public int calculateTotal() {
         return discounts.stream()
-                .mapToInt(Discount::getDiscountAmount)
+                .mapToInt(Discount::getAmount)
                 .sum();
     }
 
-    public int calculateAmountAfterDiscount() {
-        return totalOriginalPrice - calculateDiscountForPayment();
+    public int calculatePriceAfter() {
+        return totalPriceBefore - calculateTotalNotGift();
     }
 
-    private int calculateDiscountForPayment() {
+    private int calculateTotalNotGift() {
         return discounts.stream()
                 .filter(Discount::isDiscount)
-                .mapToInt(Discount::getDiscountAmount)
+                .mapToInt(Discount::getAmount)
                 .sum();
     }
 
-    public int getGiftCount() {
+    public int countGift() {
         return (int) discounts.stream()
                 .filter(Discount::isGiftEvent)
                 .filter(Discount::isNotZero)
                 .count();
     }
 
-    public List<Discount> getDiscountResults() {
+    public List<Discount> getDiscounts() {
         return Collections.unmodifiableList(discounts);
     }
 
-    public int getTotalOriginalPrice() {
-        return totalOriginalPrice;
-    }
-
-    @Override
-    public String toString() {
-        return "DiscountResults{" +
-                "discountResults=" + discounts +
-                '}';
+    public int getTotalPriceBefore() {
+        return totalPriceBefore;
     }
 }

@@ -5,10 +5,12 @@ import christmas.domain.order.constant.Category;
 import christmas.domain.order.constant.Menu;
 import christmas.exception.OrderException;
 import christmas.exception.constant.ErrorMessage;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
@@ -31,59 +33,59 @@ public class Order {
         return new Order(day, menuCount);
     }
 
-    private static EnumMap<Menu, Integer> convertToEnumMap(Map<String, Integer> nameCount) {
+    private static EnumMap<Menu, Integer> convertToEnumMap(final Map<String, Integer> nameCount) {
         return nameCount.entrySet().stream()
                 .collect(Collectors.toMap(entry -> Menu.from(entry.getKey()),
                         Entry::getValue,
-                        throwingOrderException(),
+                        throwingDuplicateOrderException(),
                         () -> new EnumMap<>(Menu.class)));
     }
 
-    private static <T> BinaryOperator<T> throwingOrderException() {
+    private static <T> BinaryOperator<T> throwingDuplicateOrderException() {
         return (menu, other) -> {
             throw OrderException.from(ErrorMessage.INVALID_ORDER);
         };
     }
 
     private static void validate(final Map<Menu, Integer> menuCount) {
-        validateCountRange(menuCount);
-        validateTotalCountMax(menuCount);
-        validateOnlyBeverage(menuCount);
+        validateCountRange(menuCount.values());
+        validateTotalCountMax(menuCount.values());
+        validateOnlyBeverage(menuCount.keySet());
     }
 
-    private static void validateCountRange(final Map<Menu, Integer> menuCount) {
-        if (isUnderThanMin(menuCount)) {
+    private static void validateCountRange(final Collection<Integer> counts) {
+        if (isUnderThanMin(counts)) {
             throw OrderException.from(ErrorMessage.INVALID_ORDER);
         }
 
     }
 
-    private static boolean isUnderThanMin(Map<Menu, Integer> menuCount) {
-        return menuCount.values().stream()
+    private static boolean isUnderThanMin(final Collection<Integer> counts) {
+        return counts.stream()
                 .anyMatch(count -> count < ONCE_COUNT_MIN);
     }
 
 
-    private static void validateTotalCountMax(final Map<Menu, Integer> menuCount) {
-        if (calculateTotalCount(menuCount) > TOTAL_COUNT_MAX) {
+    private static void validateTotalCountMax(final Collection<Integer> counts) {
+        if (calculateTotalCount(counts) > TOTAL_COUNT_MAX) {
             throw OrderException.from(ErrorMessage.INVALID_ORDER);
         }
     }
 
-    private static int calculateTotalCount(final Map<Menu, Integer> menuCount) {
-        return menuCount.values()
-                .stream().mapToInt(value -> value)
+    private static int calculateTotalCount(final Collection<Integer> counts) {
+        return counts.stream()
+                .mapToInt(value -> value)
                 .sum();
     }
 
-    private static void validateOnlyBeverage(final Map<Menu, Integer> menuCount) {
-        if (isOnlyBeverage(menuCount)) {
+    private static void validateOnlyBeverage(final Set<Menu> menus) {
+        if (isOnlyBeverage(menus)) {
             throw OrderException.from(ErrorMessage.INVALID_ORDER);
         }
     }
 
-    private static boolean isOnlyBeverage(final Map<Menu, Integer> menuCount) {
-        return menuCount.keySet().stream()
+    private static boolean isOnlyBeverage(final Set<Menu> menus) {
+        return menus.stream()
                 .map(Menu::getCategory)
                 .distinct()
                 .noneMatch(Category::isNotBeverage);
