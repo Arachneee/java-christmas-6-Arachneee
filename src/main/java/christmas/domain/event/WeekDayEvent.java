@@ -2,13 +2,13 @@ package christmas.domain.event;
 
 import christmas.domain.order.Order;
 
-public class WeekEvent extends Event {
+public class WeekDayEvent extends Event {
 
     private static final int ONCE_AMOUNT = 2_023;
 
     @Override
     boolean isUnavailable(final Order order) {
-        return false;
+        return order.isWeekend();
     }
 
     @Override

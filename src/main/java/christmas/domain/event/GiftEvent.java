@@ -1,7 +1,6 @@
 package christmas.domain.event;
 
-import static christmas.domain.order.constant.Menu.CHAMPAGNE;
-
+import christmas.domain.event.constant.EventType;
 import christmas.domain.order.Order;
 
 public class GiftEvent extends Event {
@@ -15,6 +14,6 @@ public class GiftEvent extends Event {
 
     @Override
     int calculateAmount(final Order order) {
-        return CHAMPAGNE.getPrice();
+        return EventType.GIFT_MENU.getPrice();
     }
 }

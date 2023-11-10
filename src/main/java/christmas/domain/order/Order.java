@@ -108,4 +108,8 @@ public class Order {
     public boolean isChristmasDay() {
         return day.isChristmasDay();
     }
+
+    public boolean isWeekend() {
+        return day.isWeekend();
+    }
 }

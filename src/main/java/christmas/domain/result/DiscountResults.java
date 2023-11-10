@@ -1,5 +1,6 @@
 package christmas.domain.result;
 
+import java.util.Collections;
 import java.util.List;
 
 public class DiscountResults {
@@ -28,5 +29,24 @@ public class DiscountResults {
                 .filter(DiscountResult::isDiscount)
                 .mapToInt(DiscountResult::getDiscountAmount)
                 .sum();
+    }
+
+    public int getGiftCount() {
+        return (int) discountResults.stream()
+                .filter(DiscountResult::isGiftEvent)
+                .filter(discountResult -> discountResult.getDiscountAmount() != 0)
+                .count();
+    }
+
+
+    public List<DiscountResult> getDiscountResults() {
+        return Collections.unmodifiableList(discountResults);
+    }
+
+    @Override
+    public String toString() {
+        return "DiscountResults{" +
+                "discountResults=" + discountResults +
+                '}';
     }
 }

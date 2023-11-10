@@ -54,4 +54,12 @@ public class Day {
     public boolean isSunDay() {
         return DayOfWeek.from(this).isSunDay();
     }
+
+    public int getValue() {
+        return day;
+    }
+
+    public boolean isWeekend() {
+        return DayOfWeek.from(this).isWeekend();
+    }
 }

@@ -16,11 +16,26 @@ public class DiscountResult {
         return new DiscountResult(eventType, discountAmount);
     }
 
+    public boolean isDiscount() {
+        return eventType.isDiscount();
+    }
+
+    public boolean isGiftEvent() {
+        return !eventType.isDiscount();
+    }
     public int getDiscountAmount() {
         return discountAmount;
     }
 
-    public boolean isDiscount() {
-        return eventType.isDiscount();
+    public String getTitle() {
+        return eventType.getTitle();
+    }
+
+    @Override
+    public String toString() {
+        return "DiscountResult{" +
+                "eventType=" + eventType.getTitle() +
+                ", discountAmount=" + discountAmount +
+                '}';
     }
 }

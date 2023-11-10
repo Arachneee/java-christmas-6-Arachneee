@@ -46,6 +46,10 @@ public enum Menu {
         return this.category.equals(category);
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public Category getCategory() {
         return category;
     }

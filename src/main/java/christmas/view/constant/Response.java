@@ -4,6 +4,7 @@ public enum Response {
 
     PREVIEW_EVENT("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!"),
     MENU_COUNT("%s %d개"),
+    DISCOUNT_RESULT("%s: -%,d원"),
     POSITIVE_MONEY("%,d원"),
     NEGATIVE_MONEY("-%,d원");
 
