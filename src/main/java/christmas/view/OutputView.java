@@ -11,6 +11,7 @@ import static christmas.view.constant.Header.TOTAL_DISCOUNT;
 import static christmas.view.constant.Response.DISCOUNT_RESULT;
 import static christmas.view.constant.Response.MENU_COUNT;
 import static christmas.view.constant.Response.NEGATIVE_MONEY;
+import static christmas.view.constant.Response.NONE;
 import static christmas.view.constant.Response.POSITIVE_MONEY;
 import static christmas.view.constant.Response.PREVIEW_EVENT;
 import static java.lang.System.lineSeparator;
@@ -25,6 +26,7 @@ public class OutputView {
 
     private static final String ENTER = lineSeparator();
     private static final String DOUBLE_ENTER = ENTER + ENTER;
+    private static final int ZERO = 0;
 
     public void printHello() {
         System.out.println(HELLO.getMessage());
@@ -41,15 +43,15 @@ public class OutputView {
         printBeforeDiscountTotalPrice(orderDto.totalPrice());
     }
 
-    private static void printPreViewHeader(final int day) {
+    private void printPreViewHeader(final int day) {
         System.out.printf(getPreViewFormat(), day);
     }
 
-    private static String getPreViewFormat() {
+    private String getPreViewFormat() {
         return PREVIEW_EVENT.getMessage() + DOUBLE_ENTER;
     }
 
-    private static void printOrderMenuCount(final OrderDto orderDto) {
+    private void printOrderMenuCount(final OrderDto orderDto) {
         System.out.println(MENU.getMessage());
 
         orderDto.menuCount()
@@ -73,8 +75,18 @@ public class OutputView {
         printBadge(discountResultsDto.badge());
     }
 
-    private static void printGiftMenu(final GiftDto giftDto) {
+    private void printGiftMenu(final GiftDto giftDto) {
         System.out.println(GIFT.getMessage());
+
+        printGiftResult(giftDto);
+    }
+
+    private void printGiftResult(final GiftDto giftDto) {
+        if (giftDto.count() == ZERO) {
+            System.out.println(NONE.getMessage() + ENTER);
+            return;
+        }
+
         System.out.printf(MENU_COUNT.getMessage() + DOUBLE_ENTER,
                 giftDto.title(),
                 giftDto.count());
@@ -83,14 +95,32 @@ public class OutputView {
     private void printDiscountResults(final List<DiscountResultDto> discounts) {
         System.out.println(DISCOUNT.getMessage());
 
+        printDiscounts(discounts);
+    }
+
+    private void printDiscounts(final List<DiscountResultDto> discounts) {
+        if (discounts.isEmpty()) {
+            System.out.println(NONE.getMessage() + ENTER);
+            return;
+        }
+
         discounts.forEach(discount -> System.out.printf(DISCOUNT_RESULT.getMessage() + ENTER,
                 discount.title(), discount.payment()));
-
         System.out.println();
     }
 
     private void printTotalDiscountAmount(final int totalDiscountAmount) {
         System.out.println(TOTAL_DISCOUNT.getMessage());
+
+        printTotalDiscount(totalDiscountAmount);
+    }
+
+    private void printTotalDiscount(final int totalDiscountAmount) {
+        if (totalDiscountAmount == ZERO) {
+            System.out.printf(POSITIVE_MONEY.getMessage() + DOUBLE_ENTER, totalDiscountAmount);
+            return;
+        }
+
         System.out.printf(NEGATIVE_MONEY.getMessage() + DOUBLE_ENTER, totalDiscountAmount);
     }
 

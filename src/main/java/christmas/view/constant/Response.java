@@ -6,7 +6,8 @@ public enum Response {
     MENU_COUNT("%s %d개"),
     DISCOUNT_RESULT("%s: -%,d원"),
     POSITIVE_MONEY("%,d원"),
-    NEGATIVE_MONEY("-%,d원");
+    NEGATIVE_MONEY("-%,d원"),
+    NONE("없음");
 
     private final String message;
 

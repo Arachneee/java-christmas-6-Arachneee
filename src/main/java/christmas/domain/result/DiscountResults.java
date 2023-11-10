@@ -34,10 +34,9 @@ public class DiscountResults {
     public int getGiftCount() {
         return (int) discountResults.stream()
                 .filter(DiscountResult::isGiftEvent)
-                .filter(discountResult -> discountResult.getDiscountAmount() != 0)
+                .filter(DiscountResult::isNotZero)
                 .count();
     }
-
 
     public List<DiscountResult> getDiscountResults() {
         return Collections.unmodifiableList(discountResults);

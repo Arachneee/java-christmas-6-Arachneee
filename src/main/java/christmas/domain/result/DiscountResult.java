@@ -23,6 +23,11 @@ public class DiscountResult {
     public boolean isGiftEvent() {
         return !eventType.isDiscount();
     }
+
+    public boolean isNotZero() {
+        return discountAmount != 0;
+    }
+
     public int getDiscountAmount() {
         return discountAmount;
     }

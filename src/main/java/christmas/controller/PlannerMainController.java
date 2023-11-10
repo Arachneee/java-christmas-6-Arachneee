@@ -23,7 +23,6 @@ public class PlannerMainController {
         final Order order = new OrderController(inputView, outputView).createOrder();
 
         final DiscountResults discountResults = EventType.discountAll(order);
-        System.out.println(discountResults);
 
         outputView.printAllResults(DiscountResultsDto.of(discountResults, order.calculateTotalPrice()));
     }

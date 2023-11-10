@@ -8,7 +8,7 @@ import christmas.domain.order.Order;
 
 public class ChristmasEvent extends Event {
 
-    private static final int OFFSET = 1000;
+    private static final int OFFSET = 1_000;
 
     private static final int ONCE_AMOUNT = 100;
 

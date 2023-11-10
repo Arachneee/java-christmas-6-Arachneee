@@ -33,9 +33,14 @@ public class Parser {
     }
 
     public static Map<String, Integer> orderInputToStringIntegerMap(final String input) {
-        return Arrays.stream(input.split(MENU_SPLIT_SIGNAL))
-                .map(menuCount -> menuCount.split(COUNT_SPLIT_SIGNAL))
-                .collect(toMap(menu -> menu[MENU_NAME_INDEX],
-                        menu -> orderCountToInt(menu[MENU_COUNT_INDEX])));
+        try {
+            return Arrays.stream(input.split(MENU_SPLIT_SIGNAL))
+                    .map(menuCount -> menuCount.split(COUNT_SPLIT_SIGNAL))
+                    .collect(toMap(menu -> menu[MENU_NAME_INDEX],
+                            menu -> orderCountToInt(menu[MENU_COUNT_INDEX])));
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            throw OrderException.from(ErrorMessage.INVALID_ORDER);
+        }
+
     }
 }
