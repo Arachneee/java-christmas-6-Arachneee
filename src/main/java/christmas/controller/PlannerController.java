@@ -1,11 +1,11 @@
 package christmas.controller;
 
-import christmas.controller.dto.DiscountResultsDto;
+import christmas.controller.dto.DiscountsDto;
 import christmas.controller.dto.OrderDto;
 import christmas.domain.day.Day;
 import christmas.domain.event.constant.EventType;
 import christmas.domain.order.Order;
-import christmas.domain.result.DiscountResults;
+import christmas.domain.discount.Discounts;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.function.Supplier;
@@ -26,8 +26,8 @@ public class PlannerController {
         final Order order = createOrder(day);
         outputView.printAllOrder(OrderDto.from(order));
 
-        final DiscountResults discountResults = EventType.discountAll(order);
-        outputView.printAllResults(DiscountResultsDto.from(discountResults));
+        final Discounts discounts = EventType.discountAll(order);
+        outputView.printAllResults(DiscountsDto.from(discounts));
     }
 
     private Day createOrderDay() {

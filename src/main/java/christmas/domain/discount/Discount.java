@@ -1,19 +1,19 @@
-package christmas.domain.result;
+package christmas.domain.discount;
 
 import christmas.domain.event.constant.EventType;
 
-public class DiscountResult {
+public class Discount {
 
     private final EventType eventType;
     private final int discountAmount;
 
-    private DiscountResult(final EventType eventType, final int discountAmount) {
+    private Discount(final EventType eventType, final int discountAmount) {
         this.eventType = eventType;
         this.discountAmount = discountAmount;
     }
 
-    public static DiscountResult of(final EventType eventType, final int discountAmount) {
-        return new DiscountResult(eventType, discountAmount);
+    public static Discount of(final EventType eventType, final int discountAmount) {
+        return new Discount(eventType, discountAmount);
     }
 
     public boolean isDiscount() {

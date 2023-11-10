@@ -16,8 +16,8 @@ import static christmas.view.constant.Response.POSITIVE_MONEY;
 import static christmas.view.constant.Response.PREVIEW_EVENT;
 import static java.lang.System.lineSeparator;
 
-import christmas.controller.dto.DiscountResultDto;
-import christmas.controller.dto.DiscountResultsDto;
+import christmas.controller.dto.DiscountDto;
+import christmas.controller.dto.DiscountsDto;
 import christmas.controller.dto.GiftDto;
 import christmas.controller.dto.OrderDto;
 import java.util.List;
@@ -55,19 +55,19 @@ public class OutputView {
 
         orderDto.menuCount()
                 .forEach(menuCountDto -> System.out.printf(MENU_COUNT.getMessage() + ENTER,
-                        menuCountDto.name(),
+                        menuCountDto.title(),
                         menuCountDto.count()));
 
         System.out.println();
     }
 
-    public void printAllResults(final DiscountResultsDto discountResultsDto) {
-        printBeforeDiscountTotalPrice(discountResultsDto.beforePaymentAmount());
-        printGiftMenu(discountResultsDto.giftDto());
-        printDiscountResults(discountResultsDto.discounts());
-        printTotalDiscountAmount(discountResultsDto.totalDiscountAmount());
-        printAfterDiscountPayment(discountResultsDto.afterDiscountPayment());
-        printBadge(discountResultsDto.badge());
+    public void printAllResults(final DiscountsDto discountsDto) {
+        printBeforeDiscountTotalPrice(discountsDto.amountBeforeDiscount());
+        printGiftMenu(discountsDto.giftDto());
+        printDiscountResults(discountsDto.activeDiscount());
+        printTotalDiscountAmount(discountsDto.totalDiscountAmount());
+        printAfterDiscountPayment(discountsDto.amountAfterDiscount());
+        printBadge(discountsDto.badge());
     }
 
     private void printBeforeDiscountTotalPrice(final int totalPrice) {
@@ -92,13 +92,13 @@ public class OutputView {
                 giftDto.count());
     }
 
-    private void printDiscountResults(final List<DiscountResultDto> discounts) {
+    private void printDiscountResults(final List<DiscountDto> discounts) {
         System.out.println(DISCOUNT.getMessage());
 
         printDiscounts(discounts);
     }
 
-    private void printDiscounts(final List<DiscountResultDto> discounts) {
+    private void printDiscounts(final List<DiscountDto> discounts) {
         if (discounts.isEmpty()) {
             System.out.println(NONE.getMessage() + ENTER);
             return;

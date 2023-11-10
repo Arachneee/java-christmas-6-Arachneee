@@ -12,13 +12,13 @@ public record OrderDto(
 
     public static OrderDto from(final Order order) {
         final int day = order.getDayInt();
-        final List<MenuCountDto> menuCountDtos = convertMenuCounts(order.getMenuCount());
+        final List<MenuCountDto> menuCounts = convertMenuCounts(order.getMenuCount());
 
-        return new OrderDto(day, menuCountDtos);
+        return new OrderDto(day, menuCounts);
     }
 
-    private static List<MenuCountDto> convertMenuCounts(final Map<Menu, Integer> nameCount) {
-        return nameCount.entrySet().stream()
+    private static List<MenuCountDto> convertMenuCounts(final Map<Menu, Integer> menuCount) {
+        return menuCount.entrySet().stream()
                 .map(entry -> MenuCountDto.of(entry.getKey().getTitle(), entry.getValue()))
                 .toList();
     }

@@ -8,8 +8,8 @@ import christmas.domain.event.WeekdayEvent;
 import christmas.domain.event.WeekendEvent;
 import christmas.domain.order.Order;
 import christmas.domain.order.constant.Menu;
-import christmas.domain.result.DiscountResult;
-import christmas.domain.result.DiscountResults;
+import christmas.domain.discount.Discount;
+import christmas.domain.discount.Discounts;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,13 +32,13 @@ public enum EventType {
         this.isDiscount = isDiscount;
     }
 
-    public static DiscountResults discountAll(final Order order) {
-        return DiscountResults.from(applyAllEvent(order), order.calculateTotalPrice());
+    public static Discounts discountAll(final Order order) {
+        return Discounts.from(applyAllEvent(order), order.calculateTotalPrice());
     }
 
-    private static List<DiscountResult> applyAllEvent(final Order order) {
+    private static List<Discount> applyAllEvent(final Order order) {
         return Arrays.stream(values())
-                .map(eventType -> DiscountResult.of(eventType, eventType.getApply(order)))
+                .map(eventType -> Discount.of(eventType, eventType.getApply(order)))
                 .toList();
     }
 

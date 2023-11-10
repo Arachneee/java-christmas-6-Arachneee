@@ -1,12 +1,12 @@
 package christmas.controller.dto;
 
 public record MenuCountDto(
-        String name,
+        String title,
         int count
 ) {
 
-    public static MenuCountDto of(final String name, final int count) {
-        return new MenuCountDto(name, count);
+    public static MenuCountDto of(final String title, final int count) {
+        return new MenuCountDto(title, count);
     }
 
 }
