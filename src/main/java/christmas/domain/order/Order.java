@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 
 public class Order {
 
-    private static final int MAX = 20;
+    private static final int TOTAL_COUNT_MAX = 20;
+    private static final int ONCE_COUNT_MIN = 1;
     private final Day day;
     private final Map<Menu, Integer> menuCount;
 
@@ -44,13 +45,26 @@ public class Order {
     }
 
     private static void validate(final Map<Menu, Integer> menuCount) {
-        validateCountMax(menuCount);
+        validateCountRange(menuCount);
+        validateTotalCountMax(menuCount);
         validateOnlyBeverage(menuCount);
     }
 
+    private static void validateCountRange(final Map<Menu, Integer> menuCount) {
+        if (isUnderThanMin(menuCount)) {
+            throw OrderException.from(ErrorMessage.INVALID_ORDER);
+        }
 
-    private static void validateCountMax(final Map<Menu, Integer> menuCount) {
-        if (calculateTotalCount(menuCount) > MAX) {
+    }
+
+    private static boolean isUnderThanMin(Map<Menu, Integer> menuCount) {
+        return menuCount.values().stream()
+                .anyMatch(count -> count < ONCE_COUNT_MIN);
+    }
+
+
+    private static void validateTotalCountMax(final Map<Menu, Integer> menuCount) {
+        if (calculateTotalCount(menuCount) > TOTAL_COUNT_MAX) {
             throw OrderException.from(ErrorMessage.INVALID_ORDER);
         }
     }
