@@ -1,8 +1,11 @@
 package christmas.domain.day;
 
-import static christmas.exception.ErrorMessage.INVALID_DAY;
+import static christmas.exception.constant.ErrorMessage.INVALID_DAY;
 
-import christmas.domain.order.Category;
+import christmas.domain.day.constant.DayOfWeek;
+import christmas.domain.day.constant.December;
+import christmas.domain.day.constant.Week;
+import christmas.domain.order.constant.Category;
 import christmas.exception.OrderException;
 
 public class Day {

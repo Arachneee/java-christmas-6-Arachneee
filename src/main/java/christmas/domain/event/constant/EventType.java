@@ -1,5 +1,10 @@
-package christmas.domain.event;
+package christmas.domain.event.constant;
 
+import christmas.domain.event.ChristmasEvent;
+import christmas.domain.event.Event;
+import christmas.domain.event.GiftEvent;
+import christmas.domain.event.SpecialEvent;
+import christmas.domain.event.WeekEvent;
 import christmas.domain.order.Order;
 import christmas.domain.result.DiscountResult;
 import christmas.domain.result.DiscountResults;
@@ -11,7 +16,7 @@ public enum EventType {
     WEEKDAY_DISCOUNT("평일 할인", new WeekEvent(), true),
     WEEKEND_DISCOUNT("주말 할인", new WeekEvent(), true),
     SPECIAL_DISCOUNT("특별 할인",new SpecialEvent(), true),
-    PRESENTATION("증정 이벤트",new PresentationEvent(), false);
+    PRESENTATION("증정 이벤트",new GiftEvent(), false);
 
     private final String title;
     private final Event event;

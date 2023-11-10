@@ -1,6 +1,6 @@
 package christmas.domain.result;
 
-import christmas.domain.event.EventType;
+import christmas.domain.event.constant.EventType;
 
 public class DiscountResult {
 

@@ -1,4 +1,4 @@
-package christmas.domain.result;
+package christmas.domain.result.constant;
 
 import java.util.Arrays;
 
