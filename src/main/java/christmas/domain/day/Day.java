@@ -2,6 +2,7 @@ package christmas.domain.day;
 
 import static christmas.exception.ErrorMessage.INVALID_DAY;
 
+import christmas.domain.order.Category;
 import christmas.exception.OrderException;
 
 public class Day {
@@ -39,7 +40,15 @@ public class Day {
         return day % weekCount;
     }
 
-    public boolean isChristMasDay() {
+    public Category checkEventCategory() {
+        return Week.from(this).getEventCategory();
+    }
+
+    public boolean isChristmasDay() {
         return December.isChristMas(day);
+    }
+
+    public boolean isSunDay() {
+        return DayOfWeek.from(this).isSunDay();
     }
 }

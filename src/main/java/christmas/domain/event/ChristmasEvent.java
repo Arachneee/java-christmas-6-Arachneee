@@ -1,8 +1,10 @@
 package christmas.domain.event;
 
-import christmas.domain.day.December;
-import christmas.domain.order.Order;
+import static christmas.domain.day.December.CHRISTMAS_DAY;
+import static christmas.domain.day.December.START_DAY;
+
 import christmas.domain.day.Day;
+import christmas.domain.order.Order;
 
 public class ChristmasEvent extends Event {
 
@@ -10,8 +12,8 @@ public class ChristmasEvent extends Event {
 
     private static final int ONCE_AMOUNT = 100;
 
-    private static final Day REFERENCE_DAY = Day.from(December.START_DAY.getDay());
-    private static final Day FINAL_DAY = Day.from(December.CHRISTMAS_DAY.getDay());
+    private static final Day REFERENCE_DAY = Day.from(START_DAY.getDay());
+    private static final Day FINAL_DAY = Day.from(CHRISTMAS_DAY.getDay());
 
     @Override
     boolean isUnavailable(final Order order) {

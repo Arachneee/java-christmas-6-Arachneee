@@ -1,7 +1,5 @@
 package christmas.domain.order;
 
-import christmas.domain.day.DayOfWeek;
-import christmas.domain.day.Week;
 import christmas.domain.day.Day;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -31,7 +29,7 @@ public class Order {
     }
 
     public int countWeekEventMenu() {
-        final Category category = Week.from(day).getEventCategory();
+        final Category category = day.checkEventCategory();
 
         return menuCount.entrySet().stream()
                 .filter(entry -> entry.getKey().isCategory(category))
@@ -47,7 +45,11 @@ public class Order {
         return this.day.isOverThan(day);
     }
 
-    public boolean isStarDay() {
-        return DayOfWeek.from(day).isSunDay() || day.isChristMasDay();
+    public boolean isSunDay() {
+        return day.isSunDay();
+    }
+
+    public boolean isChristmasDay() {
+        return day.isChristmasDay();
     }
 }

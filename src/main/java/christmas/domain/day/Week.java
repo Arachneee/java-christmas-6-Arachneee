@@ -27,7 +27,7 @@ public enum Week {
     }
 
     public boolean isWeekend() {
-        return this.equals(Week.WEEKEND);
+        return this.equals(WEEKEND);
     }
 
     public Category getEventCategory() {

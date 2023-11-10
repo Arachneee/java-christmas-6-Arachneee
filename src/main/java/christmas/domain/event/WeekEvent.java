@@ -4,7 +4,7 @@ import christmas.domain.order.Order;
 
 public class WeekEvent extends Event {
 
-    private static final int ONCE_AMOUNT = 2023;
+    private static final int ONCE_AMOUNT = 2_023;
 
     @Override
     boolean isUnavailable(final Order order) {
