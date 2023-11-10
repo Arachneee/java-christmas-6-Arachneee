@@ -7,12 +7,9 @@ import christmas.exception.OrderException;
 import christmas.exception.constant.ErrorMessage;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.function.BinaryOperator;
-import java.util.stream.Collectors;
 
 public class Order {
 
@@ -26,25 +23,10 @@ public class Order {
         this.menuCount = menuCount;
     }
 
-    public static Order of(final Day day, final Map<String, Integer> nameCount) {
-        final Map<Menu, Integer> menuCount = convertToEnumMap(nameCount);
+    public static Order of(final Day day, final Map<Menu, Integer> menuCount) {
         validate(menuCount);
 
         return new Order(day, menuCount);
-    }
-
-    private static EnumMap<Menu, Integer> convertToEnumMap(final Map<String, Integer> nameCount) {
-        return nameCount.entrySet().stream()
-                .collect(Collectors.toMap(entry -> Menu.from(entry.getKey()),
-                        Entry::getValue,
-                        throwingDuplicateOrderException(),
-                        () -> new EnumMap<>(Menu.class)));
-    }
-
-    private static <T> BinaryOperator<T> throwingDuplicateOrderException() {
-        return (menu, other) -> {
-            throw OrderException.from(ErrorMessage.INVALID_ORDER);
-        };
     }
 
     private static void validate(final Map<Menu, Integer> menuCount) {
