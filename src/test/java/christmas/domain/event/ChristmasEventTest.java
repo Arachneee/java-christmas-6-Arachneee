@@ -1,18 +1,14 @@
 package christmas.domain.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import christmas.domain.order.constant.Menu;
-import christmas.domain.order.Order;
 import christmas.domain.day.Day;
+import christmas.domain.order.Order;
+import christmas.domain.order.constant.Menu;
 import java.util.Map;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class ChristmasEventTest {
@@ -33,30 +29,20 @@ class ChristmasEventTest {
         assertThat(discountAmount).isEqualTo(discountTarget);
     }
 
-    @DisplayName("주문의 총 금액이 10000뭔 이상이어야 할인을 적용한다.")
+    @DisplayName("주문 날짜가 25일 이내이면 할인이 적용된다.")
     @ParameterizedTest
-    @MethodSource("underMenuProvider")
-    void apply(Map<String, Integer> menuCount) {
+    @ValueSource(ints = {1, 2, 3, 4, 5, 6, 7, 15, 20, 23, 24, 25})
+    void apply(int day) {
         // given
         ChristmasEvent christmasDiscount = new ChristmasEvent();
-        Day day = Day.from(1);
-        Order order = Order.of(day, menuCount);
+        Day orderDay = Day.from(day);
+        Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM.getTitle(), 10));
 
         // when
         int discountAmount = christmasDiscount.apply(order);
 
         // then
-        assertThat(discountAmount).isEqualTo(0);
-    }
-
-    static Stream<Arguments> underMenuProvider() {
-        return Stream.of(
-                arguments(Map.of(Menu.ICE_CREAM.getTitle(), 1)),
-                arguments(Map.of(Menu.TAPAS.getTitle(), 1)),
-                arguments(Map.of(Menu.CAESAR_SALAD.getTitle(), 1)),
-                arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP.getTitle(), 1)),
-                arguments(Map.of(Menu.BUTTON_MUSHROOM_SOUP.getTitle(), 1, Menu.ZERO_COLA.getTitle(), 1))
-        );
+        assertThat(discountAmount).isEqualTo((day - 1) * 100 + 1000);
     }
 
     @DisplayName("주문 날짜가 25일을 넘어가면 할인 적용이 안된다.")
@@ -66,7 +52,7 @@ class ChristmasEventTest {
         // given
         ChristmasEvent christmasDiscount = new ChristmasEvent();
         Day orderDay = Day.from(day);
-        Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM.getTitle(), 1));
+        Order order = Order.of(orderDay, Map.of(Menu.ICE_CREAM.getTitle(), 10));
 
         // when
         int discountAmount = christmasDiscount.apply(order);

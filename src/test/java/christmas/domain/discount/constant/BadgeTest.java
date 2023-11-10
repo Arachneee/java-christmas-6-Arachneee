@@ -1,4 +1,4 @@
-package christmas.constant;
+package christmas.domain.discount.constant;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
