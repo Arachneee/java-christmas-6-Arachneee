@@ -1,135 +1,141 @@
 package christmas.view;
 
-import static christmas.view.constant.Header.AFTER_PAYMENT;
-import static christmas.view.constant.Header.BADGE;
-import static christmas.view.constant.Header.BEFORE_TOTAL_PRICE;
-import static christmas.view.constant.Header.DISCOUNT;
-import static christmas.view.constant.Header.GIFT;
-import static christmas.view.constant.Header.HELLO;
-import static christmas.view.constant.Header.MENU;
-import static christmas.view.constant.Header.TOTAL_DISCOUNT;
-import static christmas.view.constant.Response.DISCOUNT_RESULT;
-import static christmas.view.constant.Response.MENU_COUNT;
-import static christmas.view.constant.Response.NEGATIVE_MONEY;
-import static christmas.view.constant.Response.NONE;
-import static christmas.view.constant.Response.POSITIVE_MONEY;
-import static christmas.view.constant.Response.PREVIEW_EVENT;
 import static java.lang.System.lineSeparator;
 
-import christmas.controller.dto.DiscountDto;
-import christmas.controller.dto.DiscountsDto;
-import christmas.controller.dto.GiftDto;
-import christmas.controller.dto.OrderDto;
+import christmas.controller.response.DiscountResponse;
+import christmas.controller.response.GiftResponse;
+import christmas.controller.response.OrderResponse;
+import christmas.controller.response.OrderSummaryResponse;
 import java.util.List;
 
 public class OutputView {
 
-    private static final String ENTER = lineSeparator();
-    private static final String DOUBLE_ENTER = ENTER + ENTER;
     private static final int ZERO = 0;
 
     public void printHello() {
-        System.out.println(HELLO.getMessage());
+        System.out.println(Header.HELLO.value);
     }
 
     public void printError(final String message) {
         System.out.println(message);
     }
 
-    public void printAllOrder(final OrderDto orderDto) {
-        printPreViewHeader(orderDto.day());
-        printOrderMenuCount(orderDto);
+    public void printOrderSummary(final OrderSummaryResponse orderSummaryResponse) {
+        printPreViewHeader(orderSummaryResponse.orderResponse().day());
+        printOrderMenuCount(orderSummaryResponse.orderResponse());
+        printPriceBeforeDiscount(orderSummaryResponse.priceBefore());
+        printGift(orderSummaryResponse.giftResponse());
+        printActiveDiscount(orderSummaryResponse.activeDiscount());
+        printTotalDiscountAmount(orderSummaryResponse.totalAmount());
+        printPriceAfterDiscount(orderSummaryResponse.priceAfter());
+        printBadge(orderSummaryResponse.badge());
     }
 
     private void printPreViewHeader(final int day) {
-        System.out.printf(getPreViewFormat(), day);
+        System.out.printf(Response.PREVIEW_EVENT.value + Response.DOUBLE_ENTER.value, day);
     }
 
-    private String getPreViewFormat() {
-        return PREVIEW_EVENT.getMessage() + DOUBLE_ENTER;
-    }
+    private void printOrderMenuCount(final OrderResponse orderResponse) {
+        System.out.println(Header.MENU.value);
 
-    private void printOrderMenuCount(final OrderDto orderDto) {
-        System.out.println(MENU.getMessage());
-
-        orderDto.menuCount()
-                .forEach(menuCountDto -> System.out.printf(MENU_COUNT.getMessage() + ENTER,
+        orderResponse.menuCount()
+                .forEach(menuCountDto -> System.out.printf(Response.MENU_COUNT.value + Response.ENTER.value,
                         menuCountDto.title(),
                         menuCountDto.count()));
 
         System.out.println();
     }
 
-    public void printAllDiscountResults(final DiscountsDto discountsDto) {
-        printPriceBefore(discountsDto.priceBefore());
-        printGift(discountsDto.giftDto());
-        printActiveDiscount(discountsDto.activeDiscount());
-        printTotalAmount(discountsDto.totalAmount());
-        printPriceAfter(discountsDto.priceAfter());
-        printBadge(discountsDto.badge());
+    private void printPriceBeforeDiscount(final int totalPrice) {
+        System.out.println(Header.BEFORE_TOTAL_PRICE.value);
+        System.out.printf(Response.POSITIVE_MONEY.value + Response.DOUBLE_ENTER.value);
     }
 
-    private void printPriceBefore(final int totalPrice) {
-        System.out.println(BEFORE_TOTAL_PRICE.getMessage());
-        System.out.printf(POSITIVE_MONEY.getMessage() + DOUBLE_ENTER, totalPrice);
-    }
+    private void printGift(final GiftResponse giftResponse) {
+        System.out.println(Header.GIFT.value);
 
-    private void printGift(final GiftDto giftDto) {
-        System.out.println(GIFT.getMessage());
-
-        printGiftResult(giftDto);
-    }
-
-    private void printGiftResult(final GiftDto giftDto) {
-        if (giftDto.count() == ZERO) {
-            System.out.println(NONE.getMessage() + ENTER);
+        if (giftResponse.count() == ZERO) {
+            System.out.println(Response.NONE.value + Response.ENTER.value);
             return;
         }
 
-        System.out.printf(MENU_COUNT.getMessage() + DOUBLE_ENTER,
-                giftDto.title(),
-                giftDto.count());
+        System.out.printf(Response.MENU_COUNT.value + Response.DOUBLE_ENTER.value,
+                giftResponse.title(), giftResponse.count());
     }
 
-    private void printActiveDiscount(final List<DiscountDto> discounts) {
-        System.out.println(DISCOUNT.getMessage());
+    private void printActiveDiscount(final List<DiscountResponse> discounts) {
+        System.out.println(Header.DISCOUNT.value);
 
-        printDiscounts(discounts);
-    }
-
-    private void printDiscounts(final List<DiscountDto> discounts) {
         if (discounts.isEmpty()) {
-            System.out.println(NONE.getMessage() + ENTER);
+            System.out.println(Response.NONE.value + Response.ENTER.value);
             return;
         }
 
-        discounts.forEach(discount -> System.out.printf(DISCOUNT_RESULT.getMessage() + ENTER,
+        discounts.forEach(discount -> System.out.printf(Response.DISCOUNT_RESULT.value + Response.ENTER.value,
                 discount.title(), discount.amount()));
+
         System.out.println();
     }
 
-    private void printTotalAmount(final int totalDiscountAmount) {
-        System.out.println(TOTAL_DISCOUNT.getMessage());
+    private void printTotalDiscountAmount(final int totalDiscountAmount) {
+        System.out.println(Header.TOTAL_DISCOUNT.value);
 
-        printTotalDiscount(totalDiscountAmount);
-    }
-
-    private void printTotalDiscount(final int totalDiscountAmount) {
         if (totalDiscountAmount == ZERO) {
-            System.out.printf(POSITIVE_MONEY.getMessage() + DOUBLE_ENTER, totalDiscountAmount);
+            System.out.printf(Response.POSITIVE_MONEY.value + Response.DOUBLE_ENTER.value, totalDiscountAmount);
             return;
         }
 
-        System.out.printf(NEGATIVE_MONEY.getMessage() + DOUBLE_ENTER, totalDiscountAmount);
+        System.out.printf(Response.NEGATIVE_MONEY.value + Response.DOUBLE_ENTER.value, totalDiscountAmount);
     }
 
-    private void printPriceAfter(final int afterDiscountPayment) {
-        System.out.println(AFTER_PAYMENT.getMessage());
-        System.out.printf(POSITIVE_MONEY.getMessage() + DOUBLE_ENTER, afterDiscountPayment);
+    private void printPriceAfterDiscount(final int afterDiscountPayment) {
+        System.out.println(Header.AFTER_PAYMENT.value);
+        System.out.printf(Response.POSITIVE_MONEY.value + Response.DOUBLE_ENTER.value, afterDiscountPayment);
     }
 
     private void printBadge(final String badge) {
-        System.out.println(BADGE.getMessage());
+        System.out.println(Header.BADGE.value);
+
+        if (badge.isBlank()) {
+            System.out.println(Response.NONE.value);
+            return;
+        }
+
         System.out.println(badge);
+    }
+
+    private enum Response {
+
+        PREVIEW_EVENT("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!"),
+        MENU_COUNT("%s %d개"),
+        DISCOUNT_RESULT("%s: -%,d원"),
+        POSITIVE_MONEY("%,d원"),
+        NEGATIVE_MONEY("-%,d원"),
+        NONE("없음"),
+        ENTER(lineSeparator()),
+        DOUBLE_ENTER(lineSeparator() + lineSeparator());
+
+        private final String value;
+
+        Response(final String value) {
+            this.value = value;
+        }
+    }
+
+    private enum Header {
+        HELLO("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다."),
+        MENU("<주문 메뉴>"),
+        BEFORE_TOTAL_PRICE("<할인 전 총주문 금액>"),
+        GIFT("<증정 메뉴>"),
+        DISCOUNT("<혜택 내역>"),
+        TOTAL_DISCOUNT("<총혜택 금액>"),
+        AFTER_PAYMENT("<할인 후 예상 결제 금액>"),
+        BADGE("<12월 이벤트 배지>");
+
+        private final String value;
+
+        Header(final String value) {
+            this.value = value;
+        }
     }
 }
