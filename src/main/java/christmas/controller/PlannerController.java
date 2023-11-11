@@ -2,11 +2,10 @@ package christmas.controller;
 
 import static christmas.controller.convertor.MenuConvertor.convertToEnumMap;
 
-import christmas.controller.response.OrderSummaryResponse;
-import christmas.domain.day.Day;
-import christmas.domain.discount.Discounts;
-import christmas.domain.event.EventType;
+import christmas.domain.order.day.Day;
 import christmas.domain.order.Order;
+import christmas.response.OrderSummaryResponse;
+import christmas.service.OrderService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.function.Supplier;
@@ -15,19 +14,23 @@ public class PlannerController {
 
     private final InputView inputView;
     private final OutputView outputView;
+    private final OrderService orderService;
 
-    public PlannerController(final InputView inputView, final OutputView outputView) {
+    public PlannerController(final InputView inputView, final OutputView outputView, final OrderService orderService) {
         this.inputView = inputView;
         this.outputView = outputView;
+        this.orderService = orderService;
     }
 
     public void run() {
         outputView.printHello();
 
-        final Order order = createOrder(createOrderDay());
-        final Discounts discounts = EventType.discountAll(order);
+        final Day orderDay = createOrderDay();
+        final Order order = createOrder(orderDay);
 
-        outputView.printOrderSummary(OrderSummaryResponse.of(order, discounts));
+        final OrderSummaryResponse orderSummaryResponse = orderService.createOrderSummary(order);
+
+        outputView.printOrderSummary(orderSummaryResponse);
     }
 
     private Day createOrderDay() {

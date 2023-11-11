@@ -1,21 +1,18 @@
-package christmas.domain.day.constant;
+package christmas.domain.order.day;
 
-import static christmas.domain.day.constant.Week.WEEKDAY;
-import static christmas.domain.day.constant.Week.WEEKEND;
-import static christmas.exception.constant.ErrorMessage.INVALID_DAY;
+import static christmas.exception.ErrorMessage.INVALID_DAY;
 
-import christmas.domain.day.Day;
 import christmas.exception.OrderException;
 import java.util.Arrays;
 
 public enum DayOfWeek {
-    FRIDAY(1, WEEKEND),
-    SATURDAY(2, WEEKEND),
-    SUNDAY(3, WEEKDAY),
-    MONDAY(4, WEEKDAY),
-    TUESDAY(5, WEEKDAY),
-    WEDNESDAY(6, WEEKDAY),
-    THURSDAY(0, WEEKDAY);
+    FRIDAY(1, Week.WEEKEND),
+    SATURDAY(2, Week.WEEKEND),
+    SUNDAY(3, Week.WEEKDAY),
+    MONDAY(4, Week.WEEKDAY),
+    TUESDAY(5, Week.WEEKDAY),
+    WEDNESDAY(6, Week.WEEKDAY),
+    THURSDAY(0, Week.WEEKDAY);
 
     private final int modNumber;
     private final Week week;
@@ -45,6 +42,6 @@ public enum DayOfWeek {
     }
 
     public boolean isWeekend() {
-        return this.week.equals(WEEKEND);
+        return this.week.equals(Week.WEEKEND);
     }
 }

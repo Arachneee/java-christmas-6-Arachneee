@@ -1,11 +1,8 @@
-package christmas.domain.day;
+package christmas.domain.order.day;
 
-import static christmas.exception.constant.ErrorMessage.INVALID_DAY;
+import static christmas.exception.ErrorMessage.INVALID_DAY;
 
-import christmas.domain.day.constant.DayOfWeek;
-import christmas.domain.day.constant.December;
-import christmas.domain.day.constant.Week;
-import christmas.domain.order.constant.Category;
+import christmas.domain.order.menu.Category;
 import christmas.exception.OrderException;
 import java.util.Objects;
 
@@ -40,7 +37,7 @@ public class Day {
         return day % weekCount;
     }
 
-    public Category checkEventCategory() {
+    public Category getTodayEventCategory() {
         return Week.from(DayOfWeek.from(this)).getEventCategory();
     }
 

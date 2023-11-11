@@ -1,13 +1,13 @@
-package christmas.domain.order.constant;
+package christmas.domain.order.menu;
 
 
-import static christmas.domain.order.constant.Category.APPETIZER;
-import static christmas.domain.order.constant.Category.BEVERAGE;
-import static christmas.domain.order.constant.Category.DESSERT;
-import static christmas.domain.order.constant.Category.MAIN;
+import static christmas.domain.order.menu.Category.APPETIZER;
+import static christmas.domain.order.menu.Category.BEVERAGE;
+import static christmas.domain.order.menu.Category.DESSERT;
+import static christmas.domain.order.menu.Category.MAIN;
 
 import christmas.exception.OrderException;
-import christmas.exception.constant.ErrorMessage;
+import christmas.exception.ErrorMessage;
 import java.util.Arrays;
 
 public enum Menu {

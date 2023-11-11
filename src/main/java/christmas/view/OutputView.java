@@ -2,10 +2,12 @@ package christmas.view;
 
 import static java.lang.System.lineSeparator;
 
-import christmas.controller.response.DiscountResponse;
-import christmas.controller.response.GiftResponse;
-import christmas.controller.response.OrderResponse;
-import christmas.controller.response.OrderSummaryResponse;
+import christmas.response.DiscountDetailResponse;
+import christmas.response.DiscountResponse;
+import christmas.response.GiftResponse;
+import christmas.response.MenuCountResponse;
+import christmas.response.OrderResponse;
+import christmas.response.OrderSummaryResponse;
 import java.util.List;
 
 public class OutputView {
@@ -21,34 +23,42 @@ public class OutputView {
     }
 
     public void printOrderSummary(final OrderSummaryResponse orderSummaryResponse) {
-        printPreViewHeader(orderSummaryResponse.orderResponse().day());
-        printOrderMenuCount(orderSummaryResponse.orderResponse());
-        printPriceBeforeDiscount(orderSummaryResponse.priceBefore());
-        printGift(orderSummaryResponse.giftResponse());
-        printActiveDiscount(orderSummaryResponse.activeDiscount());
-        printTotalDiscountAmount(orderSummaryResponse.totalAmount());
-        printPriceAfterDiscount(orderSummaryResponse.priceAfter());
-        printBadge(orderSummaryResponse.badge());
+        printOrder(orderSummaryResponse.orderResponse());
+        printDiscountDetail(orderSummaryResponse.discountDetailResponse());
+    }
+
+    private void printOrder(final OrderResponse orderResponse) {
+        printPreViewHeader(orderResponse.day());
+        printOrderMenuCount(orderResponse.menuCount());
+    }
+
+    private void printDiscountDetail(final DiscountDetailResponse discountDetailResponse) {
+        printPriceBeforeDiscount(discountDetailResponse.priceBeforeDiscount());
+        printGift(discountDetailResponse.giftResponse());
+        printActiveDiscount(discountDetailResponse.activeDiscounts());
+        printTotalDiscountAmount(discountDetailResponse.totalDiscountAmount());
+        printPriceAfterDiscount(discountDetailResponse.priceAfterDiscount());
+        printBadge(discountDetailResponse.badge());
     }
 
     private void printPreViewHeader(final int day) {
         System.out.printf(Response.PREVIEW_EVENT.value + Response.DOUBLE_ENTER.value, day);
     }
 
-    private void printOrderMenuCount(final OrderResponse orderResponse) {
+    private void printOrderMenuCount(final List<MenuCountResponse> menuCountResponses) {
         System.out.println(Header.MENU.value);
 
-        orderResponse.menuCount()
-                .forEach(menuCountDto -> System.out.printf(Response.MENU_COUNT.value + Response.ENTER.value,
-                        menuCountDto.title(),
-                        menuCountDto.count()));
+        menuCountResponses
+                .forEach(menuCountResponse -> System.out.printf(Response.MENU_COUNT.value + Response.ENTER.value,
+                        menuCountResponse.title(),
+                        menuCountResponse.count()));
 
         System.out.println();
     }
 
     private void printPriceBeforeDiscount(final int totalPrice) {
         System.out.println(Header.BEFORE_TOTAL_PRICE.value);
-        System.out.printf(Response.POSITIVE_MONEY.value + Response.DOUBLE_ENTER.value);
+        System.out.printf(Response.POSITIVE_MONEY.value + Response.DOUBLE_ENTER.value, totalPrice);
     }
 
     private void printGift(final GiftResponse giftResponse) {

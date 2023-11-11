@@ -1,4 +1,4 @@
-package christmas.domain.discount.constant;
+package christmas.domain.discount;
 
 import java.util.Arrays;
 

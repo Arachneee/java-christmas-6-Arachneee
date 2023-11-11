@@ -4,7 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import christmas.domain.order.constant.Category;
+import christmas.domain.order.menu.Category;
+import christmas.domain.order.day.Day;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -74,7 +75,7 @@ class DayTest {
         Day day = Day.from(input);
 
         // when
-        Category category = day.checkEventCategory();
+        Category category = day.getTodayEventCategory();
 
         // then
         assertThat(category).isEqualByComparingTo(target);

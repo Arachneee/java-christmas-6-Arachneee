@@ -1,13 +1,13 @@
 package christmas.domain.order;
 
-import static christmas.domain.day.constant.December.CHRISTMAS_DAY;
-import static christmas.domain.day.constant.December.START_DAY;
+import static christmas.domain.order.day.December.CHRISTMAS_DAY;
+import static christmas.domain.order.day.December.START_DAY;
 
-import christmas.domain.day.Day;
-import christmas.domain.order.constant.Category;
-import christmas.domain.order.constant.Menu;
+import christmas.domain.order.day.Day;
+import christmas.domain.order.menu.Category;
+import christmas.domain.order.menu.Menu;
 import christmas.exception.OrderException;
-import christmas.exception.constant.ErrorMessage;
+import christmas.exception.ErrorMessage;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -87,7 +87,7 @@ public class Order {
     }
 
     public int countWeekEventMenu() {
-        final Category category = day.checkEventCategory();
+        final Category category = day.getTodayEventCategory();
 
         return menuCount.entrySet().stream()
                 .filter(entry -> entry.getKey().isCategory(category))

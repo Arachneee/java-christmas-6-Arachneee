@@ -1,4 +1,4 @@
-package christmas.domain.day.constant;
+package christmas.domain.order.day;
 
 public enum December {
     START_DAY(1),

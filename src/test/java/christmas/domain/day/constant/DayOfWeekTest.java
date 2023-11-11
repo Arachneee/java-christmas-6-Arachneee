@@ -3,7 +3,8 @@ package christmas.domain.day.constant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import christmas.domain.day.Day;
+import christmas.domain.order.day.Day;
+import christmas.domain.order.day.DayOfWeek;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

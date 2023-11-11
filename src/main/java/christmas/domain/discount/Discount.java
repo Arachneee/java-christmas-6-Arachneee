@@ -1,6 +1,5 @@
 package christmas.domain.discount;
 
-import christmas.domain.event.EventType;
 import java.util.Objects;
 
 public class Discount {

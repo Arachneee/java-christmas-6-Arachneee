@@ -1,4 +1,4 @@
-package christmas.controller.response;
+package christmas.response;
 
 public record MenuCountResponse(
         String title,

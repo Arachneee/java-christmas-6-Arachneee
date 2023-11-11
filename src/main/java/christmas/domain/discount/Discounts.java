@@ -6,15 +6,13 @@ import java.util.List;
 public class Discounts {
 
     private final List<Discount> discounts;
-    private final int totalPriceBefore;
 
-    private Discounts(final List<Discount> discounts, final int totalPriceBefore) {
-        this.totalPriceBefore = totalPriceBefore;
+    private Discounts(final List<Discount> discounts) {
         this.discounts = discounts;
     }
 
-    public static Discounts of(final List<Discount> discounts, final int totalPriceBefore) {
-        return new Discounts(discounts, totalPriceBefore);
+    public static Discounts from(final List<Discount> discounts) {
+        return new Discounts(discounts);
     }
 
     public int calculateTotal() {
@@ -23,11 +21,7 @@ public class Discounts {
                 .sum();
     }
 
-    public int calculatePriceAfter() {
-        return totalPriceBefore - calculateTotalNotGift();
-    }
-
-    private int calculateTotalNotGift() {
+    public int calculateTotalNotGift() {
         return discounts.stream()
                 .filter(Discount::isDiscount)
                 .mapToInt(Discount::getAmount)
@@ -36,16 +30,11 @@ public class Discounts {
 
     public int countGift() {
         return (int) discounts.stream()
-                .filter(Discount::isGiftEvent)
-                .filter(Discount::isNotZero)
+                .filter(discount -> discount.isGiftEvent() && discount.isNotZero())
                 .count();
     }
 
     public List<Discount> getDiscounts() {
         return Collections.unmodifiableList(discounts);
-    }
-
-    public int getTotalPriceBefore() {
-        return totalPriceBefore;
     }
 }

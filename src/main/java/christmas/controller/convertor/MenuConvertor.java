@@ -2,10 +2,10 @@ package christmas.controller.convertor;
 
 import static java.util.stream.Collectors.toMap;
 
-import christmas.domain.order.constant.Menu;
+import christmas.domain.order.menu.Menu;
 import christmas.exception.OrderException;
-import christmas.exception.constant.ErrorMessage;
-import christmas.view.request.MenuCountRequest;
+import christmas.exception.ErrorMessage;
+import christmas.request.MenuCountRequest;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.function.BinaryOperator;
@@ -19,11 +19,11 @@ public class MenuConvertor {
         return menuCountRequests.stream()
                 .collect(toMap(menuCountRequest -> Menu.from(menuCountRequest.title()),
                         MenuCountRequest::count,
-                        throwingDuplicateOrderException(),
+                        throwingDuplicateMenuException(),
                         () -> new EnumMap<>(Menu.class)));
     }
 
-    private static <T> BinaryOperator<T> throwingDuplicateOrderException() {
+    private static <T> BinaryOperator<T> throwingDuplicateMenuException() {
         return (menu, other) -> {
             throw OrderException.from(ErrorMessage.INVALID_ORDER);
         };

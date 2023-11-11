@@ -3,8 +3,8 @@ package christmas.controller.convertor;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import christmas.domain.order.constant.Menu;
-import christmas.view.request.MenuCountRequest;
+import christmas.domain.order.menu.Menu;
+import christmas.request.MenuCountRequest;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
