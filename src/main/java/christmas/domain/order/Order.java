@@ -1,5 +1,8 @@
 package christmas.domain.order;
 
+import static christmas.domain.day.constant.December.CHRISTMAS_DAY;
+import static christmas.domain.day.constant.December.START_DAY;
+
 import christmas.domain.day.Day;
 import christmas.domain.order.constant.Category;
 import christmas.domain.order.constant.Menu;
@@ -79,8 +82,8 @@ public class Order {
                 .sum();
     }
 
-    public int calculateDayGap(final Day day) {
-        return this.day.gap(day);
+    public int countDayAfterFirstDay() {
+        return this.day.gap(Day.from(START_DAY.getDay()));
     }
 
     public int countWeekEventMenu() {
@@ -96,20 +99,24 @@ public class Order {
         return calculateTotalPrice() < price;
     }
 
-    public boolean isDayOverThan(final Day day) {
-        return this.day.isOverThan(day);
-    }
-
-    public boolean isSunDay() {
-        return day.isSunDay();
-    }
-
-    public boolean isChristmasDay() {
-        return day.isChristmasDay();
+    public boolean isAfterChristmas() {
+        return day.isOverThan(Day.from(CHRISTMAS_DAY.getDay()));
     }
 
     public boolean isWeekend() {
         return day.isWeekend();
+    }
+
+    public boolean isWeekday() {
+        return !day.isWeekend();
+    }
+
+    public boolean isNotSunDay() {
+        return !day.isSunDay();
+    }
+
+    public boolean isNotChristmasDay() {
+        return !day.isChristmasDay();
     }
 
     public Map<Menu, Integer> getMenuCount() {
