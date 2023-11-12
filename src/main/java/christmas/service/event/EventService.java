@@ -1,63 +1,29 @@
 package christmas.service.event;
 
-import christmas.domain.event.Badge;
-import christmas.domain.order.Order;
-import christmas.response.EventDetailResponse;
-import christmas.response.EventDetailResponse.EventDetailResponseBuilder;
+import christmas.domain.event.EventRepository;
+import christmas.domain.event.EventResult;
 import christmas.response.EventResponse;
 import java.util.List;
-import java.util.stream.Stream;
 
-public class EventService {
+public abstract class EventService<T extends EventResult> {
 
-    private final DiscountService discountService;
-    private final GiftService giftService;
+    protected final EventRepository<T> eventRepository;
 
-    public EventService(final DiscountService discountService, final GiftService giftService) {
-        this.discountService = discountService;
-        this.giftService = giftService;
+    public EventService(EventRepository<T> eventRepository) {
+        this.eventRepository = eventRepository;
     }
 
-    public void createEvent(final Order order) {
-        discountService.createDiscount(order);
-        giftService.createGift(order);
-    }
-
-    public EventDetailResponse getEventDetail(final int priceBeforeDiscount) {
-        final int totalDiscountAmount = discountService.calculateTotalAmount();
-        final int totalGiftAmount = giftService.calculateTotalAmount();
-
-        final int totalBenefitsAmount = totalDiscountAmount + totalGiftAmount;
-
-        return buildEventDetailResponse(priceBeforeDiscount, totalBenefitsAmount, totalDiscountAmount);
-    }
-
-    private EventDetailResponse buildEventDetailResponse(
-            final int priceBeforeDiscount,
-            final int totalBenefitsAmount,
-            final int totalDiscountAmount
-    ) {
-
-        return EventDetailResponseBuilder.builder()
-                .priceBeforeEvent(priceBeforeDiscount)
-                .giftMenuResponses(giftService.createGiftMenuResponse())
-                .activeEvents(getAllActiveEvent())
-                .totalBenefitsAmount(totalBenefitsAmount)
-                .priceAfterEvent(calculatePriceAfterDiscount(priceBeforeDiscount, totalDiscountAmount))
-                .badge(getBadgeTitle(totalBenefitsAmount))
-                .build();
-    }
-
-    private List<EventResponse> getAllActiveEvent() {
-        return Stream.concat(discountService.getEventResult().stream(), giftService.getEventResult().stream())
+    public List<EventResponse> getActiveEventResult() {
+        return eventRepository.getActiveResult().stream()
+                .map(this::createEventResult)
                 .toList();
     }
 
-    private int calculatePriceAfterDiscount(final int priceBeforeDiscount, final int totalDiscountAmount) {
-        return priceBeforeDiscount - totalDiscountAmount;
+    public int calculateTotalAmount() {
+        return eventRepository.calculateTotal();
     }
 
-    private String getBadgeTitle(final int totalBenefitsAmount) {
-        return Badge.from(totalBenefitsAmount).getTitle();
+    private EventResponse createEventResult(final T eventResult) {
+        return EventResponse.of(eventResult.getEventTitle(), eventResult.getAmount());
     }
 }
