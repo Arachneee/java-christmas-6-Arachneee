@@ -1,20 +1,65 @@
 package christmas.service.event;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.groups.Tuple.tuple;
+
+import christmas.domain.event.discount.DiscountRepository;
+import christmas.domain.order.Order;
+import christmas.domain.order.day.Day;
+import christmas.domain.order.menu.Menu;
+import christmas.response.EventResponse;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
 
 class DiscountServiceTest {
 
-    @DisplayName("적용된 할인 결과를 얻을 수 있다.")
-    @Test
-    void getActiveEventResult() {
+    DiscountService discountService;
+
+    @BeforeEach
+    void setUp() {
+        DiscountRepository discountRepository = new DiscountRepository();
+        discountService = new DiscountService(discountRepository);
+    }
+
+    @DisplayName("할인 적용 시나리오")
+    @TestFactory
+    Collection<DynamicTest> getActiveEventResult() {
         // given
+        Order order = Order.of(Day.from(3),
+                Map.of(Menu.T_BONE_STEAK, 1, Menu.BARBECUE_RIBS, 1,
+                        Menu.CHOCOLATE_CAKE, 2, Menu.ZERO_COLA, 1));
 
+        discountService.applyEventAll(order);
 
-        // when
+        // when // then
+        return List.of(
+                DynamicTest.dynamicTest("적용된 할인 제목과 금액 리스트를 구할 수 있다.", () -> {
+                    // given // when
+                    List<EventResponse> activeEventResult = discountService.getActiveEventResult();
 
+                    // then
+                    assertThat(activeEventResult).hasSize(3)
+                            .extracting("title", "amount")
+                            .containsExactlyInAnyOrder(
+                                    tuple("크리스마스 디데이 할인", 1_200),
+                                    tuple("평일 할인", 4_046),
+                                    tuple("특별 할인", 1_000)
+                            );
+                }),
+                DynamicTest.dynamicTest("전체 적용된 해택 금액을 구할 수 있다.", () -> {
+                    // given // when
+                    int totalAmount = discountService.calculateTotalBenefits();
 
-        // then
+                    // then
+                    assertThat(totalAmount).isEqualTo(1_200 + 4_046 + 1_000);
+                })
+        );
 
     }
+
 }

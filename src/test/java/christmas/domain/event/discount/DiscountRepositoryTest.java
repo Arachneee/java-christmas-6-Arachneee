@@ -5,6 +5,7 @@ import static christmas.domain.event.discount.DiscountEventType.SPECIAL_DISCOUNT
 import static christmas.domain.event.discount.DiscountEventType.WEEKDAY_DISCOUNT;
 import static christmas.domain.event.discount.DiscountEventType.WEEKEND_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.groups.Tuple.tuple;
 
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,8 +42,10 @@ class DiscountRepositoryTest {
 
         // then
         assertThat(discountsDiscounts).hasSize(3)
-                .containsExactlyInAnyOrder(Discount.of(SPECIAL_DISCOUNT, 1_000),
-                        Discount.of(CHRISTMAS_D_DAY_DISCOUNT, 2_400),
-                        Discount.of(WEEKDAY_DISCOUNT, 2_023));
+                .extracting("discountEventType", "amount")
+                .containsExactlyInAnyOrder(
+                        tuple(SPECIAL_DISCOUNT, 1_000),
+                        tuple(CHRISTMAS_D_DAY_DISCOUNT, 2_400),
+                        tuple(WEEKDAY_DISCOUNT, 2_023));
     }
 }

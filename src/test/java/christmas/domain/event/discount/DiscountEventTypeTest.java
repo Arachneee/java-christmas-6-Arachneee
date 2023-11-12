@@ -5,6 +5,7 @@ import static christmas.domain.event.discount.DiscountEventType.SPECIAL_DISCOUNT
 import static christmas.domain.event.discount.DiscountEventType.WEEKDAY_DISCOUNT;
 import static christmas.domain.event.discount.DiscountEventType.WEEKEND_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.groups.Tuple.tuple;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import christmas.domain.order.Order;
@@ -36,11 +37,13 @@ class DiscountEventTypeTest {
         List<Discount> discounts = DiscountEventType.discountAll(order);
 
         // then
-        assertThat(discounts)
-                .containsExactlyInAnyOrder(Discount.of(CHRISTMAS_D_DAY_DISCOUNT, 3400),
-                        Discount.of(WEEKDAY_DISCOUNT, 2023 * 2),
-                        Discount.of(WEEKEND_DISCOUNT, 0),
-                        Discount.of(SPECIAL_DISCOUNT, 1000));
+        assertThat(discounts).hasSize(4)
+                .extracting("discountEventType", "amount")
+                .containsExactlyInAnyOrder(
+                        tuple(CHRISTMAS_D_DAY_DISCOUNT, 3400),
+                        tuple(WEEKDAY_DISCOUNT, 2023 * 2),
+                        tuple(WEEKEND_DISCOUNT, 0),
+                        tuple(SPECIAL_DISCOUNT, 1000));
     }
 
     @DisplayName("어떤 이벤트도 총 주문 금액이 10,000원이 넘지 않으면 할인이 적용되지 않는다.")
@@ -132,7 +135,7 @@ class DiscountEventTypeTest {
 
     static Stream<Arguments> weekDayMenuProvider() {
         return Stream.of(
-                arguments(Map.of(Menu.ICE_CREAM, 1), 2023),
+                arguments(Map.of(Menu.ICE_CREAM, 1, Menu.T_BONE_STEAK, 1), 2023),
                 arguments(Map.of(Menu.ICE_CREAM, 2), 2023 * 2),
                 arguments(Map.of(Menu.TAPAS, 1), 0),
                 arguments(Map.of(Menu.CAESAR_SALAD, 1, Menu.CHOCOLATE_CAKE, 10), 2023 * 10),

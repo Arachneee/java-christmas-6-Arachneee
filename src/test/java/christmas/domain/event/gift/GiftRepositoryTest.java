@@ -1,6 +1,7 @@
 package christmas.domain.event.gift;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.groups.Tuple.tuple;
 
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +35,7 @@ class GiftRepositoryTest {
 
         // then
         assertThat(gifts).hasSize(1)
-                .containsExactlyInAnyOrder(Gift.of(GiftEventType.PRESENTATION, 25_000));
+                .extracting("giftEventType", "amount")
+                .containsExactlyInAnyOrder(tuple(GiftEventType.PRESENTATION, 25_000));
     }
 }

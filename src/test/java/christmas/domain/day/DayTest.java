@@ -4,8 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import christmas.domain.order.menu.Category;
 import christmas.domain.order.day.Day;
+import christmas.domain.order.menu.Category;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -209,5 +209,58 @@ class DayTest {
 
         // when // then
         assertThat(day.isSunDay()).isFalse();
+    }
+
+    @DisplayName("날짜가 같은지 확인 할 수 있다. True")
+    @Test
+    void equalsTrue() {
+        // given
+        Day day = Day.from(1);
+        Day other = Day.from(1);
+
+        // when
+        boolean equals = day.equals(other);
+
+        // then
+        assertThat(equals).isTrue();
+    }
+
+    @DisplayName("날짜가 같은지 확인 할 수 있다. False")
+    @Test
+    void equalsFalse() {
+        // given
+        Day day = Day.from(1);
+        Day other = Day.from(2);
+
+        // when
+        boolean equals = day.equals(other);
+
+        // then
+        assertThat(equals).isFalse();
+    }
+
+    @DisplayName("날짜가 null이면 다르다.")
+    @Test
+    void equalsFalseNull() {
+        // given
+        Day day = Day.from(1);
+        Day other = null;
+
+        // when
+        boolean equals = day.equals(other);
+
+        // then
+        assertThat(equals).isFalse();
+    }
+
+    @DisplayName("같은 날짜이면 hashCode가 같다.")
+    @Test
+    void hashCodeEqual() {
+        // given // when
+        int hash = Day.from(1).hashCode();
+        int other = Day.from(1).hashCode();
+
+        // then
+        assertThat(hash).isEqualTo(other);
     }
 }
