@@ -1,7 +1,6 @@
 package christmas.domain.event.discount;
 
 import christmas.domain.event.EventResult;
-import java.util.Objects;
 
 public class Discount implements EventResult {
 
@@ -30,22 +29,5 @@ public class Discount implements EventResult {
     @Override
     public int getAmount() {
         return amount;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Discount discount = (Discount) o;
-        return amount == discount.amount && discountEventType == discount.discountEventType;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(discountEventType, amount);
     }
 }
