@@ -2,22 +2,18 @@ package christmas.view;
 
 import static camp.nextstep.edu.missionutils.Console.readLine;
 
-import christmas.controller.convertor.RequestConverter;
-import christmas.request.MenuCountRequest;
-import java.util.List;
-
 public class InputView {
 
-    public int readDate() {
+    public String readDate() {
         System.out.println(Request.VISIT_DAY.value);
 
-        return RequestConverter.convertDayToInt(readLine());
+        return readLine();
     }
 
-    public List<MenuCountRequest> readMenuAndCount() {
+    public String readMenuAndCount() {
         System.out.println(Request.MENU_AND_COUNT.value);
 
-        return RequestConverter.convertMenuCountRequests(readLine());
+        return readLine();
     }
 
     private enum Request {

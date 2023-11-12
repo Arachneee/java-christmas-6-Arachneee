@@ -2,9 +2,9 @@ package christmas.view;
 
 import static java.lang.System.lineSeparator;
 
-import christmas.response.DiscountDetailResponse;
-import christmas.response.DiscountResponse;
-import christmas.response.GiftResponse;
+import christmas.response.EventDetailResponse;
+import christmas.response.EventResponse;
+import christmas.response.GiftMenuResponse;
 import christmas.response.MenuCountResponse;
 import christmas.response.OrderResponse;
 import christmas.response.OrderSummaryResponse;
@@ -24,7 +24,7 @@ public class OutputView {
 
     public void printOrderSummary(final OrderSummaryResponse orderSummaryResponse) {
         printOrder(orderSummaryResponse.orderResponse());
-        printDiscountDetail(orderSummaryResponse.discountDetailResponse());
+        printDiscountDetail(orderSummaryResponse.eventDetailResponse());
     }
 
     private void printOrder(final OrderResponse orderResponse) {
@@ -32,13 +32,13 @@ public class OutputView {
         printOrderMenuCount(orderResponse.menuCount());
     }
 
-    private void printDiscountDetail(final DiscountDetailResponse discountDetailResponse) {
-        printPriceBeforeDiscount(discountDetailResponse.priceBeforeDiscount());
-        printGift(discountDetailResponse.giftResponse());
-        printActiveDiscount(discountDetailResponse.activeDiscounts());
-        printTotalDiscountAmount(discountDetailResponse.totalDiscountAmount());
-        printPriceAfterDiscount(discountDetailResponse.priceAfterDiscount());
-        printBadge(discountDetailResponse.badge());
+    private void printDiscountDetail(final EventDetailResponse eventDetailResponse) {
+        printPriceBeforeDiscount(eventDetailResponse.priceBeforeEvent());
+        printGift(eventDetailResponse.giftMenuResponses());
+        printActiveDiscount(eventDetailResponse.activeEvents());
+        printTotalDiscountAmount(eventDetailResponse.totalBenefitsAmount());
+        printPriceAfterDiscount(eventDetailResponse.priceAfterEvent());
+        printBadge(eventDetailResponse.badge());
     }
 
     private void printPreViewHeader(final int day) {
@@ -61,19 +61,19 @@ public class OutputView {
         System.out.printf(Response.POSITIVE_MONEY.value + Response.DOUBLE_ENTER.value, totalPrice);
     }
 
-    private void printGift(final GiftResponse giftResponse) {
+    private void printGift(final GiftMenuResponse giftMenuResponse) {
         System.out.println(Header.GIFT.value);
 
-        if (giftResponse.count() == ZERO) {
+        if (giftMenuResponse.count() == ZERO) {
             System.out.println(Response.NONE.value + Response.ENTER.value);
             return;
         }
 
         System.out.printf(Response.MENU_COUNT.value + Response.DOUBLE_ENTER.value,
-                giftResponse.title(), giftResponse.count());
+                giftMenuResponse.title(), giftMenuResponse.count());
     }
 
-    private void printActiveDiscount(final List<DiscountResponse> discounts) {
+    private void printActiveDiscount(final List<EventResponse> discounts) {
         System.out.println(Header.DISCOUNT.value);
 
         if (discounts.isEmpty()) {

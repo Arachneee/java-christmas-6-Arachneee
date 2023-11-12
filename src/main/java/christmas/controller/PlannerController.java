@@ -1,11 +1,10 @@
 package christmas.controller;
 
-import static christmas.controller.convertor.MenuConvertor.convertToEnumMap;
-
+import christmas.controller.convertor.PlannerConvertor;
 import christmas.domain.order.day.Day;
 import christmas.domain.order.Order;
 import christmas.response.OrderSummaryResponse;
-import christmas.service.OrderService;
+import christmas.service.order.OrderService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.function.Supplier;
@@ -34,11 +33,11 @@ public class PlannerController {
     }
 
     private Day createOrderDay() {
-        return getInputByRoof(() -> Day.from(inputView.readDate()));
+        return getInputByRoof(() -> PlannerConvertor.convertToDay(inputView.readDate()));
     }
 
     private Order createOrder(final Day day) {
-        return getInputByRoof(() -> Order.of(day, convertToEnumMap(inputView.readMenuAndCount())));
+        return getInputByRoof(() -> Order.of(day, PlannerConvertor.convertToMenuEnumMap(inputView.readMenuAndCount())));
     }
 
     private <T> T getInputByRoof(final Supplier<T> method) {
