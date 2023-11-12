@@ -59,7 +59,7 @@ public class PlannerConvertor {
                         () -> new EnumMap<>(Menu.class)));
     }
 
-    public static int convertCountToInt(final String input) {
+    private static int convertCountToInt(final String input) {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException exception) {
