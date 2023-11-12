@@ -5,7 +5,6 @@ import static christmas.domain.event.discount.DiscountEventType.SPECIAL_DISCOUNT
 import static christmas.domain.event.discount.DiscountEventType.WEEKDAY_DISCOUNT;
 import static christmas.domain.event.discount.DiscountEventType.WEEKEND_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
