@@ -24,6 +24,7 @@ public class GiftService {
 
     public List<GiftMenuResponse> createGiftMenuResponse() {
         return giftRepository.getGifts().stream()
+                .filter(Gift::isActive)
                 .map(gift -> GiftMenuResponse.of(gift.getMenuTitle(), gift.getMenuCount()))
                 .toList();
     }
