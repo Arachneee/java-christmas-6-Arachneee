@@ -15,7 +15,7 @@ public class OutputView {
     private static final int ZERO = 0;
 
     public void printHello() {
-        System.out.println(Header.HELLO.value);
+        System.out.println(Response.HELLO.value);
     }
 
     public void printError(final String message) {
@@ -33,97 +33,96 @@ public class OutputView {
     }
 
     private void printDiscountDetail(final EventDetailResponse eventDetailResponse) {
-        printPriceBeforeDiscount(eventDetailResponse.priceBeforeEvent());
+        printPriceBeforeEvent(eventDetailResponse.priceBeforeEvent());
         printGift(eventDetailResponse.giftMenuResponses());
-        printActiveDiscount(eventDetailResponse.activeEvents());
-        printTotalDiscountAmount(eventDetailResponse.totalBenefitsAmount());
-        printPriceAfterDiscount(eventDetailResponse.priceAfterEvent());
+        printActiveEvent(eventDetailResponse.activeEvents());
+        printTotalBenefitsAmount(eventDetailResponse.totalBenefitsAmount());
+        printPriceAfterEvent(eventDetailResponse.priceAfterEvent());
         printBadge(eventDetailResponse.badge());
     }
 
     private void printPreViewHeader(final int day) {
-        System.out.printf(Response.PREVIEW_EVENT.value + Response.DOUBLE_ENTER.value, day);
+        System.out.printf(Response.PREVIEW_EVENT.value + Response.ENTER.value, day);
     }
 
     private void printOrderMenuCount(final List<MenuCountResponse> menuCountResponses) {
-        System.out.println(Header.MENU.value);
+        System.out.println(Header.MENU.getValueWithEnter());
 
         menuCountResponses
                 .forEach(menuCountResponse -> System.out.printf(Response.MENU_COUNT.value + Response.ENTER.value,
                         menuCountResponse.title(),
                         menuCountResponse.count()));
-
-        System.out.println();
     }
 
-    private void printPriceBeforeDiscount(final int totalPrice) {
-        System.out.println(Header.BEFORE_TOTAL_PRICE.value);
-        System.out.printf(Response.POSITIVE_MONEY.value + Response.DOUBLE_ENTER.value, totalPrice);
+    private void printPriceBeforeEvent(final int totalPrice) {
+        System.out.println(Header.BEFORE_TOTAL_PRICE.getValueWithEnter());
+        System.out.printf(Response.POSITIVE_MONEY.value + Response.ENTER.value, totalPrice);
     }
 
-    private void printGift(final GiftMenuResponse giftMenuResponse) {
-        System.out.println(Header.GIFT.value);
+    private void printGift(final List<GiftMenuResponse> giftMenus) {
+        System.out.println(Header.GIFT.getValueWithEnter());
 
-        if (giftMenuResponse.count() == ZERO) {
-            System.out.println(Response.NONE.value + Response.ENTER.value);
+        if (giftMenus.isEmpty()) {
+            printNone();
             return;
         }
 
-        System.out.printf(Response.MENU_COUNT.value + Response.DOUBLE_ENTER.value,
-                giftMenuResponse.title(), giftMenuResponse.count());
+        giftMenus.forEach(giftMenu -> System.out.printf(Response.MENU_COUNT.value + Response.ENTER.value,
+                giftMenu.title(), giftMenu.count()));
     }
 
-    private void printActiveDiscount(final List<EventResponse> discounts) {
-        System.out.println(Header.DISCOUNT.value);
+    private void printActiveEvent(final List<EventResponse> discounts) {
+        System.out.println(Header.DISCOUNT.getValueWithEnter());
 
         if (discounts.isEmpty()) {
-            System.out.println(Response.NONE.value + Response.ENTER.value);
+            printNone();
             return;
         }
 
         discounts.forEach(discount -> System.out.printf(Response.DISCOUNT_RESULT.value + Response.ENTER.value,
                 discount.title(), discount.amount()));
-
-        System.out.println();
     }
 
-    private void printTotalDiscountAmount(final int totalDiscountAmount) {
-        System.out.println(Header.TOTAL_DISCOUNT.value);
+    private void printTotalBenefitsAmount(final int totalDiscountAmount) {
+        System.out.println(Header.TOTAL_DISCOUNT.getValueWithEnter());
 
         if (totalDiscountAmount == ZERO) {
-            System.out.printf(Response.POSITIVE_MONEY.value + Response.DOUBLE_ENTER.value, totalDiscountAmount);
+            System.out.printf(Response.POSITIVE_MONEY.value + Response.ENTER.value, totalDiscountAmount);
             return;
         }
 
-        System.out.printf(Response.NEGATIVE_MONEY.value + Response.DOUBLE_ENTER.value, totalDiscountAmount);
+        System.out.printf(Response.NEGATIVE_MONEY.value + Response.ENTER.value, totalDiscountAmount);
     }
 
-    private void printPriceAfterDiscount(final int afterDiscountPayment) {
-        System.out.println(Header.AFTER_PAYMENT.value);
-        System.out.printf(Response.POSITIVE_MONEY.value + Response.DOUBLE_ENTER.value, afterDiscountPayment);
+    private void printPriceAfterEvent(final int afterDiscountPayment) {
+        System.out.println(Header.AFTER_PAYMENT.getValueWithEnter());
+        System.out.printf(Response.POSITIVE_MONEY.value + Response.ENTER.value, afterDiscountPayment);
     }
 
     private void printBadge(final String badge) {
-        System.out.println(Header.BADGE.value);
+        System.out.println(Header.BADGE.getValueWithEnter());
 
         if (badge.isBlank()) {
-            System.out.println(Response.NONE.value);
+            printNone();
             return;
         }
 
         System.out.println(badge);
     }
 
-    private enum Response {
+    private void printNone() {
+        System.out.println(Response.NONE.value);
+    }
 
+    private enum Response {
+        HELLO("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다."),
         PREVIEW_EVENT("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!"),
         MENU_COUNT("%s %d개"),
         DISCOUNT_RESULT("%s: -%,d원"),
         POSITIVE_MONEY("%,d원"),
         NEGATIVE_MONEY("-%,d원"),
         NONE("없음"),
-        ENTER(lineSeparator()),
-        DOUBLE_ENTER(lineSeparator() + lineSeparator());
+        ENTER(lineSeparator());
 
         private final String value;
 
@@ -133,7 +132,6 @@ public class OutputView {
     }
 
     private enum Header {
-        HELLO("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다."),
         MENU("<주문 메뉴>"),
         BEFORE_TOTAL_PRICE("<할인 전 총주문 금액>"),
         GIFT("<증정 메뉴>"),
@@ -146,6 +144,10 @@ public class OutputView {
 
         Header(final String value) {
             this.value = value;
+        }
+
+        public String getValueWithEnter() {
+            return Response.ENTER.value + value;
         }
     }
 }
