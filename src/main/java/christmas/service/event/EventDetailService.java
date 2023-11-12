@@ -19,17 +19,17 @@ public class EventDetailService {
     }
 
     public void createEvent(final Order order) {
-        discountService.createDiscount(order);
-        giftService.createGift(order);
+        discountService.applyEventAll(order);
+        giftService.applyEventAll(order);
     }
 
     public EventDetailResponse getEventDetail(final int priceBeforeDiscount) {
-        final int totalDiscountAmount = discountService.calculateTotalAmount();
-        final int totalGiftAmount = giftService.calculateTotalAmount();
+        final int totalDiscountBenefits = discountService.calculateTotalBenefits();
+        final int totalGiftBenefits = giftService.calculateTotalBenefits();
 
-        final int totalBenefitsAmount = totalDiscountAmount + totalGiftAmount;
+        final int totalBenefitsAmount = totalDiscountBenefits + totalGiftBenefits;
 
-        return buildEventDetailResponse(priceBeforeDiscount, totalBenefitsAmount, totalDiscountAmount);
+        return buildEventDetailResponse(priceBeforeDiscount, totalBenefitsAmount, totalDiscountBenefits);
     }
 
     private EventDetailResponse buildEventDetailResponse(
@@ -40,7 +40,7 @@ public class EventDetailService {
 
         return EventDetailResponseBuilder.builder()
                 .priceBeforeEvent(priceBeforeDiscount)
-                .giftMenuResponses(giftService.createGiftMenuResponse())
+                .giftMenuResponses(giftService.getGiftMenuResponse())
                 .activeEvents(getAllActiveEvent())
                 .totalBenefitsAmount(totalBenefitsAmount)
                 .priceAfterEvent(calculatePriceAfterDiscount(priceBeforeDiscount, totalDiscountAmount))

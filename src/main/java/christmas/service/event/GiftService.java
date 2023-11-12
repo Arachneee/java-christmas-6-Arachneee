@@ -16,12 +16,13 @@ public class GiftService extends EventService<Gift> {
         this.giftRepository = giftRepository;
     }
 
-    public void createGift(final Order order) {
+    @Override
+    public void applyEventAll(final Order order) {
         final List<Gift> gifts = GiftEventType.applyAll(order);
         giftRepository.init(gifts);
     }
 
-    public List<GiftMenuResponse> createGiftMenuResponse() {
+    public List<GiftMenuResponse> getGiftMenuResponse() {
         return giftRepository.getActiveResult().stream()
                 .map(this::createGiftMenuResponse)
                 .toList();

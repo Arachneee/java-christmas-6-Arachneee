@@ -15,9 +15,9 @@ public class DiscountService extends EventService<Discount> {
         this.discountRepository = discountRepository;
     }
 
-    public void createDiscount(final Order order) {
+    @Override
+    public void applyEventAll(final Order order) {
         final List<Discount> discounts = DiscountEventType.discountAll(order);
         discountRepository.init(discounts);
     }
-
 }
