@@ -2,10 +2,11 @@ package christmas.domain.event;
 
 import christmas.domain.order.Order;
 
-@FunctionalInterface
 
-public interface Event {
+public interface Event<T extends EventResult> {
 
     int calculateBenefits(final Order order);
+
+    String getTitle();
 
 }

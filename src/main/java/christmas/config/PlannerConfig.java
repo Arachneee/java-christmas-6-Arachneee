@@ -1,8 +1,10 @@
 package christmas.config;
 
 import christmas.controller.PlannerController;
+import christmas.domain.event.discount.DiscountRepository;
+import christmas.domain.event.gift.GiftRepository;
 import christmas.service.event.DiscountService;
-import christmas.service.event.EventService;
+import christmas.service.event.EventDetailService;
 import christmas.service.event.GiftService;
 import christmas.service.order.OrderService;
 import christmas.view.InputView;
@@ -21,7 +23,15 @@ public class PlannerConfig {
         return new OrderService(getEventService());
     }
 
-    private static EventService getEventService() {
-        return new EventService(new DiscountService(), new GiftService());
+    private static EventDetailService getEventService() {
+        return new EventDetailService(getDiscountService(), getGiftService());
+    }
+
+    private static DiscountService getDiscountService() {
+        return new DiscountService(new DiscountRepository());
+    }
+
+    private static GiftService getGiftService() {
+        return new GiftService(new GiftRepository());
     }
 }
