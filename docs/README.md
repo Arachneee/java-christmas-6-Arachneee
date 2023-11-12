@@ -1,3 +1,6 @@
+### UML
+![image](https://github.com/Arachneee/java-christmas-6-Arachneee/assets/66822642/a87d1cd8-f1c5-4523-8400-19adb9a268c1)
+
 ### 핵심 기능
 5개의 할인 정책 별 할인 금액 계산
 
