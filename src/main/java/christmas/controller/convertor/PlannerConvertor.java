@@ -19,6 +19,7 @@ public class PlannerConvertor {
     private static final Pattern MENU_COUNT_PATTERN = compile("^[가-힣]+-\\d+(?:,[가-힣]+-\\d+)*$");
     private static final String MENU_SPLIT_SIGNAL = ",";
     private static final String COUNT_SPLIT_SIGNAL = "-";
+    private static final String INVALID_START = "0";
     private static final int TITLE_INDEX = 0;
     private static final int COUNT_INDEX = 1;
 
@@ -60,9 +61,17 @@ public class PlannerConvertor {
     }
 
     private static int convertCountToInt(final String input) {
+        validateStartZero(input);
+
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException exception) {
+            throw OrderException.from(INVALID_ORDER);
+        }
+    }
+
+    private static void validateStartZero(String input) {
+        if (input.startsWith(INVALID_START)) {
             throw OrderException.from(INVALID_ORDER);
         }
     }
