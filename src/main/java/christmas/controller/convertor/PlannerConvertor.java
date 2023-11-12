@@ -1,6 +1,7 @@
 package christmas.controller.convertor;
 
 import static christmas.exception.ErrorMessage.INVALID_ORDER;
+import static java.util.regex.Pattern.compile;
 import static java.util.stream.Collectors.toMap;
 
 import christmas.domain.order.day.Day;
@@ -14,7 +15,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PlannerConvertor {
-    private static final Pattern MENU_COUNT_PATTERN = Pattern.compile("^[가-힣]+-\\d+(?:,[가-힣]+-\\d+)*$");
+
+    private static final Pattern MENU_COUNT_PATTERN = compile("^[가-힣]+-\\d+(?:,[가-힣]+-\\d+)*$");
     private static final String MENU_SPLIT_SIGNAL = ",";
     private static final String COUNT_SPLIT_SIGNAL = "-";
     private static final int TITLE_INDEX = 0;
@@ -31,7 +33,7 @@ public class PlannerConvertor {
         }
     }
 
-    public static EnumMap<Menu, Integer> convertToMenuEnumMap(final String input) {
+    public static EnumMap<Menu, Integer> convertToMenu(final String input) {
         validateFormat(input);
 
         return createMenuEnumMap(input);
@@ -47,7 +49,7 @@ public class PlannerConvertor {
         throw OrderException.from(INVALID_ORDER);
     }
 
-    private static EnumMap<Menu, Integer> createMenuEnumMap(String input) {
+    private static EnumMap<Menu, Integer> createMenuEnumMap(final String input) {
 
         return Arrays.stream(input.split(MENU_SPLIT_SIGNAL))
                 .map(menuCount -> menuCount.split(COUNT_SPLIT_SIGNAL))

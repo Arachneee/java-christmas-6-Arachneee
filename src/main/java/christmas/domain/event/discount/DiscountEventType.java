@@ -31,8 +31,12 @@ public enum DiscountEventType implements Event {
 
     public static List<Discount> discountAll(final Order order) {
         return Arrays.stream(values())
-                .map(eventType -> Discount.of(eventType, eventType.calculateBenefits(order)))
+                .map(eventType -> eventType.createDiscount(order))
                 .toList();
+    }
+
+    private Discount createDiscount(final Order order) {
+        return Discount.of(this, this.calculateBenefits(order));
     }
 
     @Override
@@ -44,6 +48,7 @@ public enum DiscountEventType implements Event {
         return calculate.apply(order);
     }
 
+    @Override
     public String getTitle() {
         return title;
     }

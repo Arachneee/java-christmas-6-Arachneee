@@ -25,8 +25,12 @@ public enum GiftEventType implements Event {
 
     public static List<Gift> applyAll(final Order order) {
         return Arrays.stream(values())
-                .map(giftType -> Gift.of(giftType, giftType.calculateBenefits(order)))
+                .map(giftType -> giftType.createGift(order))
                 .toList();
+    }
+
+    private Gift createGift(final Order order) {
+        return Gift.of(this, this.calculateBenefits(order));
     }
 
     @Override
@@ -42,12 +46,13 @@ public enum GiftEventType implements Event {
         return menu.getPrice() * count;
     }
 
-    public String getMenuTitle() {
-        return menu.getTitle();
-    }
-
+    @Override
     public String getTitle() {
         return title;
+    }
+
+    public String getMenuTitle() {
+        return menu.getTitle();
     }
 
     public Menu getMenu() {

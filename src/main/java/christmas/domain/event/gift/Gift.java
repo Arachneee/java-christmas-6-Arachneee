@@ -7,6 +7,7 @@ public class Gift implements EventResult {
 
     private final GiftEventType giftEventType;
     private final int amount;
+
     private Gift(final GiftEventType giftEventType, final int amount) {
         this.giftEventType = giftEventType;
         this.amount = amount;

@@ -37,7 +37,7 @@ public class PlannerController {
     }
 
     private Order createOrder(final Day day) {
-        return getInputByRoof(() -> Order.of(day, PlannerConvertor.convertToMenuEnumMap(inputView.readMenuAndCount())));
+        return getInputByRoof(() -> Order.of(day, PlannerConvertor.convertToMenu(inputView.readMenuAndCount())));
     }
 
     private <T> T getInputByRoof(final Supplier<T> method) {

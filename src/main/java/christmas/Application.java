@@ -7,6 +7,6 @@ public class Application {
 
     public static void main(String[] args) {
         final PlannerController plannerController = PlannerConfig.getPlannerController();
-        plannerController.run();;
+        plannerController.run();
     }
 }
