@@ -41,7 +41,6 @@ class OrderTest {
         Day day = Day.from(1);
         Map<Menu, Integer> menu = Map.of(Menu.T_BONE_STEAK, count);
 
-
         // when // then
         assertThatThrownBy(() -> Order.of(day, menu))
                 .isInstanceOf(IllegalArgumentException.class)

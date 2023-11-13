@@ -3,8 +3,6 @@ package christmas.domain.order.constant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import christmas.domain.order.constant.Category;
-import christmas.domain.order.constant.Menu;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -29,7 +27,7 @@ class MenuTest {
 
     @DisplayName("메뉴 이름이 Menu에 없으면 예외를 반환한다..")
     @ParameterizedTest
-    @ValueSource(strings = {"스파게티","치킨","피자"})
+    @ValueSource(strings = {"스파게티", "치킨", "피자"})
     void from(String name) {
         assertThatThrownBy(() -> Menu.from(name))
                 .isInstanceOf(IllegalArgumentException.class)

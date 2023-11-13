@@ -13,7 +13,7 @@ public class TestWriter implements Writer {
 
     @Override
     public void printf(String format, Object... args) {
-        stringBuilder.append(String.format(format,args));
+        stringBuilder.append(String.format(format, args));
     }
 
     public void clear() {
