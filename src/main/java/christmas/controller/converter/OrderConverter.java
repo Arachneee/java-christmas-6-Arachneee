@@ -1,4 +1,4 @@
-package christmas.controller.convertor;
+package christmas.controller.converter;
 
 import static christmas.exception.ErrorMessage.INVALID_ORDER;
 import static java.util.regex.Pattern.compile;
@@ -14,7 +14,7 @@ import java.util.function.BinaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class OrderConvertor {
+public class OrderConverter {
 
     private static final Pattern MENU_COUNT_PATTERN = compile("^[가-힣]+-\\d+(?:,[가-힣]+-\\d+)*$");
     private static final String MENU_SPLIT_SIGNAL = ",";
@@ -23,7 +23,7 @@ public class OrderConvertor {
     private static final int TITLE_INDEX = 0;
     private static final int COUNT_INDEX = 1;
 
-    private OrderConvertor() {
+    private OrderConverter() {
     }
 
     public static Day convertToDay(final String input) {

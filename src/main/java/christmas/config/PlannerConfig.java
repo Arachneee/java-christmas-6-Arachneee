@@ -30,10 +30,10 @@ public class PlannerConfig {
     }
 
     private static OrderService getOrderService() {
-        return new OrderService(getEventService());
+        return new OrderService(getEventDetailService());
     }
 
-    private static EventDetailService getEventService() {
+    private static EventDetailService getEventDetailService() {
         return new EventDetailService(getDiscountService(), getGiftService());
     }
 

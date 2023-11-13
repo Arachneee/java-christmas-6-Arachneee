@@ -8,13 +8,13 @@ import christmas.domain.order.Day;
 import java.util.Arrays;
 
 public enum DayOfWeek {
-    FRIDAY(0, WEEKEND),
-    SATURDAY(1, WEEKEND),
-    SUNDAY(2, WEEKDAY),
-    MONDAY(3, WEEKDAY),
-    TUESDAY(4, WEEKDAY),
-    WEDNESDAY(5, WEEKDAY),
-    THURSDAY(6, WEEKDAY);
+    MONDAY(0, WEEKDAY),
+    TUESDAY(1, WEEKDAY),
+    WEDNESDAY(2, WEEKDAY),
+    THURSDAY(3, WEEKDAY),
+    FRIDAY(4, WEEKEND),
+    SATURDAY(5, WEEKEND),
+    SUNDAY(6, WEEKDAY);
 
     private static final int TOTAL_COUNT = (int) Arrays.stream(values()).count();
     private final int sequence;
