@@ -34,13 +34,13 @@ public class OutputView {
 
     private void printOrder(final OrderResponse orderResponse) {
         printPreViewHeader(orderResponse.day());
-        printOrderMenuCount(orderResponse.menuCount());
+        printMenuCountAll(orderResponse.menuCount());
     }
 
     private void printDiscountDetail(final EventDetailResponse eventDetailResponse) {
         printPriceBeforeEvent(eventDetailResponse.priceBeforeEvent());
-        printGift(eventDetailResponse.giftMenuResponses());
-        printActiveEvent(eventDetailResponse.activeEvents());
+        printGiftCountAll(eventDetailResponse.giftMenuResponses());
+        printActiveEventAll(eventDetailResponse.activeEvents());
         printTotalBenefitsAmount(eventDetailResponse.totalBenefitsAmount());
         printPriceAfterEvent(eventDetailResponse.priceAfterEvent());
         printBadge(eventDetailResponse.badge());
@@ -50,13 +50,15 @@ public class OutputView {
         writer.printf(Response.PREVIEW_EVENT.value + Response.ENTER.value, day);
     }
 
-    private void printOrderMenuCount(final List<MenuCountResponse> menuCountResponses) {
+    private void printMenuCountAll(final List<MenuCountResponse> menuCountResponses) {
         writer.println(Header.MENU.getValueWithEnter());
 
-        menuCountResponses
-                .forEach(menuCountResponse -> writer.printf(Response.MENU_COUNT.value + Response.ENTER.value,
-                        menuCountResponse.title(),
-                        menuCountResponse.count()));
+        menuCountResponses.forEach(this::printMenuCount);
+    }
+
+    private void printMenuCount(final MenuCountResponse menuCountResponse) {
+        writer.printf(Response.MENU_COUNT.value + Response.ENTER.value,
+                menuCountResponse.title(), menuCountResponse.count());
     }
 
     private void printPriceBeforeEvent(final int totalPrice) {
@@ -64,7 +66,7 @@ public class OutputView {
         writer.printf(Response.POSITIVE_MONEY.value + Response.ENTER.value, totalPrice);
     }
 
-    private void printGift(final List<GiftMenuResponse> giftMenus) {
+    private void printGiftCountAll(final List<GiftMenuResponse> giftMenus) {
         writer.println(Header.GIFT.getValueWithEnter());
 
         if (giftMenus.isEmpty()) {
@@ -72,11 +74,15 @@ public class OutputView {
             return;
         }
 
-        giftMenus.forEach(giftMenu -> writer.printf(Response.MENU_COUNT.value + Response.ENTER.value,
-                giftMenu.title(), giftMenu.count()));
+        giftMenus.forEach(this::printGiftCount);
     }
 
-    private void printActiveEvent(final List<EventResponse> discounts) {
+    private void printGiftCount(final GiftMenuResponse giftMenu) {
+        writer.printf(Response.MENU_COUNT.value + Response.ENTER.value,
+                giftMenu.title(), giftMenu.count());
+    }
+
+    private void printActiveEventAll(final List<EventResponse> discounts) {
         writer.println(Header.DISCOUNT.getValueWithEnter());
 
         if (discounts.isEmpty()) {
@@ -84,8 +90,12 @@ public class OutputView {
             return;
         }
 
-        discounts.forEach(discount -> writer.printf(Response.DISCOUNT_RESULT.value + Response.ENTER.value,
-                discount.title(), discount.amount()));
+        discounts.forEach(this::printActiveEvent);
+    }
+
+    private void printActiveEvent(final EventResponse discount) {
+        writer.printf(Response.DISCOUNT_RESULT.value + Response.ENTER.value,
+                discount.title(), discount.amount());
     }
 
     private void printTotalBenefitsAmount(final int totalDiscountAmount) {

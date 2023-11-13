@@ -17,31 +17,31 @@ public class PlannerConfig {
     private PlannerConfig() {
     }
 
-    public static OrderController getOrderController() {
-        return new OrderController(getInputView(), getOutputView(), getOrderService());
+    public static OrderController orderController() {
+        return new OrderController(inputView(), outputView(), orderService());
     }
 
-    private static InputView getInputView() {
+    private static InputView inputView() {
         return new InputView(new ConsoleReader(), new ConsoleWriter());
     }
 
-    private static OutputView getOutputView() {
+    private static OutputView outputView() {
         return new OutputView(new ConsoleWriter());
     }
 
-    private static OrderService getOrderService() {
-        return new OrderService(getEventDetailService());
+    private static OrderService orderService() {
+        return new OrderService(eventDetailService());
     }
 
-    private static EventDetailService getEventDetailService() {
-        return new EventDetailService(getDiscountService(), getGiftService());
+    private static EventDetailService eventDetailService() {
+        return new EventDetailService(discountService(), giftService());
     }
 
-    private static DiscountService getDiscountService() {
+    private static DiscountService discountService() {
         return new DiscountService(new DiscountRepository());
     }
 
-    private static GiftService getGiftService() {
+    private static GiftService giftService() {
         return new GiftService(new GiftRepository());
     }
 }

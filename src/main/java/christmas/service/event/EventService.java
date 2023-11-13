@@ -5,6 +5,7 @@ import christmas.domain.event.EventRepository;
 import christmas.domain.order.Order;
 import christmas.response.EventResponse;
 import java.util.List;
+import java.util.Map.Entry;
 
 public abstract class EventService<T extends Enum<T> & Event> {
 
@@ -18,8 +19,12 @@ public abstract class EventService<T extends Enum<T> & Event> {
 
     public List<EventResponse> getActiveEventResult() {
         return eventRepository.getActiveResult().entrySet().stream()
-                .map(entry -> EventResponse.of(entry.getKey(), entry.getValue()))
+                .map(this::createEventResponse)
                 .toList();
+    }
+
+    private EventResponse createEventResponse(final Entry<String, Integer> entry) {
+        return EventResponse.of(entry.getKey(), entry.getValue());
     }
 
     public int calculateTotalBenefits() {

@@ -58,7 +58,7 @@ public class Order {
 
     private static int calculateTotalCount(final Collection<Integer> counts) {
         return counts.stream()
-                .mapToInt(value -> value)
+                .mapToInt(Integer::intValue)
                 .sum();
     }
 

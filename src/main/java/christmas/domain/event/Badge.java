@@ -1,6 +1,7 @@
 package christmas.domain.event;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public enum Badge {
     SANTA("산타", 20_000),
@@ -18,7 +19,7 @@ public enum Badge {
 
     public static Badge from(final int totalDiscount) {
         return Arrays.stream(values())
-                .sorted()
+                .sorted( Comparator.comparing(Badge::getMinPrice).reversed())
                 .filter(badge -> badge.isSatisfiedCondition(totalDiscount))
                 .findFirst()
                 .orElse(NONE);
@@ -30,5 +31,9 @@ public enum Badge {
 
     public String getTitle() {
         return title;
+    }
+
+    public int getMinPrice() {
+        return minPrice;
     }
 }

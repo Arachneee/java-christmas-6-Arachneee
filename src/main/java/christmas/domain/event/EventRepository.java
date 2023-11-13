@@ -19,7 +19,7 @@ public abstract class EventRepository<T extends Enum<T> & Event> {
 
     public int calculateTotal() {
         return eventAmounts.values().stream()
-                .mapToInt(Integer::valueOf)
+                .mapToInt(Integer::intValue)
                 .sum();
     }
 

@@ -6,6 +6,7 @@ import christmas.domain.order.Order;
 import christmas.response.GiftMenuResponse;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 public class GiftService extends EventService<GiftEventType> {
 
@@ -24,7 +25,11 @@ public class GiftService extends EventService<GiftEventType> {
 
     public List<GiftMenuResponse> getGiftMenuResponse() {
         return giftRepository.getActiveMenuCounts().entrySet().stream()
-                .map(entry -> GiftMenuResponse.of(entry.getKey(), entry.getValue()))
+                .map(this::createGiftMenuResponse)
                 .toList();
+    }
+
+    private GiftMenuResponse createGiftMenuResponse(final Entry<String, Integer> entry) {
+        return GiftMenuResponse.of(entry.getKey(), entry.getValue());
     }
 }
