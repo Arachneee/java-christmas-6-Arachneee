@@ -5,7 +5,7 @@ import christmas.domain.event.discount.DiscountRepository;
 import christmas.domain.order.Order;
 import java.util.EnumMap;
 
-public class DiscountService extends EventService {
+public class DiscountService extends EventService<DiscountEventType> {
 
     private final DiscountRepository discountRepository;
 

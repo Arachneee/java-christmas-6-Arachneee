@@ -14,7 +14,7 @@ import java.util.function.BinaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PlannerConvertor {
+public class OrderConvertor {
 
     private static final Pattern MENU_COUNT_PATTERN = compile("^[가-힣]+-\\d+(?:,[가-힣]+-\\d+)*$");
     private static final String MENU_SPLIT_SIGNAL = ",";
@@ -23,7 +23,7 @@ public class PlannerConvertor {
     private static final int TITLE_INDEX = 0;
     private static final int COUNT_INDEX = 1;
 
-    private PlannerConvertor() {
+    private OrderConvertor() {
     }
 
     public static Day convertToDay(final String input) {

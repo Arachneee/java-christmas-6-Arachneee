@@ -16,14 +16,14 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class PlannerConvertorTest {
+class OrderConvertorTest {
 
     @DisplayName("문자를 Day로 변환할 수 있다.")
     @ParameterizedTest
     @ValueSource(strings = {"1", "2", "3", "4", "10", "14", "19", "25", "29", "30", "31"})
     void convertToDay(String input) {
         // when
-        Day day = PlannerConvertor.convertToDay(input);
+        Day day = OrderConvertor.convertToDay(input);
 
         // then
         assertThat(day).isEqualTo(Day.from(Integer.parseInt(input)));
@@ -33,7 +33,7 @@ class PlannerConvertorTest {
     @ParameterizedTest
     @ValueSource(strings = {"1.0", "가", ",", "-", "abd", "1 1", " ", "/"})
     void convertToDayNotInteger(String input) {
-        assertThatThrownBy(() -> PlannerConvertor.convertToDay(input))
+        assertThatThrownBy(() -> OrderConvertor.convertToDay(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
     }
@@ -42,7 +42,7 @@ class PlannerConvertorTest {
     @ParameterizedTest
     @ValueSource(strings = {"0", "32", "-1", "33"})
     void convertToDayNotDecember(String input) {
-        assertThatThrownBy(() -> PlannerConvertor.convertToDay(input))
+        assertThatThrownBy(() -> OrderConvertor.convertToDay(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
     }
@@ -52,7 +52,7 @@ class PlannerConvertorTest {
     @MethodSource("menuCountProvider")
     void convertToMenu(String menuCount, Map<Menu, Integer> target) {
         // when
-        EnumMap<Menu, Integer> convert = PlannerConvertor.convertToMenu(menuCount);
+        EnumMap<Menu, Integer> convert = OrderConvertor.convertToMenu(menuCount);
 
         // then
         assertThat(convert).containsExactlyInAnyOrderEntriesOf(target);
@@ -77,7 +77,7 @@ class PlannerConvertorTest {
         // given
         String menuCount = "티본스테이크-1,초코케이크-2,티본스테이크-3";
 
-        assertThatThrownBy(() -> PlannerConvertor.convertToMenu(menuCount))
+        assertThatThrownBy(() -> OrderConvertor.convertToMenu(menuCount))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
@@ -88,7 +88,7 @@ class PlannerConvertorTest {
         // given
         String menuCount = "티본스테이크-A";
 
-        assertThatThrownBy(() -> PlannerConvertor.convertToMenu(menuCount))
+        assertThatThrownBy(() -> OrderConvertor.convertToMenu(menuCount))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
@@ -99,7 +99,7 @@ class PlannerConvertorTest {
         // given
         String menuCount = "티본스테이크-01";
 
-        assertThatThrownBy(() -> PlannerConvertor.convertToMenu(menuCount))
+        assertThatThrownBy(() -> OrderConvertor.convertToMenu(menuCount))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
@@ -109,7 +109,7 @@ class PlannerConvertorTest {
     @ValueSource(strings = {"티본스테이크-1,초코케이크-2,", ",티본스테이크-1,초코케이크-2", "티본스테이크-1,,초코케이크-2",
             "티본스테이크-1-3,초코케이크-2", "티본스테이크--1,초코케이크-2"})
     void validateFormat(String menuCount) {
-        assertThatThrownBy(() -> PlannerConvertor.convertToMenu(menuCount))
+        assertThatThrownBy(() -> OrderConvertor.convertToMenu(menuCount))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }

@@ -1,6 +1,6 @@
 package christmas.controller;
 
-import christmas.controller.convertor.PlannerConvertor;
+import christmas.controller.convertor.OrderConvertor;
 import christmas.domain.order.day.Day;
 import christmas.domain.order.Order;
 import christmas.response.OrderSummaryResponse;
@@ -33,11 +33,11 @@ public class PlannerController {
     }
 
     private Day createOrderDay() {
-        return getInputByRoof(() -> PlannerConvertor.convertToDay(inputView.readDate()));
+        return getInputByRoof(() -> OrderConvertor.convertToDay(inputView.readDate()));
     }
 
     private Order createOrder(final Day day) {
-        return getInputByRoof(() -> Order.of(day, PlannerConvertor.convertToMenu(inputView.readMenuAndCount())));
+        return getInputByRoof(() -> Order.of(day, OrderConvertor.convertToMenu(inputView.readMenuAndCount())));
     }
 
     private <T> T getInputByRoof(final Supplier<T> method) {

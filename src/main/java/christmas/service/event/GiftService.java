@@ -7,7 +7,7 @@ import christmas.response.GiftMenuResponse;
 import java.util.EnumMap;
 import java.util.List;
 
-public class GiftService extends EventService {
+public class GiftService extends EventService<GiftEventType> {
 
     private final GiftRepository giftRepository;
 
