@@ -27,6 +27,8 @@ public class OrderConverter {
     }
 
     public static Day convertToDay(final String input) {
+        validateStartZero(input);
+
         try {
             return Day.from(Integer.parseInt(input));
         } catch (NumberFormatException numberFormatException) {
