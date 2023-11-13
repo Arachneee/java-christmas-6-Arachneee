@@ -15,6 +15,5 @@ public class TestReader implements Reader {
 
     @Override
     public void close() {
-        return;
     }
 }
