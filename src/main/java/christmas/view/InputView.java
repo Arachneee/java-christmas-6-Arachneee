@@ -1,19 +1,25 @@
 package christmas.view;
 
-import static camp.nextstep.edu.missionutils.Console.readLine;
-
 public class InputView {
 
-    public String readDate() {
-        System.out.println(Request.VISIT_DAY.value);
+    private final Reader reader;
+    private final Writer writer;
 
-        return readLine();
+    public InputView(final Reader reader, final Writer writer) {
+        this.reader = reader;
+        this.writer = writer;
+    }
+
+    public String readDate() {
+        writer.println(Request.VISIT_DAY.value);
+
+        return reader.readLine();
     }
 
     public String readMenuAndCount() {
-        System.out.println(Request.MENU_AND_COUNT.value);
+        writer.println(Request.MENU_AND_COUNT.value);
 
-        return readLine();
+        return reader.readLine();
     }
 
     private enum Request {

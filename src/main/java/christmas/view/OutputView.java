@@ -13,13 +13,18 @@ import java.util.List;
 public class OutputView {
 
     private static final int ZERO = 0;
+    private final Writer writer;
+
+    public OutputView(final Writer writer) {
+        this.writer = writer;
+    }
 
     public void printHello() {
-        System.out.println(Response.HELLO.value);
+        writer.println(Response.HELLO.value);
     }
 
     public void printError(final String message) {
-        System.out.println(message);
+        writer.println(message);
     }
 
     public void printOrderSummary(final OrderSummaryResponse orderSummaryResponse) {
@@ -42,76 +47,76 @@ public class OutputView {
     }
 
     private void printPreViewHeader(final int day) {
-        System.out.printf(Response.PREVIEW_EVENT.value + Response.ENTER.value, day);
+        writer.printf(Response.PREVIEW_EVENT.value + Response.ENTER.value, day);
     }
 
     private void printOrderMenuCount(final List<MenuCountResponse> menuCountResponses) {
-        System.out.println(Header.MENU.getValueWithEnter());
+        writer.println(Header.MENU.getValueWithEnter());
 
         menuCountResponses
-                .forEach(menuCountResponse -> System.out.printf(Response.MENU_COUNT.value + Response.ENTER.value,
+                .forEach(menuCountResponse -> writer.printf(Response.MENU_COUNT.value + Response.ENTER.value,
                         menuCountResponse.title(),
                         menuCountResponse.count()));
     }
 
     private void printPriceBeforeEvent(final int totalPrice) {
-        System.out.println(Header.BEFORE_TOTAL_PRICE.getValueWithEnter());
-        System.out.printf(Response.POSITIVE_MONEY.value + Response.ENTER.value, totalPrice);
+        writer.println(Header.BEFORE_TOTAL_PRICE.getValueWithEnter());
+        writer.printf(Response.POSITIVE_MONEY.value + Response.ENTER.value, totalPrice);
     }
 
     private void printGift(final List<GiftMenuResponse> giftMenus) {
-        System.out.println(Header.GIFT.getValueWithEnter());
+        writer.println(Header.GIFT.getValueWithEnter());
 
         if (giftMenus.isEmpty()) {
             printNone();
             return;
         }
 
-        giftMenus.forEach(giftMenu -> System.out.printf(Response.MENU_COUNT.value + Response.ENTER.value,
+        giftMenus.forEach(giftMenu -> writer.printf(Response.MENU_COUNT.value + Response.ENTER.value,
                 giftMenu.title(), giftMenu.count()));
     }
 
     private void printActiveEvent(final List<EventResponse> discounts) {
-        System.out.println(Header.DISCOUNT.getValueWithEnter());
+        writer.println(Header.DISCOUNT.getValueWithEnter());
 
         if (discounts.isEmpty()) {
             printNone();
             return;
         }
 
-        discounts.forEach(discount -> System.out.printf(Response.DISCOUNT_RESULT.value + Response.ENTER.value,
+        discounts.forEach(discount -> writer.printf(Response.DISCOUNT_RESULT.value + Response.ENTER.value,
                 discount.title(), discount.amount()));
     }
 
     private void printTotalBenefitsAmount(final int totalDiscountAmount) {
-        System.out.println(Header.TOTAL_DISCOUNT.getValueWithEnter());
+        writer.println(Header.TOTAL_DISCOUNT.getValueWithEnter());
 
         if (totalDiscountAmount == ZERO) {
-            System.out.printf(Response.POSITIVE_MONEY.value + Response.ENTER.value, totalDiscountAmount);
+            writer.printf(Response.POSITIVE_MONEY.value + Response.ENTER.value, totalDiscountAmount);
             return;
         }
 
-        System.out.printf(Response.NEGATIVE_MONEY.value + Response.ENTER.value, totalDiscountAmount);
+        writer.printf(Response.NEGATIVE_MONEY.value + Response.ENTER.value, totalDiscountAmount);
     }
 
     private void printPriceAfterEvent(final int afterDiscountPayment) {
-        System.out.println(Header.AFTER_PAYMENT.getValueWithEnter());
-        System.out.printf(Response.POSITIVE_MONEY.value + Response.ENTER.value, afterDiscountPayment);
+        writer.println(Header.AFTER_PAYMENT.getValueWithEnter());
+        writer.printf(Response.POSITIVE_MONEY.value + Response.ENTER.value, afterDiscountPayment);
     }
 
     private void printBadge(final String badge) {
-        System.out.println(Header.BADGE.getValueWithEnter());
+        writer.println(Header.BADGE.getValueWithEnter());
 
         if (badge.isBlank()) {
             printNone();
             return;
         }
 
-        System.out.println(badge);
+        writer.println(badge);
     }
 
     private void printNone() {
-        System.out.println(Response.NONE.value);
+        writer.println(Response.NONE.value);
     }
 
     private enum Response {
