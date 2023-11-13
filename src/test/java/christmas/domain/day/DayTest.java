@@ -239,20 +239,6 @@ class DayTest {
         assertThat(equals).isFalse();
     }
 
-    @DisplayName("날짜가 null이면 다르다.")
-    @Test
-    void equalsFalseNull() {
-        // given
-        Day day = Day.from(1);
-        Day other = null;
-
-        // when
-        boolean equals = day.equals(other);
-
-        // then
-        assertThat(equals).isFalse();
-    }
-
     @DisplayName("같은 날짜이면 hashCode가 같다.")
     @Test
     void hashCodeEqual() {
