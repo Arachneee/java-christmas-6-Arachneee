@@ -13,7 +13,7 @@ public abstract class EventRepository<T extends Enum<T> & Event> {
 
     private static final int ZERO = 0;
 
-    public void init(EnumMap<T, Integer> eventAmounts) {
+    public void init(final EnumMap<T, Integer> eventAmounts) {
         this.eventAmounts = eventAmounts;
     }
 

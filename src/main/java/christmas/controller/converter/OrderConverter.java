@@ -70,7 +70,7 @@ public class OrderConverter {
         }
     }
 
-    private static void validateStartZero(String input) {
+    private static void validateStartZero(final String input) {
         if (input.startsWith(INVALID_START)) {
             throw OrderException.from(INVALID_ORDER);
         }

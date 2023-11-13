@@ -55,10 +55,6 @@ public enum GiftEventType implements Event {
         return menu.getTitle();
     }
 
-    public Menu getMenu() {
-        return menu;
-    }
-
     public int getCount() {
         return count;
     }
@@ -69,7 +65,7 @@ public enum GiftEventType implements Event {
 
         private final int value;
 
-        Amount(int value) {
+        Amount(final int value) {
             this.value = value;
         }
     }

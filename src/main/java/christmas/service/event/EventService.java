@@ -10,7 +10,7 @@ public abstract class EventService<T extends Enum<T> & Event> {
 
     protected final EventRepository<T> eventRepository;
 
-    public EventService(EventRepository<T> eventRepository) {
+    public EventService(final EventRepository<T> eventRepository) {
         this.eventRepository = eventRepository;
     }
 

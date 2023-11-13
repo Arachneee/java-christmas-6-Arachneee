@@ -115,4 +115,55 @@ class OutputViewTest {
                         """);
     }
 
+    @DisplayName("적용된 해택이 없을 경우 없음을 출력한다.")
+    @Test
+    void printOrderSummaryNone() {
+        // given
+        OrderResponse orderResponse = OrderResponse.of(26, List.of(
+                MenuCountResponse.of("타파스", 1),
+                MenuCountResponse.of("제로콜라", 1)));
+
+        EventDetailResponse eventDetailResponse = EventDetailResponseBuilder.builder()
+                .badge("")
+                .totalBenefitsAmount(0)
+                .priceBeforeEvent(8_500)
+                .priceAfterEvent(8_500)
+                .giftMenuResponses(List.of())
+                .activeEvents(List.of())
+                .build();
+
+        OrderSummaryResponse orderSummaryResponse = OrderSummaryResponse.of(orderResponse, eventDetailResponse);
+
+        // when
+        outputView.printOrderSummary(orderSummaryResponse);
+
+        // then
+        assertThat(writer.getString())
+                .isEqualTo("""
+                        12월 26일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!
+                        
+                        <주문 메뉴>
+                        타파스 1개
+                        제로콜라 1개
+                        
+                        <할인 전 총주문 금액>
+                        8,500원
+                        
+                        <증정 메뉴>
+                        없음
+                        
+                        <혜택 내역>
+                        없음
+                        
+                        <총혜택 금액>
+                        0원
+                        
+                        <할인 후 예상 결제 금액>
+                        8,500원
+                        
+                        <12월 이벤트 배지>
+                        없음
+                        """);
+    }
+
 }
