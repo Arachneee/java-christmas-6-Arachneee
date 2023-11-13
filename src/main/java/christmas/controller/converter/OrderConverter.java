@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 public class OrderConverter {
 
-    private static final Pattern MENU_COUNT_PATTERN = compile("^[가-힣]+-\\d+(?:,[가-힣]+-\\d+)*$");
+    private static final Pattern MENU_COUNT_PATTERN = compile("^[가-힣A-Za-z]+-\\d+(?:,[가-힣A-Za-z]+-\\d+)*$");
     private static final String MENU_SPLIT_SIGNAL = ",";
     private static final String COUNT_SPLIT_SIGNAL = "-";
     private static final String INVALID_START = "0";
