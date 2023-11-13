@@ -27,7 +27,7 @@ class GiftServiceTest {
         giftService = new GiftService(giftRepository);
     }
 
-    @DisplayName("할인 적용 시나리오")
+    @DisplayName("증정 이벤트 적용 시나리오")
     @TestFactory
     Collection<DynamicTest> getActiveEventResult() {
         // given

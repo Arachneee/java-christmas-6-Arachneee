@@ -1,9 +1,9 @@
 package christmas.domain.event.gift;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.groups.Tuple.tuple;
 
-import java.util.List;
+import java.util.EnumMap;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,10 @@ class GiftRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        giftRepository.init(List.of(Gift.of(GiftEventType.PRESENTATION, 25_000)));
+        EnumMap<GiftEventType, Integer> giftCounts = new EnumMap<>(GiftEventType.class);
+        giftCounts.put(GiftEventType.PRESENTATION, 25_000);
+
+        giftRepository.init(giftCounts);
     }
 
     @DisplayName("전체 할인 금액을 계산할 수 있다.")
@@ -31,11 +34,22 @@ class GiftRepositoryTest {
     @Test
     void getActiveResult() {
         // given // when
-        List<Gift> gifts = giftRepository.getActiveResult();
+        Map<String, Integer> activeResult = giftRepository.getActiveResult();
 
         // then
-        assertThat(gifts).hasSize(1)
-                .extracting("giftEventType", "amount")
-                .containsExactlyInAnyOrder(tuple(GiftEventType.PRESENTATION, 25_000));
+        assertThat(activeResult)
+                .containsExactlyInAnyOrderEntriesOf(Map.of("증정 이벤트", 25_000));
+    }
+
+
+    @DisplayName("적용된 증정 메뉴의 이름과 수량을 알 수 있다.")
+    @Test
+    void getActiveMenuCounts() {
+        // given // when
+        Map<String, Integer> activeMenuCounts = giftRepository.getActiveMenuCounts();
+
+        // then
+        assertThat(activeMenuCounts)
+                .containsExactlyInAnyOrderEntriesOf(Map.of("샴페인", 1));
     }
 }

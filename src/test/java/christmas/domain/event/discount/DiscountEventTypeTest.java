@@ -5,13 +5,12 @@ import static christmas.domain.event.discount.DiscountEventType.SPECIAL_DISCOUNT
 import static christmas.domain.event.discount.DiscountEventType.WEEKDAY_DISCOUNT;
 import static christmas.domain.event.discount.DiscountEventType.WEEKEND_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.groups.Tuple.tuple;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import christmas.domain.order.Order;
 import christmas.domain.order.day.Day;
 import christmas.domain.order.menu.Menu;
-import java.util.List;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
@@ -34,16 +33,14 @@ class DiscountEventTypeTest {
                 Map.of(Menu.T_BONE_STEAK, 1, Menu.ICE_CREAM, 2, Menu.BUTTON_MUSHROOM_SOUP, 1, Menu.CHRISTMAS_PASTA, 2));
 
         // when
-        List<Discount> discounts = DiscountEventType.discountAll(order);
+        EnumMap<DiscountEventType, Integer> discountEventTypeIntegerEnumMap = DiscountEventType.discountAll(order);
 
         // then
-        assertThat(discounts).hasSize(4)
-                .extracting("discountEventType", "amount")
-                .containsExactlyInAnyOrder(
-                        tuple(CHRISTMAS_D_DAY_DISCOUNT, 3400),
-                        tuple(WEEKDAY_DISCOUNT, 2023 * 2),
-                        tuple(WEEKEND_DISCOUNT, 0),
-                        tuple(SPECIAL_DISCOUNT, 1000));
+        assertThat(discountEventTypeIntegerEnumMap)
+                .containsExactlyInAnyOrderEntriesOf(Map.of(CHRISTMAS_D_DAY_DISCOUNT, 3400,
+                        WEEKDAY_DISCOUNT, 2023 * 2,
+                        WEEKEND_DISCOUNT, 0,
+                        SPECIAL_DISCOUNT, 1000));
     }
 
     @DisplayName("어떤 이벤트도 총 주문 금액이 10,000원이 넘지 않으면 할인이 적용되지 않는다.")

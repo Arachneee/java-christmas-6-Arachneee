@@ -26,7 +26,7 @@ class DiscountServiceTest {
         discountService = new DiscountService(discountRepository);
     }
 
-    @DisplayName("할인 적용 시나리오")
+    @DisplayName("할인 이벤트 적용 시나리오")
     @TestFactory
     Collection<DynamicTest> getActiveEventResult() {
         // given

@@ -5,9 +5,9 @@ import static christmas.domain.event.discount.DiscountEventType.SPECIAL_DISCOUNT
 import static christmas.domain.event.discount.DiscountEventType.WEEKDAY_DISCOUNT;
 import static christmas.domain.event.discount.DiscountEventType.WEEKEND_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.groups.Tuple.tuple;
 
-import java.util.List;
+import java.util.EnumMap;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,10 +18,13 @@ class DiscountRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        discountRepository.init(List.of(Discount.of(SPECIAL_DISCOUNT, 1_000),
-                Discount.of(CHRISTMAS_D_DAY_DISCOUNT, 2_400),
-                Discount.of(WEEKDAY_DISCOUNT, 2_023),
-                Discount.of(WEEKEND_DISCOUNT, 0)));
+        EnumMap<DiscountEventType, Integer> discountCounts = new EnumMap<>(DiscountEventType.class);
+        discountCounts.put(SPECIAL_DISCOUNT, 1_000);
+        discountCounts.put(CHRISTMAS_D_DAY_DISCOUNT, 2_400);
+        discountCounts.put(WEEKDAY_DISCOUNT, 2_023);
+        discountCounts.put(WEEKEND_DISCOUNT, 0);
+
+        discountRepository.init(discountCounts);
     }
 
     @DisplayName("전체 할인 금액을 계산할 수 있다.")
@@ -38,14 +41,12 @@ class DiscountRepositoryTest {
     @Test
     void getActiveResult() {
         // given // when
-        List<Discount> discountsDiscounts = discountRepository.getActiveResult();
+        Map<String, Integer> activeResult = discountRepository.getActiveResult();
 
         // then
-        assertThat(discountsDiscounts).hasSize(3)
-                .extracting("discountEventType", "amount")
-                .containsExactlyInAnyOrder(
-                        tuple(SPECIAL_DISCOUNT, 1_000),
-                        tuple(CHRISTMAS_D_DAY_DISCOUNT, 2_400),
-                        tuple(WEEKDAY_DISCOUNT, 2_023));
+        assertThat(activeResult)
+                .containsExactlyInAnyOrderEntriesOf(Map.of("특별 할인", 1_000,
+                        "크리스마스 디데이 할인", 2_400,
+                        "평일 할인", 2_023));
     }
 }
