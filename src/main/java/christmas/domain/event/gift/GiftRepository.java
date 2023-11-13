@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class GiftRepository extends EventRepository<GiftEventType> {
+
     public Map<String, Integer> getActiveMenuCounts() {
         return eventAmounts.entrySet().stream()
                 .filter(this::isActive)
