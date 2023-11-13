@@ -34,7 +34,7 @@
     <tr>
         <td rowspan="2"><b>controller</b></td>
         <td><b>OrderController</b></td>
-        <td>주문 입출력(View) ↔️ 주문(Service) </td>
+        <td>주문 입출력(View), 주문(Service) 연결</td>
     </tr>
     <tr>
         <td><b>OrderConverter</b></td>
