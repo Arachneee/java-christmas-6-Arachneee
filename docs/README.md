@@ -1,5 +1,5 @@
 ### UML
-![woowapre4_uml](https://github.com/Arachneee/java-christmas-6-Arachneee/assets/66822642/b80300ae-667d-40f5-8d19-229ecc966944)
+![mvc_uml](https://github.com/Arachneee/java-christmas-6-Arachneee/assets/66822642/97070e28-6386-4513-9989-33724c52712a)
 
 ### 핵심 기능
 5개의 할인 정책 별 할인 금액 계산
@@ -13,7 +13,7 @@
 - [x] 메뉴와 개수 입력 받기
 - [x] 메뉴 유무 검증
 - [x] 중복 메뉴 검증
-- [x] 개수 숫자 검증 
+- [x] 개수 숫자 검증
 - [x] 개수 범위 검증 (1이상)
 - [x] 개수 숫자 변환
 - [x] 메뉴 개수 포맷 검증
