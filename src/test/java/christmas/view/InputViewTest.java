@@ -22,7 +22,7 @@ class InputViewTest {
     @Test
     void readDateWriter() {
         // given
-        inputView = new InputView(() -> "3", writer);
+        inputView = new InputView(new TestReader("3"), writer);
 
         // when
         inputView.readDate();
@@ -36,7 +36,7 @@ class InputViewTest {
     @Test
     void readDateReader() {
         // given
-        inputView = new InputView(() -> "3", writer);
+        inputView = new InputView(new TestReader("3"), writer);
 
         // when
         String day = inputView.readDate();
@@ -50,7 +50,7 @@ class InputViewTest {
     @Test
     void readMenuAndCountWriter() {
         // given
-        inputView = new InputView(() -> "타파스-1,제로콜라-1", writer);
+        inputView = new InputView(new TestReader("타파스-1,제로콜라-1"), writer);
         // when
         inputView.readMenuAndCount();
 
@@ -64,7 +64,7 @@ class InputViewTest {
     @Test
     void readMenuAndCountReader() {
         // given
-        inputView = new InputView(() -> "타파스-1,제로콜라-1", writer);
+        inputView = new InputView(new TestReader("타파스-1,제로콜라-1"), writer);
 
         // when
         inputView.readMenuAndCount();

@@ -30,6 +30,8 @@ public class OrderController {
         final OrderSummaryResponse orderSummaryResponse = orderService.createOrderSummary(order);
 
         outputView.printOrderSummary(orderSummaryResponse);
+
+        inputView.close();
     }
 
     private Day createOrderDay() {
