@@ -1,40 +1,47 @@
 package christmas.domain.order.day;
 
-import static christmas.exception.ErrorMessage.INVALID_DAY;
+import static christmas.domain.order.day.December.START_DAY;
+import static christmas.domain.order.day.Week.WEEKDAY;
+import static christmas.domain.order.day.Week.WEEKEND;
 
-import christmas.exception.OrderException;
 import java.util.Arrays;
 
 public enum DayOfWeek {
-    FRIDAY(1, Week.WEEKEND),
-    SATURDAY(2, Week.WEEKEND),
-    SUNDAY(3, Week.WEEKDAY),
-    MONDAY(4, Week.WEEKDAY),
-    TUESDAY(5, Week.WEEKDAY),
-    WEDNESDAY(6, Week.WEEKDAY),
-    THURSDAY(0, Week.WEEKDAY);
+    FRIDAY(0, WEEKEND),
+    SATURDAY(1, WEEKEND),
+    SUNDAY(2, WEEKDAY),
+    MONDAY(3, WEEKDAY),
+    TUESDAY(4, WEEKDAY),
+    WEDNESDAY(5, WEEKDAY),
+    THURSDAY(6, WEEKDAY);
 
-    private final int modNumber;
+    private static final int TOTAL_COUNT = (int) Arrays.stream(values()).count();
+    private final int sequence;
     private final Week week;
 
-    DayOfWeek(final int modNumber, final Week week) {
-        this.modNumber = modNumber;
+    DayOfWeek(final int sequence, final Week week) {
+        this.sequence = sequence;
         this.week = week;
     }
 
     public static DayOfWeek from(final Day day) {
+        return START_DAY.getDayOfWeek().getAfterDay(day);
+    }
+
+    private DayOfWeek getAfterDay(final Day day) {
+        final int mod = day.gapFromStartDay() % TOTAL_COUNT;
+        return findDayOfWeekByMod(mod);
+    }
+
+    private DayOfWeek findDayOfWeekByMod(final int mod) {
         return Arrays.stream(values())
-                .filter(dayOfWeek -> isModNumber(day, dayOfWeek))
+                .filter(dayOfWeek -> this.getGapMod(dayOfWeek.sequence) == mod)
                 .findFirst()
-                .orElseThrow(() -> OrderException.from(INVALID_DAY));
+                .orElseThrow();
     }
 
-    private static boolean isModNumber(final Day day, final DayOfWeek dayOfWeek) {
-        return dayOfWeek.modNumber == day.mod(totalCount());
-    }
-
-    private static int totalCount() {
-        return (int) Arrays.stream(values()).count();
+    private int getGapMod(final int mod) {
+        return (mod - this.sequence + TOTAL_COUNT) % TOTAL_COUNT;
     }
 
     public boolean isSunDay() {
@@ -42,6 +49,6 @@ public enum DayOfWeek {
     }
 
     public boolean isWeekend() {
-        return this.week.equals(Week.WEEKEND);
+        return this.week.equals(WEEKEND);
     }
 }

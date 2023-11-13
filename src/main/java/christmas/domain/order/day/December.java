@@ -1,14 +1,20 @@
 package christmas.domain.order.day;
 
+import static christmas.domain.order.day.DayOfWeek.FRIDAY;
+import static christmas.domain.order.day.DayOfWeek.MONDAY;
+import static christmas.domain.order.day.DayOfWeek.SUNDAY;
+
 public enum December {
-    START_DAY(1),
-    CHRISTMAS_DAY(25),
-    END_DAY(31);
+    START_DAY(1, FRIDAY),
+    CHRISTMAS_DAY(25, MONDAY),
+    END_DAY(31, SUNDAY);
 
     private final int day;
+    private final DayOfWeek dayOfWeek;
 
-    December(final int day) {
+    December(final int day, final DayOfWeek dayOfWeek) {
         this.day = day;
+        this.dayOfWeek = dayOfWeek;
     }
 
     public static boolean isInRange(final int day) {
@@ -21,5 +27,9 @@ public enum December {
 
     public int getDay() {
         return day;
+    }
+
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
     }
 }

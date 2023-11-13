@@ -1,5 +1,6 @@
 package christmas.domain.order.day;
 
+import static christmas.domain.order.day.December.START_DAY;
 import static christmas.exception.ErrorMessage.INVALID_DAY;
 
 import christmas.domain.order.menu.Category;
@@ -31,6 +32,10 @@ public class Day {
 
     public int gap(final Day other) {
         return Math.abs(other.day - this.day);
+    }
+
+    public int gapFromStartDay() {
+        return this.gap(from(START_DAY.getDay()));
     }
 
     public Integer mod(final int weekCount) {
