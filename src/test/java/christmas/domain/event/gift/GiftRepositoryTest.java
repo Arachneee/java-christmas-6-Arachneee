@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("선물 저장소는")
 class GiftRepositoryTest {
 
     GiftRepository giftRepository = new GiftRepository();

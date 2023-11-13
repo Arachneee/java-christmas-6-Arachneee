@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+@DisplayName("배지는 ")
 class BadgeTest {
 
     @DisplayName("해택금액이 20000원 이상이면 산타등급이다.")

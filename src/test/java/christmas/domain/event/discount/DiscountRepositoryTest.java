@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("할인 저장소는")
 class DiscountRepositoryTest {
 
     DiscountRepository discountRepository = new DiscountRepository();

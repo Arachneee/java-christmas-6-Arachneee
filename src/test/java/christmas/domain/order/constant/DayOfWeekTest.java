@@ -6,11 +6,13 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 import christmas.domain.order.Day;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+@DisplayName("요일은")
 class DayOfWeekTest {
 
     @DisplayName("Day의 요일을 구분할 수 있다.")
@@ -41,60 +43,70 @@ class DayOfWeekTest {
         );
     }
 
-    @DisplayName("일요일인지 확인 할 수 있다. True")
-    @ParameterizedTest
-    @ValueSource(ints = {3, 10, 17, 24, 31})
-    void isSunDayTrue(int input) {
-        // given
-        Day day = Day.from(input);
+    @Nested
+    @DisplayName("일요일인지 확인 할 수 있다.")
+    class Sunday {
 
-        // when
-        DayOfWeek dayOfWeek = DayOfWeek.from(day);
+        @DisplayName("True")
+        @ParameterizedTest
+        @ValueSource(ints = {3, 10, 17, 24, 31})
+        void isSunDayTrue(int input) {
+            // given
+            Day day = Day.from(input);
 
-        // then
-        assertThat(dayOfWeek.isSunDay()).isTrue();
+            // when
+            DayOfWeek dayOfWeek = DayOfWeek.from(day);
+
+            // then
+            assertThat(dayOfWeek.isSunDay()).isTrue();
+        }
+
+        @DisplayName("False")
+        @ParameterizedTest
+        @ValueSource(ints = {1, 2, 4, 5, 6, 7, 8, 9, 15, 25, 26})
+        void isSunDayFalse(int input) {
+            // given
+            Day day = Day.from(input);
+
+            // when
+            DayOfWeek dayOfWeek = DayOfWeek.from(day);
+
+            // then
+            assertThat(dayOfWeek.isSunDay()).isFalse();
+        }
     }
 
-    @DisplayName("일요일인지 확인 할 수 있다. False")
-    @ParameterizedTest
-    @ValueSource(ints = {1, 2, 4, 5, 6, 7, 8, 9, 15, 25, 26})
-    void isSunDayFalse(int input) {
-        // given
-        Day day = Day.from(input);
+    @Nested
+    @DisplayName("주말인지 확인 할 수 있다.")
+    class Weekend {
 
-        // when
-        DayOfWeek dayOfWeek = DayOfWeek.from(day);
+        @DisplayName("True")
+        @ParameterizedTest
+        @ValueSource(ints = {1, 2, 8, 9, 15, 16, 22, 23, 29, 30})
+        void isWeekendTrue(int input) {
+            // given
+            Day day = Day.from(input);
 
-        // then
-        assertThat(dayOfWeek.isSunDay()).isFalse();
-    }
+            // when
+            DayOfWeek dayOfWeek = DayOfWeek.from(day);
 
-    @DisplayName("주말인지 확인 할 수 있다. True")
-    @ParameterizedTest
-    @ValueSource(ints = {1, 2, 8, 9, 15, 16, 22, 23, 29, 30})
-    void isWeekendTrue(int input) {
-        // given
-        Day day = Day.from(input);
+            // then
+            assertThat(dayOfWeek.isWeekend()).isTrue();
+        }
 
-        // when
-        DayOfWeek dayOfWeek = DayOfWeek.from(day);
+        @DisplayName("False")
+        @ParameterizedTest
+        @ValueSource(ints = {3, 4, 5, 6, 7, 10, 11, 12, 13, 19, 20, 21, 24, 25, 31})
+        void isWeekendFalse(int input) {
+            // given
+            Day day = Day.from(input);
 
-        // then
-        assertThat(dayOfWeek.isWeekend()).isTrue();
-    }
+            // when
+            DayOfWeek dayOfWeek = DayOfWeek.from(day);
 
-    @DisplayName("주말인지 확인 할 수 있다. False")
-    @ParameterizedTest
-    @ValueSource(ints = {3, 4, 5, 6, 7, 10, 11, 12, 13, 19, 20, 21, 24, 25, 31})
-    void isWeekendFalse(int input) {
-        // given
-        Day day = Day.from(input);
-
-        // when
-        DayOfWeek dayOfWeek = DayOfWeek.from(day);
-
-        // then
-        assertThat(dayOfWeek.isWeekend()).isFalse();
+            // then
+            assertThat(dayOfWeek.isWeekend()).isFalse();
+        }
     }
 
 }

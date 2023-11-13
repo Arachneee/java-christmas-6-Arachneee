@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+@DisplayName("카테고리는")
 class CategoryTest {
 
     @DisplayName("음료가 아닌지 확인할 수 있다. True")

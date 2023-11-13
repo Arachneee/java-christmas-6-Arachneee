@@ -8,70 +8,82 @@ import christmas.domain.order.constant.Menu;
 import java.util.Map;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+@DisplayName("주문은")
 class OrderTest {
 
-    @DisplayName("주문이 정상적으로 생성된다.")
-    @ParameterizedTest
-    @ValueSource(ints = {1, 5, 19})
-    void of(int count) {
-        // given
-        Day day = Day.from(1);
-        Map<Menu, Integer> menu = Map.of(Menu.T_BONE_STEAK, count, Menu.ZERO_COLA, 1);
+    @Nested
+    @DisplayName("날짜와 메뉴 수량 맵으로 생성할 수 있다.")
+    class Create {
 
-        // when
-        Order order = Order.of(day, menu);
+        @DisplayName("성공")
+        @ParameterizedTest
+        @ValueSource(ints = {1, 5, 19})
+        void of(int count) {
+            // given
+            Day day = Day.from(1);
+            Map<Menu, Integer> menu = Map.of(Menu.T_BONE_STEAK, count, Menu.ZERO_COLA, 1);
 
-        // then
-        assertThat(order)
-                .extracting("day", "menuCount")
-                .containsExactly(day, menu);
-    }
+            // when
+            Order order = Order.of(day, menu);
 
-    @DisplayName("단일 주문 메뉴의 수가 1미만이면 예외를 발생한다.")
-    @ParameterizedTest
-    @ValueSource(ints = {-10, -5, -1, 0})
-    void validateCountRange(int count) {
-        // given
-        Day day = Day.from(1);
-        Map<Menu, Integer> menu = Map.of(Menu.T_BONE_STEAK, count);
+            // then
+            assertThat(order)
+                    .extracting("day", "menuCount")
+                    .containsExactly(day, menu);
+        }
 
-        // when // then
-        assertThatThrownBy(() -> Order.of(day, menu))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-    }
+        @Nested
+        @DisplayName("에외")
+        class Exceptions {
 
-    @DisplayName("전체 주문 수량이 20개초과이면 예외를 발생한다.")
-    @ParameterizedTest
-    @ValueSource(ints = {21, 22, 100, 9999})
-    void validateTotalCountMax(int count) {
-        // given
-        Day day = Day.from(1);
-        Map<Menu, Integer> menu = Map.of(Menu.T_BONE_STEAK, count);
+            @DisplayName("단일 주문 메뉴의 수가 1미만이면 예외를 발생한다.")
+            @ParameterizedTest
+            @ValueSource(ints = {-10, -5, -1, 0})
+            void validateCountRange(int count) {
+                // given
+                Day day = Day.from(1);
+                Map<Menu, Integer> menu = Map.of(Menu.T_BONE_STEAK, count);
 
-        // when // then
-        assertThatThrownBy(() -> Order.of(day, menu))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-    }
+                // when // then
+                assertThatThrownBy(() -> Order.of(day, menu))
+                        .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            }
 
-    @DisplayName("음료만 주문하면 예외를 발생한다.")
-    @Test
-    void validateOnlyBeverage() {
-        // given
-        Day day = Day.from(1);
-        Map<Menu, Integer> menu = Map.of(Menu.ZERO_COLA, 10);
+            @DisplayName("전체 주문 수량이 20개초과이면 예외를 발생한다.")
+            @ParameterizedTest
+            @ValueSource(ints = {21, 22, 100, 9999})
+            void validateTotalCountMax(int count) {
+                // given
+                Day day = Day.from(1);
+                Map<Menu, Integer> menu = Map.of(Menu.T_BONE_STEAK, count);
 
-        // when // then
-        assertThatThrownBy(() -> Order.of(day, menu))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+                // when // then
+                assertThatThrownBy(() -> Order.of(day, menu))
+                        .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            }
+
+            @DisplayName("음료만 주문하면 예외를 발생한다.")
+            @Test
+            void validateOnlyBeverage() {
+                // given
+                Day day = Day.from(1);
+                Map<Menu, Integer> menu = Map.of(Menu.ZERO_COLA, 10);
+
+                // when // then
+                assertThatThrownBy(() -> Order.of(day, menu))
+                        .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            }
+        }
     }
 
     @DisplayName("총 주문 가격을 계산할 수 있다.")
@@ -127,34 +139,40 @@ class OrderTest {
         );
     }
 
-    @DisplayName("전체 주문 가격이 특정 가격보다 적은지 판별할 수 있다. True")
-    @Test
-    void isTotalPriceUnderTrue() {
-        // given
-        Day day = Day.from(1);
-        Map<Menu, Integer> menu = Map.of(Menu.T_BONE_STEAK, 1, Menu.ZERO_COLA, 1);
-        Order order = Order.of(day, menu);
 
-        // when
-        boolean totalPriceUnder = order.isTotalPriceUnder(59_999);
+    @Nested
+    @DisplayName("전체 주문 가격이 특정 가격보다 적은지 판별할 수 있다. ")
+    class IsTotalPriceUnder {
 
-        // then
-        assertThat(totalPriceUnder).isTrue();
-    }
+        @DisplayName("True")
+        @Test
+        void isTotalPriceUnderTrue() {
+            // given
+            Day day = Day.from(1);
+            Map<Menu, Integer> menu = Map.of(Menu.T_BONE_STEAK, 1, Menu.ZERO_COLA, 1);
+            Order order = Order.of(day, menu);
 
-    @DisplayName("전체 주문 가격이 특정 가격보다 적은지 판별할 수 있다. False")
-    @Test
-    void isTotalPriceUnderFalse() {
-        // given
-        Day day = Day.from(1);
-        Map<Menu, Integer> menu = Map.of(Menu.T_BONE_STEAK, 1, Menu.ZERO_COLA, 1);
-        Order order = Order.of(day, menu);
+            // when
+            boolean totalPriceUnder = order.isTotalPriceUnder(59_999);
 
-        // when
-        boolean totalPriceUnder = order.isTotalPriceUnder(60_000);
+            // then
+            assertThat(totalPriceUnder).isTrue();
+        }
 
-        // then
-        assertThat(totalPriceUnder).isTrue();
+        @DisplayName("False")
+        @Test
+        void isTotalPriceUnderFalse() {
+            // given
+            Day day = Day.from(1);
+            Map<Menu, Integer> menu = Map.of(Menu.T_BONE_STEAK, 1, Menu.ZERO_COLA, 1);
+            Order order = Order.of(day, menu);
+
+            // when
+            boolean totalPriceUnder = order.isTotalPriceUnder(60_000);
+
+            // then
+            assertThat(totalPriceUnder).isTrue();
+        }
     }
 
     @DisplayName("getter로 조회한 메뉴 카운트 맵을 변경할 수 없다.")
