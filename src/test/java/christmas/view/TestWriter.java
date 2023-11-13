@@ -4,7 +4,7 @@ import static java.lang.System.lineSeparator;
 
 public class TestWriter implements Writer {
 
-    public StringBuilder stringBuilder = new StringBuilder();
+    private static StringBuilder stringBuilder = new StringBuilder();
 
     @Override
     public void println(String input) {
@@ -18,5 +18,9 @@ public class TestWriter implements Writer {
 
     public void clear() {
         stringBuilder = new StringBuilder();
+    }
+
+    public String getString() {
+        return stringBuilder.toString();
     }
 }
