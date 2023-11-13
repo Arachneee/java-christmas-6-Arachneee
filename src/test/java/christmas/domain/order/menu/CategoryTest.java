@@ -2,6 +2,7 @@ package christmas.domain.order.menu;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.order.constant.Category;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

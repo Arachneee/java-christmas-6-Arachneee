@@ -5,8 +5,8 @@ import static org.assertj.core.api.Assertions.tuple;
 import static org.mockito.BDDMockito.given;
 
 import christmas.domain.order.Order;
-import christmas.domain.order.day.Day;
-import christmas.domain.order.menu.Menu;
+import christmas.domain.order.Day;
+import christmas.domain.order.constant.Menu;
 import christmas.response.EventDetailResponse;
 import christmas.response.EventDetailResponse.EventDetailResponseBuilder;
 import christmas.response.EventResponse;

@@ -1,9 +1,10 @@
-package christmas.domain.order.day;
+package christmas.domain.order.constant;
 
-import static christmas.domain.order.day.December.START_DAY;
-import static christmas.domain.order.day.Week.WEEKDAY;
-import static christmas.domain.order.day.Week.WEEKEND;
+import static christmas.domain.order.constant.December.START_DAY;
+import static christmas.domain.order.constant.Week.WEEKDAY;
+import static christmas.domain.order.constant.Week.WEEKEND;
 
+import christmas.domain.order.Day;
 import java.util.Arrays;
 
 public enum DayOfWeek {

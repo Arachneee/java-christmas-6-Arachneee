@@ -1,11 +1,10 @@
 package christmas.domain.order;
 
-import static christmas.domain.order.day.December.CHRISTMAS_DAY;
-import static christmas.domain.order.day.December.START_DAY;
+import static christmas.domain.order.constant.December.CHRISTMAS_DAY;
+import static christmas.domain.order.constant.December.START_DAY;
 
-import christmas.domain.order.day.Day;
-import christmas.domain.order.menu.Category;
-import christmas.domain.order.menu.Menu;
+import christmas.domain.order.constant.Category;
+import christmas.domain.order.constant.Menu;
 import christmas.exception.OrderException;
 import christmas.exception.ErrorMessage;
 import java.util.Collection;

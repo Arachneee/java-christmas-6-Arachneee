@@ -4,7 +4,7 @@ import static java.util.stream.Collectors.toMap;
 
 import christmas.domain.event.Event;
 import christmas.domain.order.Order;
-import christmas.domain.order.menu.Menu;
+import christmas.domain.order.constant.Menu;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.function.Predicate;

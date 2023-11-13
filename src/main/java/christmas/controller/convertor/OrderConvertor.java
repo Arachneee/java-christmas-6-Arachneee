@@ -4,8 +4,8 @@ import static christmas.exception.ErrorMessage.INVALID_ORDER;
 import static java.util.regex.Pattern.compile;
 import static java.util.stream.Collectors.toMap;
 
-import christmas.domain.order.day.Day;
-import christmas.domain.order.menu.Menu;
+import christmas.domain.order.Day;
+import christmas.domain.order.constant.Menu;
 import christmas.exception.ErrorMessage;
 import christmas.exception.OrderException;
 import java.util.Arrays;

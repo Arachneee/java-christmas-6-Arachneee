@@ -1,9 +1,12 @@
-package christmas.domain.order.day;
+package christmas.domain.order;
 
-import static christmas.domain.order.day.December.START_DAY;
+import static christmas.domain.order.constant.December.START_DAY;
 import static christmas.exception.ErrorMessage.INVALID_DAY;
 
-import christmas.domain.order.menu.Category;
+import christmas.domain.order.constant.DayOfWeek;
+import christmas.domain.order.constant.December;
+import christmas.domain.order.constant.Week;
+import christmas.domain.order.constant.Category;
 import christmas.exception.OrderException;
 import java.util.Objects;
 

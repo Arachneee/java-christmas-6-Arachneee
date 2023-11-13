@@ -1,9 +1,7 @@
-package christmas.domain.order.day;
+package christmas.domain.order.constant;
 
-import static christmas.domain.order.menu.Category.DESSERT;
-import static christmas.domain.order.menu.Category.MAIN;
-
-import christmas.domain.order.menu.Category;
+import static christmas.domain.order.constant.Category.DESSERT;
+import static christmas.domain.order.constant.Category.MAIN;
 
 public enum Week {
     WEEKDAY(DESSERT),

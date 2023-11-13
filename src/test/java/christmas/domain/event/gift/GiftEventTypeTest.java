@@ -3,8 +3,8 @@ package christmas.domain.event.gift;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.order.Order;
-import christmas.domain.order.day.Day;
-import christmas.domain.order.menu.Menu;
+import christmas.domain.order.Day;
+import christmas.domain.order.constant.Menu;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

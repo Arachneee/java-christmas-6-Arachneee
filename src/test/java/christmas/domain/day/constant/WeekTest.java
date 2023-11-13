@@ -2,9 +2,9 @@ package christmas.domain.day.constant;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.domain.order.day.Day;
-import christmas.domain.order.day.DayOfWeek;
-import christmas.domain.order.day.Week;
+import christmas.domain.order.Day;
+import christmas.domain.order.constant.DayOfWeek;
+import christmas.domain.order.constant.Week;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

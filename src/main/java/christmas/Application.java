@@ -1,12 +1,12 @@
 package christmas;
 
 import christmas.config.PlannerConfig;
-import christmas.controller.PlannerController;
+import christmas.controller.OrderController;
 
 public class Application {
 
     public static void main(String[] args) {
-        final PlannerController plannerController = PlannerConfig.getPlannerController();
-        plannerController.run();
+        final OrderController orderController = PlannerConfig.getOrderController();
+        orderController.run();
     }
 }

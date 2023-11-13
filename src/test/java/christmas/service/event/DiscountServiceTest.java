@@ -5,8 +5,8 @@ import static org.assertj.core.groups.Tuple.tuple;
 
 import christmas.domain.event.discount.DiscountRepository;
 import christmas.domain.order.Order;
-import christmas.domain.order.day.Day;
-import christmas.domain.order.menu.Menu;
+import christmas.domain.order.Day;
+import christmas.domain.order.constant.Menu;
 import christmas.response.EventResponse;
 import java.util.Collection;
 import java.util.List;

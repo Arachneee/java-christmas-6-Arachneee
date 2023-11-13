@@ -1,10 +1,10 @@
-package christmas.domain.order.menu;
+package christmas.domain.order.constant;
 
 
-import static christmas.domain.order.menu.Category.APPETIZER;
-import static christmas.domain.order.menu.Category.BEVERAGE;
-import static christmas.domain.order.menu.Category.DESSERT;
-import static christmas.domain.order.menu.Category.MAIN;
+import static christmas.domain.order.constant.Category.APPETIZER;
+import static christmas.domain.order.constant.Category.BEVERAGE;
+import static christmas.domain.order.constant.Category.DESSERT;
+import static christmas.domain.order.constant.Category.MAIN;
 
 import christmas.exception.OrderException;
 import christmas.exception.ErrorMessage;

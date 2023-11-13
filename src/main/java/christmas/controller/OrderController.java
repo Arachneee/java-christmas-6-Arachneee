@@ -1,7 +1,7 @@
 package christmas.controller;
 
 import christmas.controller.convertor.OrderConvertor;
-import christmas.domain.order.day.Day;
+import christmas.domain.order.Day;
 import christmas.domain.order.Order;
 import christmas.response.OrderSummaryResponse;
 import christmas.service.order.OrderService;
@@ -9,13 +9,13 @@ import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.function.Supplier;
 
-public class PlannerController {
+public class OrderController {
 
     private final InputView inputView;
     private final OutputView outputView;
     private final OrderService orderService;
 
-    public PlannerController(final InputView inputView, final OutputView outputView, final OrderService orderService) {
+    public OrderController(final InputView inputView, final OutputView outputView, final OrderService orderService) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.orderService = orderService;

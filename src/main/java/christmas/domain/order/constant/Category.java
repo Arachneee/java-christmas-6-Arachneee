@@ -1,4 +1,4 @@
-package christmas.domain.order.menu;
+package christmas.domain.order.constant;
 
 public enum Category {
     APPETIZER, MAIN, DESSERT, BEVERAGE;

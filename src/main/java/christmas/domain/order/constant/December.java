@@ -1,8 +1,8 @@
-package christmas.domain.order.day;
+package christmas.domain.order.constant;
 
-import static christmas.domain.order.day.DayOfWeek.FRIDAY;
-import static christmas.domain.order.day.DayOfWeek.MONDAY;
-import static christmas.domain.order.day.DayOfWeek.SUNDAY;
+import static christmas.domain.order.constant.DayOfWeek.FRIDAY;
+import static christmas.domain.order.constant.DayOfWeek.MONDAY;
+import static christmas.domain.order.constant.DayOfWeek.SUNDAY;
 
 public enum December {
     START_DAY(1, FRIDAY),
