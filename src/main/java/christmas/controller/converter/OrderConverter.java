@@ -1,5 +1,6 @@
 package christmas.controller.converter;
 
+import static christmas.exception.ErrorMessage.INVALID_DAY;
 import static christmas.exception.ErrorMessage.INVALID_ORDER;
 import static java.util.regex.Pattern.compile;
 import static java.util.stream.Collectors.toMap;
@@ -27,22 +28,32 @@ public class OrderConverter {
     }
 
     public static Day convertToDay(final String input) {
-        validateStartZero(input);
+        return Day.from(convertToInt(input, INVALID_DAY));
+    }
+
+    private static int convertToInt(final String input, final ErrorMessage errorMessage) {
+        validateStartZero(input, errorMessage);
 
         try {
-            return Day.from(Integer.parseInt(input));
+            return Integer.parseInt(input);
         } catch (NumberFormatException numberFormatException) {
-            throw OrderException.from(ErrorMessage.INVALID_DAY);
+            throw OrderException.from(errorMessage);
+        }
+    }
+
+    private static void validateStartZero(final String input, final ErrorMessage errorMessage) {
+        if (input.startsWith(INVALID_START)) {
+            throw OrderException.from(errorMessage);
         }
     }
 
     public static EnumMap<Menu, Integer> convertToMenu(final String input) {
-        validateFormat(input);
+        validateMenuFormat(input);
 
         return createMenuEnumMap(input);
     }
 
-    private static void validateFormat(final String input) {
+    private static void validateMenuFormat(final String input) {
         final Matcher matcher = MENU_COUNT_PATTERN.matcher(input);
 
         if (matcher.matches()) {
@@ -57,21 +68,9 @@ public class OrderConverter {
         return Arrays.stream(input.split(MENU_SPLIT_SIGNAL))
                 .map(menuCount -> menuCount.split(COUNT_SPLIT_SIGNAL))
                 .collect(toMap(menuCount -> Menu.from(menuCount[TITLE_INDEX]),
-                        menuCount -> convertCountToInt(menuCount[COUNT_INDEX]),
+                        menuCount -> convertToInt(menuCount[COUNT_INDEX], INVALID_ORDER),
                         throwingDuplicateMenuException(),
                         () -> new EnumMap<>(Menu.class)));
-    }
-
-    private static int convertCountToInt(final String input) {
-        validateStartZero(input);
-
-        return Integer.parseInt(input);
-    }
-
-    private static void validateStartZero(final String input) {
-        if (input.startsWith(INVALID_START)) {
-            throw OrderException.from(INVALID_ORDER);
-        }
     }
 
     private static <T> BinaryOperator<T> throwingDuplicateMenuException() {
