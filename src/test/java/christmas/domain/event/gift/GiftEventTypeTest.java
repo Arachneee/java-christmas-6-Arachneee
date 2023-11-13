@@ -33,4 +33,14 @@ class GiftEventTypeTest {
         // then
         assertThat(menuTitle).isEqualTo("샴페인");
     }
+
+    @DisplayName("증정 이벤트의 메뉴의 수량을 알 수 있다.")
+    @Test
+    void getCount() {
+        // given // when
+        int count = GiftEventType.PRESENTATION.getCount();
+
+        // then
+        assertThat(count).isEqualTo(1);
+    }
 }

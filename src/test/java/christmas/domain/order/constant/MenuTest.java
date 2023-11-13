@@ -1,4 +1,4 @@
-package christmas.domain.order.menu;
+package christmas.domain.order.constant;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

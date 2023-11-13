@@ -1,10 +1,9 @@
-package christmas.domain.day;
+package christmas.domain.order;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import christmas.domain.order.Day;
 import christmas.domain.order.constant.Category;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
@@ -238,6 +237,21 @@ class DayTest {
         // then
         assertThat(equals).isFalse();
     }
+
+    @DisplayName("날짜가 같은지 확인 할 수 있다. False - 2")
+    @Test
+    void equalsFalse2() {
+        // given
+        Day day = Day.from(1);
+        Integer other = 1;
+
+        // when
+        boolean equals = day.equals(other);
+
+        // then
+        assertThat(equals).isFalse();
+    }
+
 
     @DisplayName("같은 날짜이면 hashCode가 같다.")
     @Test

@@ -63,11 +63,7 @@ public class OrderConverter {
     private static int convertCountToInt(final String input) {
         validateStartZero(input);
 
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException exception) {
-            throw OrderException.from(INVALID_ORDER);
-        }
+        return Integer.parseInt(input);
     }
 
     private static void validateStartZero(final String input) {

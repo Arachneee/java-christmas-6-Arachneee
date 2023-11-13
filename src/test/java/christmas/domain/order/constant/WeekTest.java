@@ -1,4 +1,4 @@
-package christmas.domain.day.constant;
+package christmas.domain.order.constant;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
