@@ -1,12 +1,11 @@
 package christmas.service.event;
 
-import christmas.domain.event.discount.Discount;
 import christmas.domain.event.discount.DiscountEventType;
 import christmas.domain.event.discount.DiscountRepository;
 import christmas.domain.order.Order;
-import java.util.List;
+import java.util.EnumMap;
 
-public class DiscountService extends EventService<Discount> {
+public class DiscountService extends EventService {
 
     private final DiscountRepository discountRepository;
 
@@ -17,7 +16,7 @@ public class DiscountService extends EventService<Discount> {
 
     @Override
     public void applyEventAll(final Order order) {
-        final List<Discount> discounts = DiscountEventType.discountAll(order);
-        discountRepository.init(discounts);
+        final EnumMap<DiscountEventType, Integer> discountAmounts = DiscountEventType.discountAll(order);
+        discountRepository.init(discountAmounts);
     }
 }

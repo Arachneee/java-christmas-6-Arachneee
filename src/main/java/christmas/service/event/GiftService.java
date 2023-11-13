@@ -1,13 +1,13 @@
 package christmas.service.event;
 
-import christmas.domain.event.gift.Gift;
 import christmas.domain.event.gift.GiftEventType;
 import christmas.domain.event.gift.GiftRepository;
 import christmas.domain.order.Order;
 import christmas.response.GiftMenuResponse;
+import java.util.EnumMap;
 import java.util.List;
 
-public class GiftService extends EventService<Gift> {
+public class GiftService extends EventService {
 
     private final GiftRepository giftRepository;
 
@@ -18,17 +18,13 @@ public class GiftService extends EventService<Gift> {
 
     @Override
     public void applyEventAll(final Order order) {
-        final List<Gift> gifts = GiftEventType.applyAll(order);
-        giftRepository.init(gifts);
+        final EnumMap<GiftEventType, Integer> giftAmounts = GiftEventType.applyAll(order);
+        giftRepository.init(giftAmounts);
     }
 
     public List<GiftMenuResponse> getGiftMenuResponse() {
-        return giftRepository.getActiveResult().stream()
-                .map(this::createGiftMenuResponse)
+        return giftRepository.getActiveMenuCounts().entrySet().stream()
+                .map(entry -> GiftMenuResponse.of(entry.getKey(), entry.getValue()))
                 .toList();
-    }
-
-    private GiftMenuResponse createGiftMenuResponse(final Gift gift) {
-        return GiftMenuResponse.of(gift.getMenuTitle(), gift.getMenuCount());
     }
 }

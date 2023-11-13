@@ -1,25 +1,13 @@
 package christmas.domain.event;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 
-public abstract class EventRepository<T extends EventResult> {
+public interface EventRepository {
 
-    private List<T> eventResults = new ArrayList<>();
-    public void init(List<T> eventResults) {
-        this.eventResults = eventResults;
-    }
+    int ZERO = 0;
 
-    public int calculateTotal() {
-        return eventResults.stream()
-                .mapToInt(EventResult::getAmount)
-                .sum();
-    }
+    int calculateTotal();
 
-    public List<T> getActiveResult() {
-        return eventResults.stream()
-                .filter(EventResult::isActive)
-                .toList();
-    }
+    Map<String, Integer> getActiveResult();
 }
