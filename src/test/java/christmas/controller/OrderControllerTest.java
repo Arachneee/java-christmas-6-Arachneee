@@ -73,7 +73,7 @@ class OrderControllerTest {
 
     static class TestQueueReader implements Reader {
 
-        private static Queue<String> queue = new LinkedList<>();
+        private static final Queue<String> queue = new LinkedList<>();
 
         public void add(String... args) {
             queue.addAll(List.of(args));
