@@ -2,7 +2,7 @@ package christmas.view;
 
 public class TestReader implements Reader {
 
-    private String input;
+    private final String input;
 
     public TestReader(final String input) {
         this.input = input;
