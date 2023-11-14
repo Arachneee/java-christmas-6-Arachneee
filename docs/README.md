@@ -15,7 +15,7 @@
 ![asso](https://github.com/Arachneee/java-christmas-6-Arachneee/assets/66822642/e94eb329-5991-41f3-9e21-23978a98377e)
 
 ### 📊 UML
-![uml](https://github.com/Arachneee/java-christmas-6-Arachneee/assets/66822642/6e8ee17f-081f-4833-91af-e6277994e644)
+![promotion_uml](https://github.com/Arachneee/java-christmas-6-Arachneee/assets/66822642/f085deea-f1fc-4475-bf5d-9318d445565e)
 
 ### ⚒️ 클래스 역할
 <div align="center">
