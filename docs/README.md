@@ -77,7 +77,7 @@
         <td>이벤트 혜택 계산 인터페이스</td>
     </tr>
     <tr>
-        <td>📗📗 <b>EventRepository</b></td>
+        <td>📗 <b>EventRepository</b></td>
         <td>이벤트 혜택 결과 저장 추상 클래스</td>
     </tr>
     <tr>
