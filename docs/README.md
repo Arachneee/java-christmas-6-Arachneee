@@ -73,11 +73,11 @@
     </tr>
     <tr>
         <td rowspan="3"><b>domain</b><br>&rAarr; event</td>
-        <td>🪛 <b>Event</b></td>
+        <td>📗 <b>Event</b></td>
         <td>이벤트 혜택 계산 인터페이스</td>
     </tr>
     <tr>
-        <td>🪛 <b>EventRepository</b></td>
+        <td>📗📗 <b>EventRepository</b></td>
         <td>이벤트 혜택 결과 저장 추상 클래스</td>
     </tr>
     <tr>
@@ -114,7 +114,7 @@
         <td>이벤트 적용 상세 결과 요약</td>
     </tr>
     <tr>
-        <td>🪛 <b>EventService</b></td>
+        <td>📗 <b>EventService</b></td>
         <td>이벤트 혜택 결과 계산 추상 클래스</td>
     </tr>
     <tr>
@@ -172,11 +172,11 @@
         <td>결과 출력 View</td>
     </tr>
     <tr>
-        <td>🪛 <b>Reader</b></td>
+        <td>📗 <b>Reader</b></td>
         <td>입력 인터페이스</td>
     </tr>
     <tr>
-        <td>🪛 <b>Writer</b></td>
+        <td>📗 <b>Writer</b></td>
         <td>출력 인터페이스</td>
     </tr>
     <tr>
