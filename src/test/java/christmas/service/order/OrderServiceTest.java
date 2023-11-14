@@ -19,9 +19,12 @@ import java.util.Map;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+@Nested
+@DisplayName("주문 서비스는")
 class OrderServiceTest {
 
     EventDetailService eventDetailService;

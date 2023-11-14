@@ -17,6 +17,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@Nested
+@DisplayName("출력 뷰는")
 class OutputViewTest {
 
     TestWriter writer = new TestWriter();

@@ -5,8 +5,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@Nested
+@DisplayName("입력 뷰는")
 class InputViewTest {
 
     TestWriter writer = new TestWriter();

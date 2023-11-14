@@ -15,8 +15,11 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.TestFactory;
 
+@Nested
+@DisplayName("선물 서비스")
 class GiftServiceTest {
 
     GiftService giftService;

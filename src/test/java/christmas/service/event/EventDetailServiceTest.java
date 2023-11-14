@@ -11,8 +11,11 @@ import christmas.response.GiftMenuResponse;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+@Nested
+@DisplayName("이벤트 상세 서비스는")
 class EventDetailServiceTest {
 
     private DiscountService discountService;
