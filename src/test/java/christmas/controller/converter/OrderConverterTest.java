@@ -44,6 +44,15 @@ class OrderConverterTest {
                     .hasMessage("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
 
+        @DisplayName("문자가 정수이어도 0으로 시작하면 예외처리된다.")
+        @ParameterizedTest
+        @ValueSource(strings = {"01", "031", "0"})
+        void convertToDayZero(String input) {
+            assertThatThrownBy(() -> OrderConverter.convertToDay(input))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+        }
+
         @DisplayName("문자가 12월에 없으면 예외 처리된다.")
         @ParameterizedTest
         @ValueSource(strings = {"0", "32", "-1", "33"})
