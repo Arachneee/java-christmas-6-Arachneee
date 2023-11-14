@@ -1,38 +1,38 @@
-### 프로그램 소개
+### 🖥️ 프로그램 소개
 주문을 받아서 이벤트 적용 내역을 출력하는 프로그램입니다.
 
-### 핵심 기능
+### 💡 핵심 기능
 적용 가능한 이벤트 해택 내역 계산
 
-### 주요 포인트
+### 📌 주요 포인트
 - MVC 패턴을 Controller, Service, Repository 구조로 변형하여 역할 분리
-- 할인 이벤트와 증정 이벤트를 인터페이스와 추상클래스로 분리와 동시에 공통 로직 통합
-- 여러 종류의 이벤트를 Enum과 함수형 인터페이스로 관리
-- Enum과 EnumMap으로 불필요 클래스 제거 및 통합 관리
-- Dto를 활용한 View와 Domain 의존성 분리
+- 할인 이벤트와 선물 이벤트를 <b>인터페이스</b>와 <b>추상클래스</b>로 분리와 동시에 공통 로직 통합
+- 여러 종류의 이벤트를 <b>Enum</b>과 <b>함수형 인터페이스</b>로 관리
+- <b>Enum</b>과 <b>EnumMap</b>으로 불필요 클래스 제거 및 통합 관리
+- <b>Dto</b>를 활용한 View와 Domain 의존성 분리
 
-### 런타임 의존관계도
+### 📉 런타임 의존관계도
 ![asso](https://github.com/Arachneee/java-christmas-6-Arachneee/assets/66822642/e94eb329-5991-41f3-9e21-23978a98377e)
 
-### UML
+### 📊 UML
 ![uml](https://github.com/Arachneee/java-christmas-6-Arachneee/assets/66822642/6e8ee17f-081f-4833-91af-e6277994e644)
 
-### 클래스 역할
+### ⚒️ 클래스 역할
 <div align="center">
 <table>
     <tr>
-        <th align="center">Package</th>
-        <th align="center">Class</th>
-        <th align="center">Description</th>
+        <th align="center">📁 Package</th>
+        <th align="center">📚 Class</th>
+        <th align="center">✏️ Description</th>
     </tr>
     <tr>
-        <td rowspan="1"><b>config</b></td>
+        <td rowspan="1">🗓️ <b>config</b></td>
         <td><b>PlannerConfig</b></td>
         <td>의존관계 설정</td>
     </tr>
 <tr><td colspan="3"></td></tr>
     <tr>
-        <td rowspan="2"><b>controller</b></td>
+        <td rowspan="2">⚙️ <b>controller</b></td>
         <td><b>OrderController</b></td>
         <td>주문 입출력(View), 주문(Service) 연결</td>
     </tr>
@@ -42,7 +42,7 @@
     </tr>
     <tr><td colspan="3"></td></tr>
     <tr>
-        <td rowspan="2"><b>domain</b><br>&rAarr; order</td>
+        <td rowspan="2">📐 <b>domain</b><br>&rAarr; order</td>
         <td><b>Order</b></td>
         <td>주문 일자와 메뉴 수량을 갖는 클래스</td>
     </tr>
@@ -73,11 +73,11 @@
     </tr>
     <tr>
         <td rowspan="3"><b>domain</b><br>&rAarr; event</td>
-        <td><b>Event</b></td>
+        <td>🪛 <b>Event</b></td>
         <td>이벤트 해택 계산 인터페이스</td>
     </tr>
     <tr>
-        <td><b>EventRepository</b></td>
+        <td>🪛 <b>EventRepository</b></td>
         <td>이벤트 해택 결과 저장 추상 클래스</td>
     </tr>
     <tr>
@@ -86,25 +86,25 @@
     </tr>
     <tr>
         <td rowspan="2"><b>domain</b><br>&rAarr; event<br>&rAarr; discount</td>
-        <td><b>DiscountEventType</b></td>
+        <td>📎 <b>DiscountEventType</b></td>
         <td>Event 인터페이스 구현, 할인 이벤트 통합 관리 Enum</td>
     </tr>
     <tr>
-        <td><b>DiscountRepository</b></td>
+        <td>💾 <b>DiscountRepository</b></td>
         <td>EventRepository 구현, 할인 이벤트 결과 EnumMap 저장</td>
     </tr>
     <tr>
         <td rowspan="2"><b>domain</b><br>&rAarr; event<br>&rAarr; gift</td>
-        <td><b>GiftEventType</b></td>
+        <td>📎 <b>GiftEventType</b></td>
         <td>Event 인터페이스 구현, 증정 이벤트 통합 관리 Enum</td>
     </tr>
     <tr>
-        <td><b>GiftRepository</b></td>
+        <td>💾 <b>GiftRepository</b></td>
         <td>EventRepository 구현, 증정 이벤트 결과 EnumMap 저장</td>
     </tr>
     <tr><td colspan="3"></td></tr>
     <tr>
-        <td rowspan="1"><b>service</b><br>&rAarr; order</td>
+        <td rowspan="1">🕹️ <b>service</b><br>&rAarr; order</td>
         <td><b>OrderService</b></td>
         <td>주문 생성 및 주문 결과 요약</td>
     </tr>
@@ -114,7 +114,7 @@
         <td>이벤트 적용 상세 결과 요약</td>
     </tr>
     <tr>
-        <td><b>EventService</b></td>
+        <td>🪛 <b>EventService</b></td>
         <td>이벤트 해택 결과 계산 추상 클래스</td>
     </tr>
     <tr>
@@ -127,7 +127,7 @@
     </tr>
     <tr><td colspan="3"></td></tr>
     <tr>
-        <td rowspan="2"><b>exception</b></td>
+        <td rowspan="2">⏰ <b>exception</b></td>
         <td><b>OrderException</b></td>
         <td>주문 생성 예외 발생</td>
     </tr>
@@ -137,7 +137,7 @@
     </tr>
     <tr><td colspan="3"></td></tr>
     <tr>
-        <td rowspan="6"><b>response</b></td>
+        <td rowspan="6">📬 <b>response</b></td>
         <td><b>OrderSummaryResponse</b></td>
         <td>주문 결과 요약 DTO</td>
     </tr>
@@ -163,7 +163,7 @@
     </tr>
     <tr><td colspan="3"></td></tr>
     <tr>
-        <td rowspan="4"><b>view</b></td>
+        <td rowspan="4">🖥️ <b>view</b></td>
         <td><b>InputView</b></td>
         <td>입력 요청 View</td>
     </tr>
@@ -172,11 +172,11 @@
         <td>결과 출력 View</td>
     </tr>
     <tr>
-        <td><b>Reader</b></td>
+        <td>🪛 <b>Reader</b></td>
         <td>입력 인터페이스</td>
     </tr>
     <tr>
-        <td><b>Writer</b></td>
+        <td>🪛 <b>Writer</b></td>
         <td>출력 인터페이스</td>
     </tr>
     <tr>
@@ -195,8 +195,8 @@
 
 <br>
 
-### 구현 기능 목록
-#### Controller
+### 🗂️ 구현 기능 목록
+#### ⚙️ Controller
 - #### OrderController
 - [x] 입력 오류시 반복 요청
 - #### OrderConverter
@@ -206,7 +206,7 @@
 - [x] 개수 숫자 검증
 - [x] 개수 숫자 변환
 - [x] 메뉴 개수 포맷 검증
-#### Domail
+#### 📐 Domail
 - #### Day
 - [x] 입력 날짜 범위 검증 (1 ~ 31)
 - [x] 날짜 차이 계산
@@ -251,7 +251,7 @@
 - [x] 증정 메뉴 항목, 수량 계산
 - #### Badge
 - [x] 12월 이벤트 배지 등급 계산
-#### Service
+#### 🕹️ Service
 - #### OrderService
 - [x] 주문 내역, 이벤트 적용 내역 요약하기
 - #### EventDetailService
@@ -262,7 +262,7 @@
 - [x] 전체 할인 이벤트 적용하기
 - #### GiftService
 - [x] 전체 증정 이벤트 적용하기
-#### View
+#### 🖥️ View
 - #### InputView
 - [x] 방문 날짜 입력 받기
 - [x] 메뉴와 개수 입력 받기
