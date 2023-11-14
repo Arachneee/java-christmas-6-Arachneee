@@ -53,14 +53,14 @@ class GiftServiceTest {
                                     tuple("증정 이벤트", 25_000)
                             );
                 }),
-                DynamicTest.dynamicTest("전체 적용된 해택 금액을 구할 수 있다.", () -> {
+                DynamicTest.dynamicTest("전체 적용된 혜택 금액을 구할 수 있다.", () -> {
                     // given // when
                     int totalAmount = giftService.calculateTotalBenefits();
 
                     // then
                     assertThat(totalAmount).isEqualTo(25_000);
                 }),
-                DynamicTest.dynamicTest("전체 증정되는 메뉴이름과 수량을 구할 수 있다.", () -> {
+                DynamicTest.dynamicTest("전체 증정되는 메뉴 이름과 수량을 구할 수 있다.", () -> {
                     // given // when
                     List<GiftMenuResponse> giftMenuResponse = giftService.getGiftMenuResponse();
 

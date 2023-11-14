@@ -17,7 +17,7 @@ class GiftEventTypeTest {
     @DisplayName("공통적으로")
     class Common {
 
-        @DisplayName("해택 금액을 계산 할 수 있다.")
+        @DisplayName("혜택 금액을 계산 할 수 있다.")
         @Test
         void calculateBenefits() {
             // given
@@ -55,7 +55,7 @@ class GiftEventTypeTest {
     @DisplayName("증정 이벤트는")
     class PresentationEvent {
 
-        @DisplayName("할인 금액이 120,000이상일 때 적용된다.")
+        @DisplayName("할인 전 주문금액이 120,000이상일 때 적용된다.")
         @Test
         void calculateBenefitsTrue() {
             // given
@@ -68,7 +68,7 @@ class GiftEventTypeTest {
             assertThat(benefits).isEqualTo(25_000);
         }
 
-        @DisplayName("할인 금액이 120,000이하면 적용되지 않는다.")
+        @DisplayName("할인 전 주문금액이 120,000이하면 적용되지 않는다.")
         @Test
         void calculateBenefitsFalse() {
             // given

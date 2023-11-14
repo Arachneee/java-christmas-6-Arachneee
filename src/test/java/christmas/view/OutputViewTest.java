@@ -122,7 +122,7 @@ class OutputViewTest {
                             """);
         }
 
-        @DisplayName("적용된 해택이 없을 경우 없음을 출력한다.")
+        @DisplayName("적용된 혜택이 없을 경우 없음을 출력한다.")
         @Test
         void printOrderSummaryNone() {
             // given

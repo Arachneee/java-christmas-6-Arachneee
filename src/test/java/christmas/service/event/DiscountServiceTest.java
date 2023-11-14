@@ -53,7 +53,7 @@ class DiscountServiceTest {
                                     tuple("특별 할인", 1_000)
                             );
                 }),
-                DynamicTest.dynamicTest("전체 적용된 해택 금액을 구할 수 있다.", () -> {
+                DynamicTest.dynamicTest("전체 적용된 혜택 금액을 구할 수 있다.", () -> {
                     // given // when
                     int totalAmount = discountService.calculateTotalBenefits();
 

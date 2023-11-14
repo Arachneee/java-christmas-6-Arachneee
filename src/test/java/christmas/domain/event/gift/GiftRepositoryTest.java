@@ -31,7 +31,7 @@ class GiftRepositoryTest {
         assertThat(totalDiscount).isEqualTo(25_000);
     }
 
-    @DisplayName("적용된 할인목록을 구할 수 있다.")
+    @DisplayName("적용된 할인 목록을 구할 수 있다.")
     @Test
     void getActiveResult() {
         // given // when
