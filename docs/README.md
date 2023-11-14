@@ -2,11 +2,11 @@
 주문을 받아서 이벤트 적용 내역을 출력하는 프로그램입니다.
 
 ### 💡 핵심 기능
-적용 가능한 이벤트 해택 내역 계산
+적용 가능한 이벤트 혜택 내역 계산
 
 ### 📌 주요 포인트
-- MVC 패턴을 Controller, Service, Repository 구조로 변형하여 역할 분리
-- 할인 이벤트와 선물 이벤트를 <b>인터페이스</b>와 <b>추상클래스</b>로 분리와 동시에 공통 로직 통합
+- MVC 패턴에 <b>Service</b>, <b>Repository</b>를 추가하여 역할 분리
+- 할인 이벤트와 선물 이벤트를 <b>인터페이스</b>와 <b>추상 클래스</b>로 분리와 동시에 공통 로직 통합
 - 여러 종류의 이벤트를 <b>Enum</b>과 <b>함수형 인터페이스</b>로 관리
 - <b>Enum</b>과 <b>EnumMap</b>으로 불필요 클래스 제거 및 통합 관리
 - <b>계층형 Dto</b>를 활용한 View와 Domain 의존성 분리
@@ -74,11 +74,11 @@
     <tr>
         <td rowspan="3"><b>domain</b><br>&rAarr; event</td>
         <td>🪛 <b>Event</b></td>
-        <td>이벤트 해택 계산 인터페이스</td>
+        <td>이벤트 혜택 계산 인터페이스</td>
     </tr>
     <tr>
         <td>🪛 <b>EventRepository</b></td>
-        <td>이벤트 해택 결과 저장 추상 클래스</td>
+        <td>이벤트 혜택 결과 저장 추상 클래스</td>
     </tr>
     <tr>
         <td><b>Badge</b></td>
@@ -96,11 +96,11 @@
     <tr>
         <td rowspan="2"><b>domain</b><br>&rAarr; event<br>&rAarr; gift</td>
         <td>🎁 <b>GiftEventType</b></td>
-        <td>Event 인터페이스 구현, 증정 이벤트 통합 관리 Enum</td>
+        <td>Event 인터페이스 구현, 선물 이벤트 통합 관리 Enum</td>
     </tr>
     <tr>
         <td>💾 <b>GiftRepository</b></td>
-        <td>EventRepository 구현, 증정 이벤트 결과 EnumMap 저장</td>
+        <td>EventRepository 구현, 선물 이벤트 결과 EnumMap 저장</td>
     </tr>
     <tr><td colspan="3"></td></tr>
     <tr>
@@ -115,7 +115,7 @@
     </tr>
     <tr>
         <td>🪛 <b>EventService</b></td>
-        <td>이벤트 해택 결과 계산 추상 클래스</td>
+        <td>이벤트 혜택 결과 계산 추상 클래스</td>
     </tr>
     <tr>
         <td><b>DiscountService</b></td>
@@ -123,7 +123,7 @@
     </tr>
     <tr>
         <td><b>GiftService</b></td>
-        <td>EventService 구현, 증정 해택 적용</td>
+        <td>EventService 구현, 선물 해택 적용</td>
     </tr>
     <tr><td colspan="3"></td></tr>
     <tr>
@@ -159,7 +159,7 @@
     </tr>
     <tr>
         <td><b>GiftMenuResponse</b></td>
-        <td>증정 메뉴 수량 DTO</td>
+        <td>선물 메뉴 수량 DTO</td>
     </tr>
     <tr><td colspan="3"></td></tr>
     <tr>
@@ -233,22 +233,23 @@
 - [x] 총주문 금액 10,000 이상 확인
 - [x] 크리스마스 디데이 할인 적용 여부 확인
 - [x] 크리스마스 디데이 할인 금액 계산
+- [x] 평일/주말 할인 적용 여부 확인
 - [x] 평일 할인 적용 금액 계산
 - [x] 주말 할인 적용 금액 계산
-- [x] 특별할인 적용 금액 계산
-- [x] 특별할인 적용 여부 확인
+- [x] 특별 할인 적용 금액 계산
+- [x] 특별 할인 적용 여부 확인
 - #### GiftEventType
-- [x] 전체 증정 이벤트 적용 가능 판별
-- [x] 전체 할인 이벤트 적용하기
+- [x] 전체 선물 이벤트 적용 가능 판별
+- [x] 전체 선물 이벤트 적용하기
 - [x] 증정 이벤트 적용 여부 확인
 - [x] 증정 이벤트 적용 금액 계산
 - #### DiscountRepository
 - [x] 할인 이벤트 결과 저장
 - [x] 할인 이벤트 전체 이익 계산
 - #### GiftRepository
-- [x] 증정 이벤트 결과 저장
-- [x] 증정 이벤트 전체 이익 계산
-- [x] 증정 메뉴 항목, 수량 계산
+- [x] 선물 이벤트 결과 저장
+- [x] 선물 이벤트 전체 이익 계산
+- [x] 선물 메뉴 항목, 수량 계산
 - #### Badge
 - [x] 12월 이벤트 배지 등급 계산
 #### 🕹️ Service
@@ -256,12 +257,12 @@
 - [x] 주문 내역, 이벤트 적용 내역 요약하기
 - #### EventDetailService
 - [x] 이벤트 적용 내역 계신
-- [x] 총해택 금액 계산
+- [x] 총혜택 금액 계산
 - [x] 할인 후 예상 결제 금액 계산
 - #### DiscountService
 - [x] 전체 할인 이벤트 적용하기
 - #### GiftService
-- [x] 전체 증정 이벤트 적용하기
+- [x] 전체 선물 이벤트 적용하기
 #### 🖥️ View
 - #### InputView
 - [x] 방문 날짜 입력 받기
@@ -272,7 +273,7 @@
 - [x] 이벤트 혜택 미리보기 출력
 - [x] 주문 메뉴 출력
 - [x] 할인 전 총주문 금액 출력
-- [x] 해택 내역 출력
-- [x] 총해택 금액 출력
+- [x] 혜택 내역 출력
+- [x] 총혜택 금액 출력
 - [x] 할인 후 예상 결제 금액 출력
 - [x] 12월 이벤트 배지 출력
