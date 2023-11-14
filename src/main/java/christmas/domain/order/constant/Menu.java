@@ -5,10 +5,12 @@ import static christmas.domain.order.constant.Category.APPETIZER;
 import static christmas.domain.order.constant.Category.BEVERAGE;
 import static christmas.domain.order.constant.Category.DESSERT;
 import static christmas.domain.order.constant.Category.MAIN;
+import static christmas.exception.ErrorMessage.INVALID_ORDER;
+import static java.util.stream.Collectors.toMap;
 
 import christmas.exception.OrderException;
-import christmas.exception.ErrorMessage;
 import java.util.Arrays;
+import java.util.Map;
 
 public enum Menu {
 
@@ -25,6 +27,8 @@ public enum Menu {
     RED_WINE("레드와인", BEVERAGE, 60_000),
     CHAMPAGNE("샴페인", BEVERAGE, 25_000);
 
+    private static final Map<String, Menu> menus = Arrays.stream(values())
+            .collect(toMap(menu -> menu.title, menu -> menu));
     private final String title;
     private final Category category;
     private final int price;
@@ -36,10 +40,9 @@ public enum Menu {
     }
 
     public static Menu from(final String title) {
-        return Arrays.stream(values())
-                .filter(menu -> menu.title.equals(title))
-                .findFirst()
-                .orElseThrow(() -> OrderException.from(ErrorMessage.INVALID_ORDER));
+        return menus.computeIfAbsent(title, key -> {
+            throw OrderException.from(INVALID_ORDER);
+        });
     }
 
     public boolean isCategory(final Category category) {
