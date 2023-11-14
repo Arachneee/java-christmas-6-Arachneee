@@ -35,7 +35,7 @@ public class EventDetailService {
     private EventDetailResponse buildEventDetailResponse(
             final int priceBeforeDiscount,
             final int totalBenefitsAmount,
-            final int totalDiscountAmount
+            final int totalDiscountBenefits
     ) {
 
         return EventDetailResponseBuilder.builder()
@@ -43,7 +43,7 @@ public class EventDetailService {
                 .giftMenuResponses(giftService.getGiftMenuResponse())
                 .activeEvents(getAllActiveEvent())
                 .totalBenefitsAmount(totalBenefitsAmount)
-                .priceAfterEvent(calculatePriceAfterDiscount(priceBeforeDiscount, totalDiscountAmount))
+                .priceAfterEvent(calculatePriceAfterDiscount(priceBeforeDiscount, totalDiscountBenefits))
                 .badge(getBadgeTitle(totalBenefitsAmount))
                 .build();
     }
@@ -54,8 +54,8 @@ public class EventDetailService {
                 .toList();
     }
 
-    private int calculatePriceAfterDiscount(final int priceBeforeDiscount, final int totalDiscountAmount) {
-        return priceBeforeDiscount - totalDiscountAmount;
+    private int calculatePriceAfterDiscount(final int priceBeforeDiscount, final int totalDiscountBenefits) {
+        return priceBeforeDiscount - totalDiscountBenefits;
     }
 
     private String getBadgeTitle(final int totalBenefitsAmount) {
