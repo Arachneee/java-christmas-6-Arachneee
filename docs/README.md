@@ -86,7 +86,7 @@
     </tr>
     <tr>
         <td rowspan="2"><b>domain</b><br>&rAarr; event<br>&rAarr; discount</td>
-        <td>📎 <b>DiscountEventType</b></td>
+        <td>🎁 <b>DiscountEventType</b></td>
         <td>Event 인터페이스 구현, 할인 이벤트 통합 관리 Enum</td>
     </tr>
     <tr>
@@ -95,7 +95,7 @@
     </tr>
     <tr>
         <td rowspan="2"><b>domain</b><br>&rAarr; event<br>&rAarr; gift</td>
-        <td>📎 <b>GiftEventType</b></td>
+        <td>🎁 <b>GiftEventType</b></td>
         <td>Event 인터페이스 구현, 증정 이벤트 통합 관리 Enum</td>
     </tr>
     <tr>
