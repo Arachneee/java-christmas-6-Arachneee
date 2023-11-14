@@ -1,5 +1,8 @@
 package christmas.view;
 
+import christmas.view.io.Reader;
+import christmas.view.io.Writer;
+
 public class InputView {
 
     private final Reader reader;

@@ -10,7 +10,7 @@ import christmas.service.event.GiftService;
 import christmas.service.order.OrderService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
-import christmas.view.Reader;
+import christmas.view.io.Reader;
 import christmas.view.TestWriter;
 import java.util.LinkedList;
 import java.util.List;

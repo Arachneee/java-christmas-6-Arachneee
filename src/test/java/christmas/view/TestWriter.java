@@ -2,6 +2,8 @@ package christmas.view;
 
 import static java.lang.System.lineSeparator;
 
+import christmas.view.io.Writer;
+
 public class TestWriter implements Writer {
 
     private static StringBuilder stringBuilder = new StringBuilder();

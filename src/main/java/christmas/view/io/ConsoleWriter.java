@@ -1,7 +1,5 @@
 package christmas.view.io;
 
-import christmas.view.Writer;
-
 public class ConsoleWriter implements Writer {
 
     @Override

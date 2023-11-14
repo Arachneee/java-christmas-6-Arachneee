@@ -8,6 +8,7 @@ import christmas.response.GiftMenuResponse;
 import christmas.response.MenuCountResponse;
 import christmas.response.OrderResponse;
 import christmas.response.OrderSummaryResponse;
+import christmas.view.io.Writer;
 import java.util.List;
 
 public class OutputView {

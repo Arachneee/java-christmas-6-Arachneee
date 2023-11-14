@@ -1,7 +1,6 @@
 package christmas.view.io;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.view.Reader;
 
 public class ConsoleReader implements Reader {
 

@@ -35,14 +35,14 @@ public class OrderController {
     }
 
     private Day createOrderDay() {
-        return getInputByRoof(() -> OrderConverter.convertToDay(inputView.readDate()));
+        return getByRoof(() -> OrderConverter.convertToDay(inputView.readDate()));
     }
 
     private Order createOrder(final Day day) {
-        return getInputByRoof(() -> Order.of(day, OrderConverter.convertToMenu(inputView.readMenuAndCount())));
+        return getByRoof(() -> Order.of(day, OrderConverter.convertToMenu(inputView.readMenuAndCount())));
     }
 
-    private <T> T getInputByRoof(final Supplier<T> method) {
+    private <T> T getByRoof(final Supplier<T> method) {
         while (true) {
             try {
                 return method.get();
