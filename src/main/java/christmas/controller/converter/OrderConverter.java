@@ -15,7 +15,7 @@ import java.util.function.BinaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class OrderConverter {
+public final class OrderConverter {
 
     private static final Pattern MENU_COUNT_PATTERN = compile("^[가-힣A-Za-z]+-\\d+(?:,[가-힣A-Za-z]+-\\d+)*$");
     private static final String MENU_SPLIT_SIGNAL = ",";
