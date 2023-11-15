@@ -7,6 +7,7 @@ import static christmas.domain.event.discount.DiscountEventType.WEEKEND_DISCOUNT
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+import christmas.domain.event.Event;
 import christmas.domain.order.Day;
 import christmas.domain.order.Order;
 import christmas.domain.order.constant.Menu;
@@ -38,7 +39,7 @@ class DiscountEventTypeTest {
                             2));
 
             // when
-            EnumMap<DiscountEventType, Integer> discountEventTypeIntegerEnumMap = DiscountEventType.discountAll(order);
+            EnumMap<DiscountEventType, Integer> discountEventTypeIntegerEnumMap = Event.applyAll(DiscountEventType.class, order);
 
             // then
             assertThat(discountEventTypeIntegerEnumMap)

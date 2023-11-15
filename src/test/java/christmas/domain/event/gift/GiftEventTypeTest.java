@@ -2,9 +2,11 @@ package christmas.domain.event.gift;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.domain.order.Order;
+import christmas.domain.event.Event;
 import christmas.domain.order.Day;
+import christmas.domain.order.Order;
 import christmas.domain.order.constant.Menu;
+import java.util.EnumMap;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -16,6 +18,22 @@ class GiftEventTypeTest {
     @Nested
     @DisplayName("공통적으로")
     class Common {
+
+        @DisplayName("할인 정책을 중복 적용할 수 있다.")
+        @Test
+        void discountAll() {
+            // given
+            Order order = Order.of(Day.from(25),
+                    Map.of(Menu.T_BONE_STEAK, 2, Menu.ICE_CREAM, 2, Menu.BUTTON_MUSHROOM_SOUP, 1, Menu.CHRISTMAS_PASTA,
+                            2));
+
+            // when
+            EnumMap<GiftEventType, Integer> giftEventTypeResult = Event.applyAll(GiftEventType.class, order);
+
+            // then
+            assertThat(giftEventTypeResult)
+                    .containsExactlyInAnyOrderEntriesOf(Map.of(GiftEventType.PRESENTATION, 25000));
+        }
 
         @DisplayName("혜택 금액을 계산 할 수 있다.")
         @Test

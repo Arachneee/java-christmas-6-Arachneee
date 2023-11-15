@@ -3,6 +3,7 @@ package christmas.service.event;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
 
+import christmas.domain.event.gift.GiftEventType;
 import christmas.domain.event.gift.GiftRepository;
 import christmas.domain.order.Order;
 import christmas.domain.order.Day;
@@ -38,7 +39,7 @@ class GiftServiceTest {
                 Map.of(Menu.T_BONE_STEAK, 1, Menu.BARBECUE_RIBS, 1,
                         Menu.CHOCOLATE_CAKE, 2, Menu.ZERO_COLA, 1));
 
-        giftService.applyEventAll(order);
+        giftService.applyEventAll(GiftEventType.class, order);
 
         // when // then
         return List.of(

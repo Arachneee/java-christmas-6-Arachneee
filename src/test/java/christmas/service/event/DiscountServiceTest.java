@@ -3,6 +3,7 @@ package christmas.service.event;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
 
+import christmas.domain.event.discount.DiscountEventType;
 import christmas.domain.event.discount.DiscountRepository;
 import christmas.domain.order.Order;
 import christmas.domain.order.Day;
@@ -36,7 +37,7 @@ class DiscountServiceTest {
                 Map.of(Menu.T_BONE_STEAK, 1, Menu.BARBECUE_RIBS, 1,
                         Menu.CHOCOLATE_CAKE, 2, Menu.ZERO_COLA, 1));
 
-        discountService.applyEventAll(order);
+        discountService.applyEventAll(DiscountEventType.class, order);
 
         // when // then
         return List.of(
