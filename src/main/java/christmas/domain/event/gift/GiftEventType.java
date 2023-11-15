@@ -1,12 +1,8 @@
 package christmas.domain.event.gift;
 
-import static java.util.stream.Collectors.toMap;
-
 import christmas.domain.event.Event;
 import christmas.domain.order.Order;
 import christmas.domain.order.constant.Menu;
-import java.util.Arrays;
-import java.util.EnumMap;
 import java.util.function.Predicate;
 
 public enum GiftEventType implements Event {
@@ -23,14 +19,6 @@ public enum GiftEventType implements Event {
         this.unavailable = unavailable;
         this.menu = menu;
         this.count = count;
-    }
-
-    public static EnumMap<GiftEventType, Integer> applyAll(final Order order) {
-        return Arrays.stream(values())
-                .collect(toMap(eventType -> eventType,
-                        eventType -> eventType.calculateBenefits(order),
-                        Integer::sum,
-                        () -> new EnumMap<>(GiftEventType.class)));
     }
 
     @Override

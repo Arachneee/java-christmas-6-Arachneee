@@ -1,6 +1,8 @@
 package christmas.service.event;
 
 import christmas.domain.event.Badge;
+import christmas.domain.event.discount.DiscountEventType;
+import christmas.domain.event.gift.GiftEventType;
 import christmas.domain.order.Order;
 import christmas.response.EventDetailResponse;
 import christmas.response.EventDetailResponse.EventDetailResponseBuilder;
@@ -18,9 +20,9 @@ public class EventDetailService {
         this.giftService = giftService;
     }
 
-    public void createEvent(final Order order) {
-        discountService.applyEventAll(order);
-        giftService.applyEventAll(order);
+    public void applyEvent(final Order order) {
+        discountService.applyEventAll(DiscountEventType.class, order);
+        giftService.applyEventAll(GiftEventType.class, order);
     }
 
     public EventDetailResponse getEventDetail(final int priceBeforeDiscount) {

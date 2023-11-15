@@ -4,6 +4,7 @@ import christmas.domain.event.Event;
 import christmas.domain.event.EventRepository;
 import christmas.domain.order.Order;
 import christmas.response.EventResponse;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -15,7 +16,10 @@ public abstract class EventService<T extends Enum<T> & Event> {
         this.eventRepository = eventRepository;
     }
 
-    abstract void applyEventAll(final Order order);
+    public void applyEventAll(final Class<T> eventType, final Order order) {
+        final EnumMap<T, Integer> giftAmounts = Event.applyAll(eventType, order);
+        eventRepository.init(giftAmounts);
+    }
 
     public List<EventResponse> getActiveEventResult() {
         return eventRepository.getActiveResult().entrySet().stream()

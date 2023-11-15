@@ -1,11 +1,7 @@
 package christmas.domain.event.discount;
 
-import static java.util.stream.Collectors.toMap;
-
 import christmas.domain.event.Event;
 import christmas.domain.order.Order;
-import java.util.Arrays;
-import java.util.EnumMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -29,14 +25,6 @@ public enum DiscountEventType implements Event {
         this.title = title;
         this.unavailable = unavailable;
         this.calculate = calculate;
-    }
-
-    public static EnumMap<DiscountEventType, Integer> discountAll(final Order order) {
-        return Arrays.stream(values())
-                .collect(toMap(eventType -> eventType,
-                        eventType -> eventType.calculateBenefits(order),
-                        Integer::sum,
-                        () -> new EnumMap<>(DiscountEventType.class)));
     }
 
     @Override

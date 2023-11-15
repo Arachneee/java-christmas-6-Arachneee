@@ -9,23 +9,19 @@ import java.util.Map.Entry;
 
 public abstract class EventRepository<T extends Enum<T> & Event> {
 
-    protected EnumMap<T, Integer> eventAmounts;
-
     private static final int ZERO = 0;
+    protected EnumMap<T, Integer> eventAmounts;
 
     public void init(final EnumMap<T, Integer> eventAmounts) {
         this.eventAmounts = eventAmounts;
     }
 
     public int calculateTotal() {
-        return eventAmounts.values().stream()
-                .mapToInt(Integer::intValue)
-                .sum();
+        return eventAmounts.values().stream().mapToInt(Integer::intValue).sum();
     }
 
     public Map<String, Integer> getActiveResult() {
-        return eventAmounts.entrySet().stream()
-                .filter(this::isActive)
+        return eventAmounts.entrySet().stream().filter(this::isActive)
                 .collect(toMap(this::getEventTitle, Entry::getValue));
     }
 

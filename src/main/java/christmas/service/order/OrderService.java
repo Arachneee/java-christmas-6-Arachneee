@@ -20,7 +20,7 @@ public class OrderService {
     }
 
     public OrderSummaryResponse createOrderSummary(final Order order) {
-        eventDetailService.createEvent(order);
+        eventDetailService.applyEvent(order);
 
         final OrderResponse orderResponse = createOrderResponse(order);
         final EventDetailResponse eventDetailResponse = createEventDetailResponse(order);
